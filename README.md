@@ -1,11 +1,10 @@
-<img ref="http://profile.ak.fbcdn.net/object2/438/34/n117749491579773_2444.jpg"/>
 ### Who are we?
 
 We are the LinkedIn SNA (Search, Network and Analytics) team.
 
 http://sna-projects.com
 
-### Join our LinkedIn grouop
+### Join our LinkedIn group
 
 http://www.linkedin.com/groups?gid=2958643
 

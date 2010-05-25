@@ -1,0 +1,10 @@
+<a href="http://sna-projects.com/zoie">zoie</a> &middot;
+<a href="http://sna-projects.com/bobo">bobo</a> &middot;
+<a href="http://sna-projects.com/decomposer">decomposer</a> &middot;
+<a href="http://sna-projects.com/norbert">norbert</a> &middot;
+<a href="http://project-voldemort.com">voldemort</a> &middot;
+<!-- <a href="../kafka">kafka</a> &middot; -->
+<a href="http://sna-projects.com/kamikaze">kamikaze</a> &middot;
+<a href="http://sna-projects.com/sensei">sensei</a> &middot;
+<a href="http://sna-projects.com/azkaban">azkaban</a> &middot;
+<a href="http://sna-projects.com/sna">sna</a>

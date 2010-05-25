@@ -1,0 +1,36 @@
+<?php
+  /* Name desplayed in the title bar and page header */
+  $PROJ_NAME = "Zoie";
+
+  /* Subtitle in header */
+  $PROJ_SUBTITLE = "Real-time search indexing system.";
+
+  /* HTML header description for SEO */
+  $PROJ_DESCRIPTION = "Real-time search indexing system.";
+
+  /* HTML header keywords for SEO */
+  $PROJ_KEYWORDS = "realtime,lucene,search,indexing,java";
+
+  /* Favicon image file location and type */
+  $PROJ_FAVICON_PATH = "images/zoielogo_s.png";
+  $PROJ_FAVICON_MIME = "image/jpeg";
+
+  /* Project icon in header */
+  $PROJ_ICON_PATH = "images/zoielogo_s.png";
+
+  /* Navigation links in the sidebar */
+  $PROJ_NAV_LINKS = array(
+	  "code" => "http://github.com/javasoze/zoie",
+	  "wiki" => "http://snaprojects.jira.com/wiki/display/Zoie/Home",
+	  "javadoc" => "http://test.project-voldemort.com:8080/job/Zoie/javadoc/?",
+      "mailing list" => "http://groups.google.com/group/zoie",
+      "releases" => "http://code.google.com/p/zoie/downloads/list",
+      "unit tests" => "http://test.project-voldemort.com:8080/job/Zoie/",
+      "bugs" => "http://snaprojects.jira.com/browse/ZOIE");
+
+  /* Project color */
+  $PROJ_PRIMARY_COLOR = "#BB3300";
+
+  /* Google analytics tracking code */
+  $PROJ_GOOGLE_ANALYTICS = "UA-9659884-2";
+?>

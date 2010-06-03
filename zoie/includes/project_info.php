@@ -3,7 +3,7 @@
   $PROJ_NAME = "Zoie";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "Real-time search indexing system.";
+  $PROJ_SUBTITLE = "Real-time search indexing.";
 
   /* HTML header description for SEO */
   $PROJ_DESCRIPTION = "Real-time search indexing system.";

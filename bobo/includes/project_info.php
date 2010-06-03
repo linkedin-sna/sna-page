@@ -3,7 +3,7 @@
   $PROJ_NAME = "Bobo";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "Fast faceted search library based on Lucene.";
+  $PROJ_SUBTITLE = "Fast faceted search with Lucene.";
 
   /* HTML header description for SEO */
   $PROJ_DESCRIPTION = "Faceted search library based on Lucene.";

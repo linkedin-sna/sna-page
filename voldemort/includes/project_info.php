@@ -17,7 +17,7 @@
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array(
-	  "blog" => "blog",
+	  "blog" => "http://sna-projects.com/blog",
 	  "design" => "design.php",
       "mailing list" => "http://groups.google.com/group/project-voldemort",
       "releases" => "http://github.com/voldemort/voldemort/downloads",

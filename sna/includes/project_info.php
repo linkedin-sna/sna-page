@@ -21,6 +21,7 @@
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("team" => "#team",
                           "books" => "#books",
+                          "blog" => "http://sna-projects.com/blog",
                           "talks &amp; papers" => "#talks",
                           "twitter" => "#twitter",
                           "people" => "#people");

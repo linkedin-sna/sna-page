@@ -7,4 +7,5 @@
 <a href="http://sna-projects.com/kamikaze">kamikaze</a> &middot;
 <a href="http://sna-projects.com/sensei">sensei</a> &middot;
 <a href="http://sna-projects.com/azkaban">azkaban</a> &middot;
-<a href="http://sna-projects.com/sna">sna</a>
+<a href="http://sna-projects.com/sna">sna</a> &middot;
+<a href="http://sna-projects.com/blog">blog</a>

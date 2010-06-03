@@ -3,7 +3,7 @@
   $PROJ_NAME = "Kamikaze";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "Doc set compression library";
+  $PROJ_SUBTITLE = "Doc set compression.";
 
   /* HTML header description for SEO */
   $PROJ_DESCRIPTION = "compression library and boolean docset operations";

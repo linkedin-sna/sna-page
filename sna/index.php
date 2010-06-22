@@ -131,7 +131,7 @@ new TWTR.Widget({
 	</tr>
     <tr>
 		<?php echo_person("Joshua Hartman", "Software Engineer", "/in/joshuahartman", img("/p/2/000/049/143/1febda9.jpg"), ""); ?>
-    	<?php echo_person("Russell Jurney", "Senior Data Scientist", "/in/russelljurney", img("/p/3/000/027/3b9/2a8cbd4.jpg"), ""); ?>
+    	<?php echo_person("Russell Jurney", "Senior Data Scientist", "/in/russelljurney", img("/p/2/000/05e/03a/365f589.jpg"), ""); ?>
     	<?php echo_person("Esteban Kozak", "Principal Product Manager", "/in/estebankozak", img("/p/1/000/00d/3a1/3fb949d.jpg"), ""); ?>
 		<?php echo_person("Jay Kreps", "Engineering Manager/Principal Engineer", "/in/jaykreps", img("/p/3/000/059/109/0f66917.jpg"), ""); ?>
 		<?php echo_person("Jake Mannix", "Principal Engineer", "/in/jakemannix", img("/p/2/000/021/019/233977b.jpg"), ""); ?>

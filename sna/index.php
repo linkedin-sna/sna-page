@@ -165,7 +165,7 @@ new TWTR.Widget({
 		<?php echo_person("John Wang", "Architect - Search", "/in/javasoze", img("/p/3/000/022/2db/03432f1.jpg"), ""); ?>
 	</tr>
 		<?php echo_person("Rui Wang", "Senior Software Engineer", "/in/ruiwang", img("/p/2/000/013/087/23ebe1e.jpg"), ""); ?>
-		<?php echo_person("Jingwei Wu", "Senior Software Engineer", "/in/wujingwei", img("/p/2/000/02b/060/10e7f47.jpg"), ""); ?>
+		<?php echo_person("Jingwei Wu", "Senior Software Engineer", "/in/wujingwei", img("/p/1/000/060/043/3a38d9e.jpg"), ""); ?>
    		<?php echo_person("Lili Wu", "Senior Software Engineer", "/pub/lili-wu/0/148/bb3", img("/p/1/000/045/2e2/186c821.jpg"), ""); ?>
    		<?php echo_person("Hao Yan", "Software Engineer", "/in/haoyan", img("/p/3/000/05c/123/381f1b1.jpg"), ""); ?>
 		<?php echo_person("Ethan Zhang", "Senior Software Engineer", "/in/ethanzhang", img("/p/1/000/041/10b/10a2537.jpg"), ""); ?>

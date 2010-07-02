@@ -31,6 +31,7 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
           <a href="http://behemoth.strlen.net/~alex/Voldemort_NoSQL_Oakland.ppt">NoSQL Oakland</a>,
           <a href="http://qconsf.com/sf2009/file?path=/qcon-sanfran-2009/slides/JayKreps_ProjectVoldemortScalingSimpleStorageAtLinkedIn.pdf">QCon</a></li>
     </li>
+    <li>Jay Kreps &ndash; <a href="http://www.slideshare.net/ydn/6-data-applicationlinkedinhadoopsummmit2010">Hadoop Summit 2010</a></li>
     <li> John Wang &ndash; 
         <a href="http://docs.google.com/present/view?id=d7qvbkn_28cgpvm96r">SDForum - LinkedIn Search</a>
     </li>

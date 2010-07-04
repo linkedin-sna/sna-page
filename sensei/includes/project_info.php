@@ -3,10 +3,10 @@
   $PROJ_NAME = "Sensei";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "Distributed realtime faceted search";
+  $PROJ_SUBTITLE = "Distributed elastic realtime searchable database";
 
   /* HTML header description for SEO */
-  $PROJ_DESCRIPTION = "distributed realtime faceted search";
+  $PROJ_DESCRIPTION = "distributed elastic realtime searchable database";
 
   /* HTML header keywords for SEO */
   $PROJ_KEYWORDS = "distributed,search,database,cluster,cloud,zoie,bobo,norbert,lucene,zookeeper";

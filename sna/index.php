@@ -139,7 +139,7 @@ new TWTR.Widget({
 	</tr>
     <tr>
 		<?php echo_person("Jake Mannix", "Principal Engineer", "/in/jakemannix", img("/p/2/000/021/019/233977b.jpg"), ""); ?>
-	    <?php echo_person("Yasuhiro Matsuda", "Principal Engineer", "/in/ymatsuda", img("/p/2/000/027/149/3102a89.jpg"), ""); ?>
+	    <?php echo_person("Yasuhiro Matsuda", "Architect", "/in/ymatsuda", img("/p/2/000/027/149/3102a89.jpg"), ""); ?>
 		<?php echo_person("David  McCutcheon", "Senior Manager Release Engineering", "/in/davidmccutcheon", img("/p/2/000/003/005/2da6652.jpg"), ""); ?>
 		<?php echo_person("Mike Miller", "Principal Engineer", "/in/miketmiller", img("/p/3/000/053/289/227e8f1.jpg"), ""); ?>
 		<?php echo_person("Neha Narkhede", "Senior Software Engineer", "/pub/neha-narkhede/16/35a/9a2", img("/p/1/000/04b/318/34462d7.jpg"), ""); ?>
@@ -165,7 +165,7 @@ new TWTR.Widget({
 		<?php echo_person("Albert Wang", "User Experience Design", "/in/albertdesign", img("/p/1/000/053/214/0bc9d98.jpg"), ""); ?>
 		<?php echo_person("Jiong Wang", "Engineering Manager/Principal Engineer", "/in/jiongwang", img("/p/3/000/003/20c/23255a2.jpg"), ""); ?>
 	</tr>
-		<?php echo_person("John Wang", "Architect - Search", "/in/javasoze", img("/p/3/000/022/2db/03432f1.jpg"), ""); ?>
+		<?php echo_person("John Wang", "Architect", "/in/javasoze", img("/p/3/000/022/2db/03432f1.jpg"), ""); ?>
 		<?php echo_person("Rui Wang", "Senior Software Engineer", "/in/ruiwang", img("/p/2/000/013/087/23ebe1e.jpg"), ""); ?>
 		<?php echo_person("Jingwei Wu", "Senior Software Engineer", "/in/wujingwei", img("/p/1/000/060/043/3a38d9e.jpg"), ""); ?>
    		<?php echo_person("Lili Wu", "Senior Software Engineer", "/pub/lili-wu/0/148/bb3", img("/p/1/000/045/2e2/186c821.jpg"), ""); ?>

@@ -40,7 +40,7 @@ Design considerations:
     </li>
     <li> horizontally scalable:
       <ul>
-         <li> Data is partitioned - so work-load is also partitioned </li>
+         <li> Data is partitioned - so work-load is also distributed </li>
          <li> Elasticity - Nodes can be added to accomodate data growth </li>
          <li> Online expansion - Cluster can grow while handling online requests </li>
          <li> Online cluster management - Cluster topology can change while handling online requests </li>

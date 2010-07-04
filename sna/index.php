@@ -172,8 +172,8 @@ new TWTR.Widget({
    		<?php echo_person("Hao Yan", "Software Engineer", "/in/haoyan", img("/p/3/000/05c/123/381f1b1.jpg"), ""); ?>
 	</tr>
 	<tr>
-		<?php echo_person("Ethan Zhang", "Senior Software Engineer", "/in/ethanzhang", img("/p/1/000/041/10b/10a2537.jpg"), ""); ?>
-		<?php echo_person("Shannon Zhang", "Senior Software Engineer", "/in/shannonzhang", img("/p/1/000/013/260/024e687.jpg"), ""); ?>
+		<?php echo_person("Ethan Zhang", "Senior Software Engineer", "/in/ethanzhang", img("/p/2/000/053/32f/28a6800.jpg"), ""); ?>
+		<?php echo_person("Shannon Zhang", "Senior Software Engineer", "/in/shannonzhang", img("/p/2/000/05d/3a2/282a206.jpg"), ""); ?>
 	</tr>
 </table>
 </span>

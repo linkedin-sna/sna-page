@@ -18,7 +18,7 @@
   /* Project icon in header */
   $PROJ_ICON_PATH = "images/bobo_small.jpg";
   /* Navigation links in the sidebar */
-  $PROJ_NAV_LINKS = array("releases" => "http://code.google.com/p/bobo-browse/downloads/list",
+  $PROJ_NAV_LINKS = array("downloads" => "http://github.com/xiaoyang/bobo/downloads",
                           "demo" => "http://test.project-voldemort.com:8888/cars",
                           "source" => "http://github.com/javasoze/bobo",
                           "mailing&nbsp;list" => "http://groups.google.com/group/bobo-browse", 

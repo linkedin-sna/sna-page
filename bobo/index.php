@@ -27,7 +27,7 @@ Bobo Browse is an information retrieval technology that provides navigational br
 </ul>
 <h2>News</h2>
 <p>
-Release: - Bobo Browse 2.5.0-rc1 is released! (2/15/2010)
+Release: - Bobo Browse 2.5.0 is released (<a href="http://github.com/xiaoyang/bobo/downloads">here</a>)
 </p>
 <p>
 News: - Bobo is powering the new <a href="http://www.linkedin.com">LinkedIn Faceted People Search</a>

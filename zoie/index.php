@@ -14,7 +14,7 @@ Donated by LinkedIn.com on July 19, 2008, and has been deployed in a real-time l
 
 <p>
 <i>
-News: Zoie 2.0.0-rc2 is released (12/14/2009) - Compatible with Lucene 2.9.x.
+News: Zoie 2.0.0 is released (<a href="http://github.com/xiaoyang/zoie/downloads">here</a>) - Compatible with Lucene 2.9.x.
 </i>
 </p>
 

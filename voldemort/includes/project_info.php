@@ -17,20 +17,19 @@
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array(
-	  "blog" => "http://sna-projects.com/blog",
-	  "design" => "design.php",
+      "quickstart" => "quickstart.php",
+      "design" => "design.php",
+      "source" => "http://github.com/voldemort/voldemort/tree/master",
       "mailing list" => "http://groups.google.com/group/project-voldemort",
-      "releases" => "http://github.com/voldemort/voldemort/downloads",
+      "download" => "http://github.com/voldemort/voldemort/downloads",
       "snapshot build" => "http://test.project-voldemort.com:8080/job/voldemort-master",
       "configuration" => "configuration.php",
       "client javadoc" => "/javadoc/client",
       "all javadoc" => "/javadoc/all",
-      "quickstart" => "quickstart.php",
       "developer&nbsp;info" => "developer.php",
       "fun&nbsp;projects" => "http://wiki.github.com/voldemort/voldemort/fun-projects",
       "performance" => "performance.php",
       "unit tests" => "http://test.project-voldemort.com:8080",
-      "source" => "http://github.com/voldemort/voldemort/tree/master",
       "bugs" => "http://code.google.com/p/project-voldemort/issues",
       "wiki" => "http://wiki.github.com/voldemort/voldemort");
 

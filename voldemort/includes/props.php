@@ -190,6 +190,11 @@
 	<td>Track load statistics on the stores.</td>
 </tr>
 <tr>
+	<td>enable.gossip</td>
+	<td>false</td>
+	<td>Enable gossip to synchronize state</td>
+</tr>
+<tr>
 	<td>pusher.poll.ms</td>
 	<td>2 * 60 * 1000</td>
 	<td>How often should misdelivered "slop" data be pushed out to nodes?</td>
@@ -198,5 +203,40 @@
 	<td>scheduler.threads</td>
 	<td>3</td>
 	<td>The number of threads to use for scheduling periodic jobs</td>
+</tr>
+<tr>
+	<td>admin.enable</td>
+	<td>true</td>
+	<td>Enable the Admin service?</td>
+</tr>
+<tr>
+	<td>admin.max.threads</td>
+	<td>20</td>
+	<td>Max Number of threads used by Admin services</td>
+</tr>
+<tr>
+	<td>admin.core.threads</td>
+	<td>max(1, ${admin.max.threads} / 2)</td>
+	<td>The number of threads to keep alive by Admin service even when idle</td>
+</tr>
+<tr>
+	<td>stream.read.byte.per.sec</td>
+	<td>10 * 1000 * 1000</td>
+	<td>Max read throughput allowed when Admin service streams data</td>
+</tr>
+<tr>
+	<td>stream.write.byte.per.sec</td>
+	<td>10 * 1000 * 1000</td>
+	<td>Max write throughput allowed when Admin service streams data</td>
+</tr>
+<tr>
+	<td>enable.rebalancing</td>
+	<td>true</td>
+	<td>Enable rebalance service?</td>
+</tr>
+<tr>
+	<td>max.rebalancing.attempts</td>
+	<td>3</td>
+	<td>Number of attempts made during rebalancing</td>
 </tr>
 </table>

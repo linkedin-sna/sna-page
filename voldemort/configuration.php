@@ -33,6 +33,7 @@
       &lt;host&gt;vldmt1.prod.linkedin.com&lt;/host&gt;
       &lt;http-port&gt;8081&lt;/http-port&gt;
       &lt;socket-port&gt;6666&lt;/socket-port&gt;
+      &lt;admin-port&gt;6667&lt;/admin-port&gt;
       &lt;!-- A list of data partitions assigned to this server --&gt;
       &lt;partitions&gt;0,1,2,3&lt;/partitions&gt;
     &lt;/server&gt;
@@ -41,6 +42,7 @@
       &lt;host&gt;vldmt2.prod.linkedin.com&lt;/host&gt;
       &lt;http-port&gt;8081&lt;/http-port&gt;
       &lt;socket-port&gt;6666&lt;/socket-port&gt;
+      &lt;admin-port&gt;6667&lt;/admin-port&gt;
       &lt;partitions&gt;4,5,6,7&lt;/partitions&gt;
     &lt;/server&gt;
   &lt;/cluster&gt;
@@ -73,6 +75,9 @@ Note that the configuration is currently simple files so it is important that th
 	        &lt;value-serializer&gt;
 	            &lt;type&gt;json&lt;/type&gt;
 	            &lt;schema-info version="1"&gt;[{"id":"int32", "name":"string"}]&lt;/schema-info&gt;
+	            &lt;compression&gt;
+			&lt;type&gt;gzip&lt;type&gt;
+		    &lt;/compression&gt;
 	        &lt;/value-serializer&gt;
 	    &lt;/store&gt;
 	&lt;/stores&gt;
@@ -90,7 +95,7 @@ Each of these parameters deserves a quick discussion:
 	<li><i>routing</i>&mdash; Determines the routing policy. Currently only client-side routing is fully supported. Server side routing will be coming soon, as will a few more interesting policies.</li>
 	<li><i>key-serializer</i>&mdash; The serialization type used for reading and writing <i>keys</i>. The type can be <i>json</i>, <i>java-serialization</i>, <i>string</i>, <i>protobuff</i>, <i>thrift</i>, or <i>identity</i> (meaning raw bytes). The schema-info gives information to the serializer about how to perform the mapping (e.g. the JSON schema described in <a href="design.php">here</a>).
 	</li>
-	<li><i>value-serializer</i>&mdash; The serialization type used for reading and writing <i>values</i>. The supported types are the same as for keys. The subelements are same as for the key-serializer, except that the the value serializer can have multiple schema-infos with different versions. The highest version is the one used for writing data, but data is always read with the version it was written with. This allows for gradual schema evolution. Versioning is only supported by the JSON serializer as other serialization formats have their own versioning systems.
+	<li><i>value-serializer</i>&mdash; The serialization type used for reading and writing <i>values</i>. The supported types are the same as for keys. In the above example we also highlight the subelement 'compression' which currently supports 'gzip' and 'lzf' compression. The subelements are same as for the key-serializer, except that the the value serializer can have multiple schema-infos with different versions. The highest version is the one used for writing data, but data is always read with the version it was written with. This allows for gradual schema evolution. Versioning is only supported by the JSON serializer as other serialization formats have their own versioning systems.
 		Here are some example serializers:
 			<pre>
     &lt;!-- A serializer that serializes plain strings in UTF8 encoding --&gt;

@@ -8,7 +8,7 @@
   <li>Data is automatically partitioned so each server contains only a subset of the total data</li>
   <li>Server failure is handled transparently</li>
   <li>Pluggable serialization is supported to allow rich keys and values including lists and tuples with named fields, as well as to integrate
-      with common serialization frameworks like Protocol Buffers, Thrift, and Java Serialization</li>
+      with common serialization frameworks like Protocol Buffers, Thrift, Avro and Java Serialization</li>
   <li>Data items are versioned to maximize data integrity in failure scenarios without compromising availability of the system</li>
   <li>Each node is independent of other nodes with no central point of failure or coordination</li>
   <li>Good single node performance: you can expect 10-20k operations per second depending on the machines, the network, the disk system, and the data replication factor</li>

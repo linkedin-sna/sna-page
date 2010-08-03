@@ -56,4 +56,5 @@ This does not include network or routing overhead. From the client-side we do no
 
 If the numbers you see in your own tests do not look like what you expect please chime in on the mailing list. We have tuned and tested certain configurations and would like to gather data on other configurations and may be able to help with settings.
 
+We also have a <a href="http://wiki.github.com/voldemort/voldemort/performance-tool" >performance tool</a> which can help potential users to run their own benchmarks and judge if Voldemort fits their requirements.  
 <?php require "../includes/footer.php" ?>

@@ -133,11 +133,13 @@ The following types are supported out of the box by entering the appropriate typ
 	<b>java-serialization</b> &ndash; Our old friend Java serialization. Make sure you understand the compatibility guarantees java serialization provides before you store too many java objects.
   </li>
   <li><b>protobuf</b> &ndash; <a href="http://code.google.com/p/protobuf/">Protocol buffers</a> is a code-generation serialization format from Google. This may be the preferred way to go if you don't need command line access.</li>
+  <li><b>thrift</b> &ndash; <a href="http://incubator.apache.org/thrift/">Thrift</a> is another code-generation serialization format. </li>
+  <li><b>avro-generic / avro-specific / avro-reflective</b> &ndash; <a href="http://avro.apache.org/">Avro</a> is another rich data serialization system. </li>
   <li><b>identity</b> &ndash; This effectively disables serialialization, just giving you back the exact byte[].</li>
 </ul>
 
 <p>
-String and indentity serialization are pretty self-explanatory. Protocol Buffers is probably best explained by google. So the rest of this section describes the motivation behind the json type.</p>
+String and identity serialization are pretty self-explanatory. Documentation / Tutorial for the other serialization formats can easily be found on the internet. So the rest of this section describes the motivation behind the json type.</p>
 
 <h4>JSON Serialization Type Details</h4>
 

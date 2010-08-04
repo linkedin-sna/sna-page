@@ -310,7 +310,7 @@ String and identity serialization are pretty self-explanatory. Documentation / T
 <p>Here are some good write-ups on this subject:</p>
 
 <ul>
-  <li><a href="http://hnr.dnsalias.net/wordpress/?p=51">Consistency in Amazon's Dynamo</a></li>
+  <li><a href="http://the-paper-trail.org/blog/?p=51">Consistency in Amazon's Dynamo</a></li>
   <li><a href="http://research.microsoft.com/users/lamport/pubs/paxos-simple.pdf">Paxos Made Simple</a></li>
   <li><a href="http://en.wikipedia.org/wiki/Two-phase_commit_protocol">Two-phase commit</a></li>
   <li><a href="http://www.allthingsdistributed.com/2008/12/eventually_consistent.html">The meaning's of eventual consistency (by Amazon's CTO Werner Vogels)</a></li>

@@ -118,10 +118,18 @@ Each of these parameters deserves a quick discussion:
         &lt;schema-info&gt;java=com.something.YourProtoBuffClassName&lt;/schema-info&gt;
     &lt;/value-serializer&gt;
 		
-    &lt;!-- A serializer that serializes protocol buffer objects of the given class. --&gt;
+    &lt;!-- A serializer that serializes thrift generated objects using one of the 
+            following protocols - 'binary', 'json' or 'simple-json'.
+	    Current support for Java clients only. --&gt;
     &lt;value-serializer&gt;
         &lt;type&gt;thrift&lt;/type&gt;
-        &lt;schema-info&gt;java=com.something.YourProtoThriftClassName&lt;/schema-info&gt;
+        &lt;schema-info&gt;java=com.something.YourThriftClassName,protocol=binary&lt;/schema-info&gt;
+    &lt;/value-serializer&gt;
+			
+    &lt;!-- Avro serialization - either 'avro-generic', 'avro-specific' or 'avro-reflective' --&gt;
+    &lt;value-serializer&gt;
+        &lt;type&gt;avro-generic&lt;/type&gt;
+        &lt;schema-info&gt;{"name": "Kind", "type": "enum", "symbols": ["FOO","BAR"]}&lt;/schema-info&gt;
     &lt;/value-serializer&gt;
 			</pre>
 		</li>

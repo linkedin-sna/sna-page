@@ -428,7 +428,7 @@ So our versioning scheme defines a <a href="http://en.wikipedia.org/wiki/Partial
 	&mdash; Benchmarks to go with the above paper
   </li>
   <li>
-	<a href="http://hnr.dnsalias.net/wordpress/?p=51">
+	<a href="http://the-paper-trail.org/blog/?p=51">
 		Consistency in Amazon's Dynamo
 	</a>
 	&mdash; A good blog post on Dynamo

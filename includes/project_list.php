@@ -5,6 +5,7 @@
 <a href="http://project-voldemort.com">voldemort</a> &middot;
 <!-- <a href="../kafka">kafka</a> &middot; -->
 <a href="http://sna-projects.com/kamikaze">kamikaze</a> &middot;
+<a href="http://sna-projects.com/krati">krati</a> &middot;
 <a href="http://sna-projects.com/sensei">sensei</a> &middot;
 <a href="http://sna-projects.com/azkaban">azkaban</a> &middot;
 <a href="http://sna-projects.com/sna">sna</a> &middot;

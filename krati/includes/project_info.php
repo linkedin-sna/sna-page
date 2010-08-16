@@ -20,8 +20,11 @@
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array(
+      "design" => "design.php",
       "source" => "http://github.com/jingwei/krati",
       "downloads" => "http://github.com/jingwei/krati/downloads",
+      "performance" => "performance.php",
+      "quickstart" => "quickstart.php",
       "issues" => "http://snaprojects.jira.com/browse/KRTI",
       "group" => "http://groups.google.com/group/krati",
       "wiki" => "http://snaprojects.jira.com/wiki/display/Krati/Home");

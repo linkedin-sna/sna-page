@@ -17,11 +17,11 @@
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("design" => "design.php",
-                          "downloads" => "http://github.com/javasoze/kamikaze/downloads",
-                          "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
-                          "source" => "http://github.com/javasoze/kamikaze",
-                          "quick start" => "quickstart.php",
                           "performance" => "performance.php",
+                          "quick start" => "quickstart.php",
+                          "downloads" => "http://github.com/javasoze/kamikaze/downloads",
+                          "source" => "http://github.com/javasoze/kamikaze",
+                          "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
                           "group" => "http://groups.google.com/group/kamikaze-users",
                           "bugs" => "http://snaprojects.jira.com/browse/KAMI");
 

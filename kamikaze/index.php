@@ -7,7 +7,7 @@
 <h2>Version 1.0.0 </h2>
 
 <p>
-Kamikaze version 1.0.0 provides docset implementations on various underlying document id set representations for inverted lists in search engines. It is based on <a href="http://homepages.cwi.nl/~heman/downloads/msthesis.pdf">the original PForDelta algorithm </a> and <a href="http://www2008.org/papers/pdf/p387-zhangA.pdf">an improved version</a> developed in <a href="http://cis.poly.edu/westlab/people.html">WestLab</a> (Web Exploration and Search Technology Lab at Polytechnic Institute of New York University. Currently the optimizations include
+Kamikaze version 1.0.0 provides docset implementations on various underlying document id set representations for inverted lists in search engines. It is based on <a href="http://homepages.cwi.nl/~heman/downloads/msthesis.pdf">the original PForDelta algorithm </a> and <a href="http://www2008.org/papers/pdf/p387-zhangA.pdf">an improved version</a> developed in <a href="http://cis.poly.edu/westlab/people.html">WestLab</a>. Currently the optimizations include
 </p>
 
 <ol>
@@ -21,13 +21,13 @@ Kamikaze version 1.0.0 provides docset implementations on various underlying doc
 <h2>Version 2.0.0 </h2>
 
 <p>
-Kamikaze Version 2.0.0 inherits the architecture of Version 1.0.0. It supports the same APIs as Version 1.0.0. However, in Version 2.0.0., the PForDelta algorithm is highly optimized such that the performance of compression/decompression and the corresponding set operations are improved significantly (Please refer to the <a href="./performance.php">Performance</a> page for detailed experimental results). In particular, compared to Version 1.0.0, Version 2.0.0 can achieve
+Kamikaze Version 2.0.0 (the new source codes will be released soon) inherits the architecture of Version 1.0.0. It supports the same APIs as Version 1.0.0. However, in Version 2.0.0., the PForDelta algorithm is highly optimized such that the performance of compression/decompression and the corresponding set operations are improved significantly (Please refer to the <a href="./performance.php">Performance</a> page for detailed experimental results). In particular, compared to Version 1.0.0, Version 2.0.0 can achieve
 </p>
 
 <ul>
    <li> PForDelta </li>
    <ul> 
-      <li> More compact representation of data (for example, inverted lists)</li>
+      <li> More compact representation of document lists</li>
       <li> Faster decompression speed </li>
    </ul>
    <li> Doc Set Operations </li>
@@ -39,7 +39,8 @@ Kamikaze Version 2.0.0 inherits the architecture of Version 1.0.0. It supports t
 </ul>
 
 
-The Version 2.0.0 is based on the <a href="http://www2009.org/proceedings/pdf/p401.pdf"> lately implementaion </a> of PForDelta in <a href="http://cis.poly.edu/westlab/people.html">WestLab</a> and integrates other techniques together to further optimize the overall performance of Kamikaze.
+The Version 2.0.0 integrate the <a href="http://www2009.org/proceedings/pdf/p401.pdf"> lately implementaion </a> of PForDelta in <a href="http://cis.poly.edu/westlab/people.html">WestLab</a> with other techniques together to 
+achieve the overall performance improvement.
 
 
 <?php require "../includes/footer.php" ?>

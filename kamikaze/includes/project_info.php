@@ -20,6 +20,7 @@
                           "downloads" => "http://github.com/javasoze/kamikaze/downloads",
                           "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
                           "source" => "http://github.com/javasoze/kamikaze",
+                          "quick start" => "quickstart.php",
                           "performance" => "performance.php",
                           "group" => "http://groups.google.com/group/kamikaze-users",
                           "bugs" => "http://snaprojects.jira.com/browse/KAMI");

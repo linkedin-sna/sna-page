@@ -19,6 +19,7 @@
   $PROJ_NAV_LINKS = array("design" => "design.php",
                           "performance" => "performance.php",
                           "quick start" => "quickstart.php",
+                          "suggestion" => "suggestion.php",
                           "downloads" => "http://github.com/javasoze/kamikaze/downloads",
                           "source" => "http://github.com/javasoze/kamikaze",
                           "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",

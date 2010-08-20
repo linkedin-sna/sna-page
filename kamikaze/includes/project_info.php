@@ -15,6 +15,9 @@
   $PROJ_FAVICON_PATH = "http://path/to/favicon.png";
   $PROJ_FAVICON_MIME = "image/png";
 
+  /* Project icon in header */
+  $PROJ_ICON_PATH = "images/kamikazelogo.png";
+
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("design" => "design.php",
                           "performance" => "performance.php",
@@ -28,7 +31,8 @@
 
   /* Project color */
   /*$PROJ_PRIMARY_COLOR = "#63B8FF";*/
-  $PROJ_PRIMARY_COLOR = "#00B2EE";
+  #$PROJ_PRIMARY_COLOR = "#00B2EE";
+  $PROJ_PRIMARY_COLOR = "#C85139";
 
   /* Google analytics tracking code */
   $PROJ_GOOGLE_ANALYTICS = "UA-7818013-2";

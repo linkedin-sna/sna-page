@@ -9,7 +9,7 @@ Kamikaze implements <b>PForDelta</b> compression algorithm (or called P4Delta) w
 
 <h2>Version 1.0.0 and Version 2.0.0</h2>
 <p>
-The first two versions, <b>Version 1.0.0</b> and <b>Version 2.0.0</b>, provide an awesome platform to perform set operations and effcient inverted list compression/decompression. They are based on <a href="http://homepages.cwi.nl/~heman/downloads/msth
+The first two versions, version 1.0.0 and version 2.0.0, provide an awesome platform to perform set operations and effcient inverted list compression/decompression. They are based on <a href="http://homepages.cwi.nl/~heman/downloads/msth
 esis.pdf">the original PForDelta algorithm </a> and <a href="http://www2008.org/papers/pdf/p387-zhangA.pdf">an improved version</a> developed in <a href="http://cis.poly.edu/westlab/people.html">WestLab</a>. Currently the optimizations 
 include
 </p>

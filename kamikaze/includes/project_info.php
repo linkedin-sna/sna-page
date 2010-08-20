@@ -23,7 +23,7 @@
                           "downloads" => "http://github.com/javasoze/kamikaze/downloads",
                           "source" => "http://github.com/javasoze/kamikaze",
                           "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
-                          "group" => "http://groups.google.com/group/kamikaze-users",
+                          "mailing list" => "http://groups.google.com/group/kamikaze-users",
                           "bugs" => "http://snaprojects.jira.com/browse/KAMI");
 
   /* Project color */

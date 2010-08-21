@@ -1,6 +1,8 @@
 <?php require "includes/project_info.php" ?>
 <?php require "../includes/header.php" ?>
 <?php include "../includes/advert.php" ?>
+<h1>Kamikaze</h1>
+<h2>Kamikaze and search engines</h2>
 <b>Kamikaze</b>  is a utility package wrapping set implementations on sorted integer arrays. Search indexes, graph algorithms and certain sparse matrix representations tend to make heavy use of sorted integer arrays. 
 <p>
 For example, in search engines, for each term t, the index, or called inverted index, contains an inverted list, which is typically a sequence of sorted integer document IDs (and other information which can also be considered as sequences of integers). Thus, inverted index compression techniques are concerned with compressing sequences of sorted integers. 
@@ -26,6 +28,7 @@ Kamikaze implements PForDelta compression algorithm (or called P4Delta) which wa
 Kamikaze builds an platform on top of PForDelta to perform efficient set operations and inverted list compression/decompression. Kamikaze Version 3.0.0 (the new source codes will be released soon) inherits the architecture of the first two versions and supports the same APIs. In Version 3.0.0., the PForDelta algorithm is highly optimized such that the <a href="http://sna-projects.com/kamikaze/performance.php">performance</a> of compression/decompression and the corresponding set operations are improved significantly.
 </p>
 
+<h2>Kamikaze @Linkedin</h2>
 <p>
 In Linkedin, Kamikaze has been used in the distributed graph team and search team. We are also looking forward to contributing to the Lucene community with the Kamikaze, especially the optimized PForDelta compression algorithm.   
 </p>

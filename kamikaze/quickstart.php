@@ -12,7 +12,7 @@ the sample codes using Kamikaze Version 3.0.0).
 </p>
 
 <h2>Adding docIds into an inverted list (doc set)</h2>
-The first example shows how to add an list of sorted docIds into the PForDeltaDocId set. The docIds are compressed when they are being added into the set. 
+The first example shows how to add an list of sorted docIds into the PForDeltaDocIdSet. The docIds are compressed when they are being added into the set. 
 <code>
 <pre>
 
@@ -33,7 +33,7 @@ public DocIdSet addDocIds(ArrayList< Integer > Ids) throws Exception
 The following codes show how to iterate a compressed inverted list (doc set), that is, extrating all docIds on the list. 
 <code>
 <pre>
-public ArrayList < Integer > getDocIds(PForDeltaDocId pForDeltaDocSet)
+public ArrayList < Integer > getDocIds(PForDeltaDocIdSet pForDeltaDocSet)
 {
   DocIdSetIterator iter = pForDeltaDocSet.iterator();
   ArrayList< Integer > Ids = new ArrayList< Integer >();
@@ -55,7 +55,7 @@ The following codes show how to find if a given docId exists in a compressed lis
 <code>
 <pre>
 
-public boolean search(int target, PForDeltaDocId pForDeltaDocSet)
+public boolean search(int target, PForDeltaDocIdSet pForDeltaDocSet)
 {
   return pForDeltaDocSet.find(target);
 } 
@@ -70,7 +70,7 @@ list and move the pointers in a synchronized way).
 <code>
 <pre>
 
-public ArrayList< Integer >  findAndIntersections(PForDeltaDocId pForDeltaDocSet1, PForDeltaDocId pForDeltaDocSet2, PForDeltaDocId pForDeltaDocSet3)
+public ArrayList< Integer >  findAndIntersections(PForDeltaDocIdSet pForDeltaDocSet1, PForDeltaDocIdSet pForDeltaDocSet2, PForDeltaDocIdSet pForDeltaDocSet3)
 {
   ArrayList< DocIdSet > docs = new ArrayList< DocIdSet >();
   docs.add(pForDeltaDocSet1);

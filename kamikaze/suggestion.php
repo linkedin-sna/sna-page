@@ -11,7 +11,7 @@ all docIds, we choose OpenBitSet; otherwise we choose PForDeltaWithBase. However
 Therefore, we are often only concerned with IntArray and PForDeltaWithBase. In this page, we give some suggestions about how to choose them through the following experiments.
 
 <h2>Experiment 1</h2>
-We build random lists with various lengths (the range of docIds is still [0,75,0000,000)) and store the resulting lists using PForDeltaDocId and IntArraySet respectively. We then compare their serialized object sizes and show the experimental results in the following figure.
+We build random lists with various lengths (the range of docIds is still [0,75,0000,000)) and store the resulting lists using PForDeltaDocIdSet and IntArraySet respectively. We then compare their serialized object sizes and show the experimental results in the following figure.
    
 <p align="center">
   <img src = "images/sizeComparison.png" width="600px" />

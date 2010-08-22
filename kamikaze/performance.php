@@ -77,7 +77,7 @@ We build three inverted lists, each of which is respectively composed of 15,000,
 </p>
 
 
-<p>In Figure 1.2, we compare the sizes of the entire serialized java objects (P4DDocIdSet for OLD and PForDeltaDocId for NEW). The serialized object contains all necessary information to 
+<p>In Figure 1.2, we compare the sizes of the entire serialized java objects (P4DDocIdSet for OLD and PForDeltaDocIdSet for NEW). The serialized object contains all necessary information to 
 rebuild the Doc Set and decompress the PForDelta-encoded data. Therefore, it contains the PForDelta-related data shown in Figure 1.1 and some auxiliary data to speed up query processing and reconstruct the object. From Figure 1.2, we can achieve the following observations:
 <ul>
 <li> Compared to the results in Figure 1.1, the size of the seriazlized objects is slightly increased as expected.
@@ -116,7 +116,7 @@ rebuild the Doc Set and decompress the PForDelta-encoded data. Therefore, it con
   <img src = "images/Exp2-bitsPerId.png" width="800px" />
 </p>
 
-<p>In Figure 2.4, we compare the processing time of P4DDocIdSet.nextDoc() (OLD) and PForDeltaDocId.nextDoc (NEW), which indicates the time spent to iterate an entire list. We can see that the nextDoc() in the NEW version is about twice as fast as that in the OLD version for iterating docIds of lists.
+<p>In Figure 2.4, we compare the processing time of P4DDocIdSet.nextDoc() (OLD) and PForDeltaDocIdSet.nextDoc (NEW), which indicates the time spent to iterate an entire list. We can see that the nextDoc() in the NEW version is about twice as fast as that in the OLD version for iterating docIds of lists.
 </p>
 
 </p>
@@ -170,13 +170,13 @@ We note that in Figure 3.3, even less number of bits (than those in Figure 2.3 a
   <img src = "images/Exp4-bitsPerId.png" width="800px" />
 </p>
 
-<b> (5) Experiment 5 </b><p>In Figure 5.1, we compare the processing speed of P4DAndDocIdSet.nextDoc() and PForDeltaAndDocIdSet.nextDoc() (please note that they are different from the P4DDocIdSet.nextDoc() and PForDeltaDocId.nextDoc() operations shown in the above other Experiments), either of which indicates the speed of finding the intersected docIds of multiple (for example, three) random lists with various list lengths. We show in Figure 5.1 the percentage of the time reduction of the NEW version over the OLD version. From the figure, we can see that this operation of the NEW version is about twice as fast as that of the OLD version.  
+<b> (5) Experiment 5 </b><p>In Figure 5.1, we compare the processing speed of P4DAndDocIdSet.nextDoc() and PForDeltaAndDocIdSet.nextDoc() (please note that they are different from the P4DDocIdSet.nextDoc() and PForDeltaDocIdSet.nextDoc() operations shown in the above other Experiments), either of which indicates the speed of finding the intersected docIds of multiple (for example, three) random lists with various list lengths. We show in Figure 5.1 the percentage of the time reduction of the NEW version over the OLD version. From the figure, we can see that this operation of the NEW version is about twice as fast as that of the OLD version.  
 </p>
 <p align="center">
   <img src = "images/Exp5.png" width="1000px" />
 </p>
 
-<b> (6) Experiment 6 </b><p>In Figure 6.1, we compare the processing speed of the P4DDocIdSet.find() and PForDeltaDocId.find(), either of which detects if a given docId exists in the compressed list. In particular, for each docId in the first list, we search in the other two lists to see if it exists in them. We show in Figure 6.1 the percentage of the time reduction of the NEW version over the OLD version. From Figure 6.1, we can see that this operation in the NEW version is about twice as fast as that in the OLD version.                                                                                                                                                                                       
+<b> (6) Experiment 6 </b><p>In Figure 6.1, we compare the processing speed of the P4DDocIdSet.find() and PForDeltaDocIdSet.find(), either of which detects if a given docId exists in the compressed list. In particular, for each docId in the first list, we search in the other two lists to see if it exists in them. We show in Figure 6.1 the percentage of the time reduction of the NEW version over the OLD version. From Figure 6.1, we can see that this operation in the NEW version is about twice as fast as that in the OLD version.                                                                                                                                                                                       
 </p>
 <p align="center">
   <img src = "images/Exp6.png" width="1000px" />

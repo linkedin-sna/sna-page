@@ -10,7 +10,7 @@ Quick Start
 In this page, we show the sample codes for basic set operations in Kamikaze 3.0.0. 
 
 <h2>Mapping of classes in previous versions and Kamikaze 3.0.0</h2>
-In Kamikaze 3.0.0, we provide new implementations of PForDelta and its correpsonding set operations. We also
+In Kamikaze 3.0.0, we provide the new implementations of PForDelta and its correpsonding set operations. We also
 keep their previous implementations such that users can test the performance of both of them. Please note that the old and new implementations support the same method APIs
  except their class names. The class names of all new implmentations are prefxied with PForDetla. In particular, the following table shows the mapping of class names between 
 the old and new implmentaions. 

@@ -31,8 +31,7 @@ In particular,
 PForDelta in Version 3.0.0
 </h2>
 <h3>History</h3>
-<a href="http://homepages.cwi.nl/~heman/downloads/msthesis.pdf">PForDelta</a> is a compression method that was originally proposed by S. Heman. It was not originally designed to compress inverted indexes of search engines. It was first used in 2008 by WestLab (Web Exploration a
-nd Search Technology Lab at Polytechnic Institute of New York University) to <a href="http://www2008.org/papers/pdf/p387-zhangA.pdf">compress</a> inverted indexes of search engines. Recently, WestLab proposed several other <a href="http://www2009.org/proceedings/pdf/p401.pdf"> optimizations</a>
+<a href="http://homepages.cwi.nl/~heman/downloads/msthesis.pdf">PForDelta</a> is a compression method that was originally proposed by S. Heman. It was not originally designed to compress inverted indexes of search engines. It was first used in 2008 by WestLab (Web Exploration and Search Technology Lab at Polytechnic Institute of New York University) to <a href="http://www2008.org/papers/pdf/p387-zhangA.pdf">compress</a> inverted indexes of search engines. Recently, WestLab proposed several other <a href="http://www2009.org/proceedings/pdf/p401.pdf"> optimizations</a>
  on PForDelta and claimed that the optimized PForDelta can achieve a better tradeoff between the compressed size and the decompression speed than other inverted index compression methods, for example, Rice coding, Variable-byte coding, Gamma coding, Interpolative coding, etc.The beauty of PForDelta is that it supports extremely fast decompression while also achieving a small compressed size. 
 
 <h3>Basic Idea</h3>The basic idea of PForDelta is as follows: in order to compress a block of k numbers, say, 256 numbers, it first determines a value b such that most of the 256 values to be encoded (say, 90%) are less than 2^b and thus fit into a fixed bit field of b bit
@@ -41,7 +40,7 @@ s each. The remaining values, called exceptions (please note this has nothing to
 <p align="center">  <img src = "images/PFD.png" width="600px" />
 </p>
 
-In the above figure, a block of 256 integers is compressed as a block of 256 b-bit slots plus some additional data appended to those slots. Most of the integers in the above block can fit into b=5 bits except two exceptsion, 55 and 70. The two exceptions are coded in the same way as follows: we append their offsets within the block (expPos), that is, where the two exceptsion occur, to the end of the 256 b-bit slots. We store the lower b bits of the exceptions into their corresponding slots(Lo55 and Lo70) and append their higher 32-b bits(Hi55 and Hi70) to the end of expPos, that is, expHighBits. ExpPos and expHighBits are concatanated together and compressed by another compression methods called <a href="http://www2009.org/proceedings/pdf/p401.pdf"> Simple 16</a>. 
+In the above figure, a block of 256 integers is compressed as a block of 256 b-bit slots plus some additional data appended to those slots. Most of the integers in the above block can fit into b=5 bits except two exceptions, 55 and 70. The two exceptions are coded in the same way as follows: we append their offsets within the block (expPos), that is, where the two exceptions occur, to the end of the 256 b-bit slots. We store the lower b bits of the exceptions into their corresponding slots(Lo55 and Lo70) and append their higher 32-b bits(Hi55 and Hi70) to the end of expPos, that is, expHighBits. ExpPos and expHighBits are concatenated together and compressed by another compression methods called <a href="http://www2009.org/proceedings/pdf/p401.pdf"> Simple 16</a>. 
 
 <p>
 If we apply PForDelta to blocks containing some multiple of 32 values, then decompression involves extracting 

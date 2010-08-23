@@ -25,7 +25,7 @@ Kamikaze implements PForDelta compression algorithm (or called P4Delta) which wa
 </p>
 
 <p>
-Kamikaze builds an platform on top of PForDelta to perform efficient set operations and inverted list compression/decompression. Kamikaze Version 3.0.0 (the new source codes will be released soon) inherits the architecture of the first two versions and supports the same APIs. In Version 3.0.0., the PForDelta algorithm is highly optimized such that the <a href="http://sna-projects.com/kamikaze/performance.php">performance</a> of compression/decompression and the corresponding set operations are improved significantly.
+Kamikaze builds an platform on top of PForDelta to perform efficient set operations and inverted list compression/decompression. Kamikaze Version 3.0.0 inherits the architecture of the first two versions and supports the same APIs. In Version 3.0.0., the PForDelta algorithm is highly optimized such that the <a href="http://sna-projects.com/kamikaze/performance.php">performance</a> of compression/decompression and the corresponding set operations are improved significantly.
 </p>
 
 <h2>Kamikaze @Linkedin</h2>
@@ -49,7 +49,7 @@ include
 <h2>Version 3.0.0 </h2>
 
 <p>
-Kamikaze Version 3.0.0 (the new source codes will be released soon) inherits the architecture of the first two versions and supports the same APIs. In Version 3.0.0., the PForDelta algorithm is highly optimized such that the performance of compression/decompression and the corresponding set operations are improved significantly (Please refer to the <a href="./performance.php">Performance</a> page for the detailed experimental results). In particular, compared to the previous two versions, Version 3.0.0 can achieve
+Kamikaze Version 3.0.0 inherits the architecture of the first two versions and supports the same APIs. In Version 3.0.0., the PForDelta algorithm is highly optimized such that the performance of compression/decompression and the corresponding set operations are improved significantly (Please refer to the <a href="./performance.php">Performance</a> page for the detailed experimental results). In particular, compared to the previous two versions, Version 3.0.0 can achieve
 </p>
 
 <ul>

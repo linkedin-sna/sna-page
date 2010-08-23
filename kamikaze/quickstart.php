@@ -7,8 +7,27 @@ Quick Start
 </h1>
 
 <p>
-In this page, we show the sample codes for basic set operations in Kamikaze 3.0.0 (Since all versions support the same APIs, we will only show
-the sample codes using Kamikaze Version 3.0.0). 
+In this page, we show the sample codes for basic set operations in Kamikaze 3.0.0. 
+
+<h2>Mapping of classes in previous versions and Kamikaze 3.0.0</h2>
+In Kamikaze 3.0.0, we provide new implementations of PForDelta and its correpsonding set operations. We also
+keep their previous implementations such that users can test the performance of both of them. Please note that the old and new implementations support the same method APIs
+ except their class names. The class names of all new implmentations are prefxied with PForDetla. In particular, the following table shows the mapping of class names between 
+the old and new implmentaions. 
+
+<p align="center">
+  <img src = "images/oldNewTable.png" width="600px" />
+</p>
+
+<p>
+However, please note that although the class names are different, the APIs those classes suport are the same in both old and new implementations. Therefore, 
+the only changes that previous users of Kamikaze need to make is to use the above table to replace the old class names with the new class names.
+</p>
+
+<p>
+Kamikaze 3.0.0 also provides the unit test in PForDeltaKamikazeTest and PForDeltaPerfTest.
+
+We then show the sample codes using Kamikaze Version 3.0.0. 
 </p>
 
 <h2>Adding docIds into an inverted list (doc set)</h2>

@@ -23,7 +23,7 @@
                           "performance" => "performance.php",
                           "quick start" => "quickstart.php",
                           "suggestion" => "suggestion.php",
-                          "downloads" => "http://github.com/javasoze/kamikaze/downloads",
+                          "downloads" => "http://github.com/hyan/kamikaze/downloads",
                           "source" => "http://github.com/hyan/kamikaze",
                           "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
                           "mailing list" => "http://groups.google.com/group/kamikaze-users",

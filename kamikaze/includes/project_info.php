@@ -24,7 +24,7 @@
                           "quick start" => "quickstart.php",
                           "suggestion" => "suggestion.php",
                           "downloads" => "http://github.com/javasoze/kamikaze/downloads",
-                          "source" => "http://github.com/javasoze/kamikaze",
+                          "source" => "http://github.com/hyan/kamikaze",
                           "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
                           "mailing list" => "http://groups.google.com/group/kamikaze-users",
                           "bugs" => "http://snaprojects.jira.com/browse/KAMI");

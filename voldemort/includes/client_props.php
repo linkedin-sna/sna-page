@@ -54,4 +54,19 @@
 	<td>true</td>
 	<td>Enable JMX monitoring</td>
 </tr>
+<tr>
+	<td>enable_pipeline_routed_store</td>
+	<td>false</td>
+	<td>Use the new pipeline routed store for client side routing</td>
+</tr>
+<tr>
+	<td>max_bootstrap_retries</td>
+	<td>2</td>
+	<td>Number of times we'll try to connect to bootstrap url</td>
+</tr>
+<tr>
+	<td>bootstrap_urls</td>
+	<td>Compulsory parameter</td>
+	<td>Comma separated list of URLs to use as bootstrap servers</td>
+</tr>
 </table>

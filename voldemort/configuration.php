@@ -155,6 +155,12 @@ Here is a list of all the configuration options supported:
 
 <p>Oracle has <a href="http://www.oracle.com/technology/documentation/berkeley-db/je/GettingStartedGuide/backuprestore.html">a writeup</a> that gives a good overview of the operational side of BDB.</p>
 
+<h3>Client configuration</h3>
+
+<p>The above settings were all for the server. It is important to correctly configure the client as well. Following is a list of configuration options for the clients:
+
+<?php include('includes/client_props.php'); ?>
+
 <h3>Some additional suggestions</h3>
 
 <h4>JVM Settings</h4>

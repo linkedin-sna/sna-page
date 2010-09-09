@@ -34,5 +34,6 @@
   /* Google analytics tracking code */
   $PROJ_GOOGLE_ANALYTICS = "UA-9659884-2";
   
-  $PROJ_HTML = '<iframe src="http://www.facebook.com/plugins/likebox.php?id=152613021424304&amp;width=150&amp;connections=4&amp;stream=false&amp;header=true&amp;height=287" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:287px;" allowTransparency="true"></iframe>';
+  $PROJ_HTML = '<iframe src="http://www.facebook.com/plugins/likebox.php?id=152613021424304&amp;width=150&amp;connections=2&amp;stream=false&amp;header=false&amp;height=255" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:255px;" allowTransparency="true"></iframe>';
+
 ?>

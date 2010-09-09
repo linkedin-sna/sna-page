@@ -31,4 +31,7 @@
 
   /* Project color */
   $PROJ_PRIMARY_COLOR = "#006699";
+  
+  $PROJ_HTML = '<iframe src="http://www.facebook.com/plugins/likebox.php?id=117749491579773&amp;width=150&amp;connections=2&amp;stream=false&amp;header=false&amp;height=255" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:255px;" allowTransparency="true"></iframe>';
+
 ?>

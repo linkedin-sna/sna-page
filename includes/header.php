@@ -40,5 +40,13 @@
 		}
 		?>
 		</ul>
+	
+		<?php
+		if (isset($PROJ_HTML)){
+		  echo "$PROJ_HTML";
+		}
+		?>
 	</div>
+	
 	<div class='content'>
+	

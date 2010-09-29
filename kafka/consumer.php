@@ -4,6 +4,38 @@
 
 <h2>Consumer Design</h3>
 	
+<h3>API<h3>
+	
+The Kafka consumer API abstracts away the individual requests to the Kafka servers and provides a higher level API which provides iterators over the infinite stream of messages. Here is an example of using the consumer to consume data:
+
+<code>
+val consumer = new Consumer(new ConsumerConfig(...))
+
+// begin consumption of two topics
+val topic1: MessageStream = consumer.consume("my_topic_1")
+val topic2: MessageStream = consumer.consume("my_topic_2")
+
+// process messages from topic1
+for(message <- topic1) {
+	// process the message
+}
+
+// record the processing of all messages
+topic1.commit()
+
+// close topic1
+topic1.close()
+
+// close all topics
+consumer.close()
+</code>
+
+<h3>Internals</h3>
+
+The consumer is divided into two components:
+1. The fetcher - fetches data on the active partitions
+2. The cluster connector - manages connection to zookeeper for cluster management and consumer balancing
+
 <h3>ConsumerFetcher</h3>
 
 <p>

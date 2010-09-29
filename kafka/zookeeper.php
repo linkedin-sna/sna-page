@@ -2,15 +2,7 @@
 <?php require "../includes/header.php" ?>
 <?php include "../includes/advert.php" ?>
 
-<h2>Algorithms</h3>
-	
-This page describes the basic algorithms used by kafka for clustering and log management.
-
-<h3>Log Management</h3>
-
-Write me.
-
-<h3>Clustering</h3>
+<h3>Consumer Balancing</h3>
 
 <h4>Zookeeper Directories</h4>
 

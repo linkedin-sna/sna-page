@@ -3,10 +3,10 @@
   $PROJ_NAME = "Kafka";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "A high-throughput, publish-subscribe message queue.";
+  $PROJ_SUBTITLE = "A high-throughput distributed messaging system.";
 
   /* HTML header description for SEO */
-  $PROJ_DESCRIPTION = "A high-throughput, publish-subscribe message queue.";
+  $PROJ_DESCRIPTION = "A high-throughput, distributed, publish-subscribe messaging system.";
 
   /* HTML header keywords for SEO */
   $PROJ_KEYWORDS = "keywords!";

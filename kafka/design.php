@@ -105,7 +105,7 @@ This style of pagecache-centric design is described in an <a href="http://varnis
 </p>	
 <h3>Constant Time Suffices</h3>
 <p>
-The persistent data structure used in messaging systems metadata is often a BTree. Btrees are the most versatile data structure available, and make it possible to support a wide variety of transactional and non-transactional semantics in the messaging system. They do come with a fairly high cost, though: Btree operations are O(log N). Normally O(log N) is considered essentially equivalent to constant time, but this is not true for disk operations. Disk seeks come at 10 ms a pop, and each disk can do only one seek at a time so parallelism is limited. Hence even a handful of disk seeks leads to very high overhead. Since storage systems mix very fast cached operations with actual physical disk operations, the observed performance of tree structures is often superlinear. Furthermore btrees require a very sophisticated page or row locking implementation to avoid locking the entire tree on each operation. The implementation must pay a fairly high price for row-locking or else effectively serialize all reads. Because of the heavy reliance on disk seeks it is not possible to effectively take advantage of the improvements in drive density, and one is forced to use small (&lt; 100GB) high RPM SAS drives to maintain a sane ratio of data to seek capacity.
+The persistent data structure used in messaging systems metadata is often a BTree. BTrees are the most versatile data structure available, and make it possible to support a wide variety of transactional and non-transactional semantics in the messaging system. They do come with a fairly high cost, though: Btree operations are O(log N). Normally O(log N) is considered essentially equivalent to constant time, but this is not true for disk operations. Disk seeks come at 10 ms a pop, and each disk can do only one seek at a time so parallelism is limited. Hence even a handful of disk seeks leads to very high overhead. Since storage systems mix very fast cached operations with actual physical disk operations, the observed performance of tree structures is often superlinear. Furthermore bTrees require a very sophisticated page or row locking implementation to avoid locking the entire tree on each operation. The implementation must pay a fairly high price for row-locking or else effectively serialize all reads. Because of the heavy reliance on disk seeks it is not possible to effectively take advantage of the improvements in drive density, and one is forced to use small (&lt; 100GB) high RPM SAS drives to maintain a sane ratio of data to seek capacity.
 </p>
 <p>
 Intuitively a persistent queue could be built on simple reads and appends to files as is commonly the case with logging solutions. Though this structure would not support the rich semantics of a btree implementation, but it has the advantage that all operations are O(1) and reads do not block writes or each other. This has obvious performance advantages since the performance is completely decoupled from the data size--one server can now take full advantage of a number of cheap, low-rotational speed 1+TB SATA drives. Though they have poor seek performance, these drives often have comparable performance for large reads and writes at 1/3 the price and 3x the capacity.
@@ -113,6 +113,7 @@ Intuitively a persistent queue could be built on simple reads and appends to fil
 <p>
 Having access to virtually unlimited disk space without penalty means that we can provide some features not usually found in a messaging system. For example, typically messaging systems differentiate between queues, which retain data until it is consumed by a single consumer, and topics, which immediately deliver messages to all subscribers.
 </p>
+
 <h2>Maximizing Efficiency</h2>
 
 <p>
@@ -183,13 +184,21 @@ This problem is heavily studied, and is a variation of the "transaction commit" 
 <p>
 Kafka's does two unusual things with respect to metadata. First the stream is partitioned on the brokers into a set of distinct partitions. The semantic meaning of these partitions is left up to the producer and the partition for a message set is specified with the message set when it is produced. Within a partition messages are stored in the order in which they arrive at the broker, and will be given out to consumers in that same order. This means that rather than store metadata about each message (marking it as consumed, say) all that needs to be stored is the "high water mark" for each combination of consumer, topic, and partition. Hence the total metadata required to summarize the state of the consumer is actually quite small. In Kafka we refer to this high-water mark as "the offset" for reasons that will become clear in the implementation section.
 </p>
+<h3>Consumer state</h3>
 <p>
 Kafka also moves this state about what has been consumed to the client. This provides an easy out for some simple cases, and has a few side benefits. In the simplest cases the consumer may simply be entering some aggregate value into a centralized, transactional OLTP database. In this case the consumer can store the state of what is consumed in the same transaction as the database modification. This solves a distributed consensus problem, by removing the distributed part! A similar trick works for some non-transactional systems as well. A search system can store its consumer state with its index segments. Though it may provide no durability guarantees, this means that the index is always in sync with the consumer state: if an unflushed segment is lost in a crash, the indexing starts from the last viable segment, effectively going back in time, but doing so in a consistent fashion. Likewise our Hadoop load job which does parallel loads from Kafka, does a similar trick--individual mappers handle data partitions. Though a partition's mapper may fail, another mapper will simply restart from the same position the previous failed mapper started from.
 </p>
 <p>
 There are two side benefits of this decision. The first is that the consumer can deliberately <i>rewind</i> back to an old offset and reconsume data. This violates the common contract of a queue, but turns out to be an essential feature for many offline data consumers. Offline systems like Hadoop or a data warehouse often proceed in a state machine processing style where batches of data are passed from job to job, with each job processing its input and producing new output. This allows batch processing to be effectively moved back in time be rerunning certain processing steps and removing intermediate data. This is a very common remediation when a problem is discovered in a data processing step, or when a new processing job is being tested. The ability to reload makes Kafka fit very nicely in a batch processing workflow system.
 </p>
+<h3>Push vs. pull</h3>
+<p>
+A related question is whether consumers should pull data from brokers or brokers should push data to the subscriber. In this respect Kafka follows a more traditional design, shared by most messaging systems, where data is pushed to the broker from the producer and pulled from the broker by the consumer. Some recent systems, such as <a href="http://github.com/facebook/scribe">scribe</a> and <a href="http://github.com/cloudera/flume">flume</a>, focusing on log aggregation, follow a very different push based path where each node acts as a broker and data is pushed downstream. The are pros and cons to both approaches. However a push-based system has difficulty dealing with diverse consumers as the broker controls the rate at which data is transferred. The goal, is generally for the consumer to be able to consume at the maximum possible rate; unfortunately in a push system this means the consumer tends to be overwhelmed when its rate of consumption falls below the rate of production (a denial of service attack, in essence). A pull-based system has the nicer property that the consumer simply falls behind and catches up when it can. This can be mitigated with some kind of backoff protocol by which the consumer can indicate it is overwhelmed, but getting the rate of transfer to fully utilize (but never over-utilize) the consumer is trickier than it seems. Previous attempts at building systems in this fashion led us to go with a more traditional pull model.
+</p>
+
 <h2>Distribution</h2>
+
+TODO
 
 <h1>Implementation Details</h1>
 
@@ -198,7 +207,7 @@ The following gives a brief description of some relevant implementation details.
 </p>
 <h2>API Design</h2>
 <p>
-	
+TODO
 </p>
 
 <h2>Network Layer</h2>
@@ -244,5 +253,7 @@ Note that two kinds of corruption must be handled: truncation in which an unwrit
 </p>
 
 <h2>Distribution</h2>
+
+TODO
 
 <?php require "../includes/footer.php" ?>

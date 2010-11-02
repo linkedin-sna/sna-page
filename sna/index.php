@@ -42,6 +42,9 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
           DJ Patil &ndash; <a href="http://radar.oreilly.com/2009/04/linkedin-chief-scientist-on-analytics-and-bigdata.html">O'Reilly interview</a>, <a href="http://vodpod.com/watch/2512643-dj-patil-on-how-big-data-impacts-analytics">How Big Data Impacts Analytics</a>, <a href="http://vodpod.com/watch/2356731-dj-patil-product-analytics-at-linkedin-andreas-weigend-on-data-product-development">Data &amp; Product Development</a>, <a href="http://www.youtube.com/watch?v=se2u5RyGaNE">Social Network Visualization</a>
    </li>
    <li>
+     Chris Riccomini &ndash; <a href="images/avatara-sam-sig.ppt">Avatara</a>, SDForum, SAM SIG
+   </li>
+   <li>
      <a href="http://snap.stanford.edu/nipsgraphs2009/papers/xiang-paper.pdf">Modeling Relationship Strength in Online Social Networks</a> 
      (<a href="http://snap.stanford.edu/nipsgraphs2009">NIPS Graphs 2009</a>)
    </li>

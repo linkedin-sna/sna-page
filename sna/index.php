@@ -23,7 +23,7 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
 <div class="section_label"><a name="talks">papers &amp; talks</a></div>
 <span>
 <ul>
-  <li>Jospeh Adler &ndash; <a href="http://en.oreilly.com/datascience/public/schedule/detail/15330">O'Reilly</li>
+  <li>Joseph Adler &ndash; <a href="http://en.oreilly.com/datascience/public/schedule/detail/15330">When is Data Size a Problem?</a>, <a href="http://strataconf.com/strata2011/public/schedule/detail/17164">Working with Data (O'Reilly Strata Conference)</a></li>
   <li>Chris Conrad &ndash; <a href="http://days2010.scala-lang.org/node/138/159">Scala Days 2010</a></li>
 	<li>Voldemort &ndash;
           <a href="http://www.vimeo.com/5187210">NoSQL SF</a>, 
@@ -45,6 +45,8 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
      <a href="http://snap.stanford.edu/nipsgraphs2009/papers/xiang-paper.pdf">Modeling Relationship Strength in Online Social Networks</a> 
      (<a href="http://snap.stanford.edu/nipsgraphs2009">NIPS Graphs 2009</a>)
    </li>
+   <li>Sam Shah &ndash; <a href="http://strataconf.com/strata2011/public/schedule/detail/16932">Building data products with Hadoop</a> (O'Reilly Strata)</li>
+   <li>Pete Skomoroch &ndash; <a href="http://strataconf.com/strata2011/public/schedule/detail/17174">Distilling Data Exhaust: How to Surface Insights and Build Products</a> (O'Reilly Strata)</li>
 </ul>
    
 </span>
@@ -143,7 +145,7 @@ new TWTR.Widget({
 	</tr>
     <tr>
 		<?php echo_person("Parul Jain", "Senior Software Engineer", "/pub/parul-jain/4/90/9a8", img("/p/3/000/00b/085/39d397f.jpg"), ""); ?>
-    	<?php echo_person("Russell Jurney", "Senior Data Scientist", "/in/russelljurney", img("/p/2/000/05e/03a/365f589.jpg"), ""); ?>
+    	<?php echo_person("Russell Jurney", "Senior Data Scientist", "/in/russelljurney", img("/p/3/000/062/229/0174593.jpg"), ""); ?>
     	<?php echo_person("Jonathan Koren", "Software Engineer", "/in/jonathankoren", img("/p/2/000/010/03d/2e11840.jpg"), ""); ?>
     	<?php echo_person("Esteban Kozak", "Principal Product Manager", "/in/estebankozak", img("/p/1/000/00d/3a1/3fb949d.jpg"), ""); ?>
 		<?php echo_person("Jay Kreps", "Engineering Manager/Principal Engineer", "/in/jaykreps", img("/p/3/000/059/109/0f66917.jpg"), ""); ?>
@@ -173,7 +175,7 @@ new TWTR.Widget({
 		<?php echo_person("Jeffrey Schang", "Senior Software Engineer", "/in/jeffreyschang", img("/p/1/000/021/3ec/2b25c67.jpg"), ""); ?>
 		<?php echo_person("Sam Shah", "Senior Software Engineer", "/in/shahsam", img("/p/3/000/018/120/0bb01cb.jpg"), ""); ?>
 		<?php echo_person("Wei Shen", "Senior Software Engineer", "/in/weshen", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
-		<?php echo_person("Peter Skomoroch", "Senior Research Scientist", "/in/peterskomoroch", img("/p/3/000/004/1f9/0edc5a2.jpg"), ""); ?>
+		<?php echo_person("Peter Skomoroch", "Senior Research Scientist", "/in/peterskomoroch", img("/p/3/000/071/2a0/0eaf84d.jpg"), ""); ?>
 		<?php echo_person("Adam Smyczek", "Senior Software Engineer", "/in/adamsmyczek", img("/p/2/000/010/36f/3e79125.jpg"), ""); ?>
 	</tr>
 	<tr>

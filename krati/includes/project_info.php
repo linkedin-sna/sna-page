@@ -33,5 +33,5 @@
   $PROJ_PRIMARY_COLOR = "#FF4400";
 
   /* Google analytics tracking code */
-  $PROJ_GOOGLE_ANALYTICS = "UA-7818013-1";
+  $PROJ_GOOGLE_ANALYTICS = "UA-7818013-2";
 ?>

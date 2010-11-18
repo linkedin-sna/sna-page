@@ -32,7 +32,7 @@
   $PROJ_PRIMARY_COLOR = "#BB3300";
 
   /* Google analytics tracking code */
-  $PROJ_GOOGLE_ANALYTICS = "UA-9659884-2";
+  $PROJ_GOOGLE_ANALYTICS = "UA-7818013-2";
   
   $PROJ_HTML = '<iframe src="http://www.facebook.com/plugins/likebox.php?id=152613021424304&amp;width=150&amp;connections=2&amp;stream=false&amp;header=false&amp;height=255" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:255px;" allowTransparency="true"></iframe>';
 

@@ -3,10 +3,10 @@
   $PROJ_NAME = "Kafka";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "A high-throughput, publish-subscribe message queue.";
+  $PROJ_SUBTITLE = "A high-throughput distributed messaging system.";
 
   /* HTML header description for SEO */
-  $PROJ_DESCRIPTION = "A high-throughput, publish-subscribe message queue.";
+  $PROJ_DESCRIPTION = "A high-throughput, distributed, publish-subscribe messaging system.";
 
   /* HTML header keywords for SEO */
   $PROJ_KEYWORDS = "keywords!";
@@ -16,9 +16,10 @@
   $PROJ_FAVICON_MIME = "image/png";
 
   /* Navigation links in the sidebar */
-  $PROJ_NAV_LINKS = array("design" => "design.php",
-                          "zookeeper (merge this into design)" => "zookeeper.php",
+  $PROJ_NAV_LINKS = array("download" => "#",
+                          "code" => "#",
                           "quickstart" => "quickstart.php",
+                          "design" => "design.php",
                           "wiki" => "http://snaprojects.jira.com/browse/KAFKA",
                           "bugs" => "http://snaprojects.jira.com/wiki/display/KAFKA",
                           "mailing list" => "http://groups.google.com/group/kafka-dev"

@@ -38,7 +38,11 @@ Download either <a href="http://github.com/voldemort/voldemort/downloads">a rece
  
  // create a client that executes operations on a single store
  StoreClient<String, String> client = factory.getStoreClient("my_store_name");
- 
+</pre>
+
+<p>After initializing the store client for every store once we can reuse it to run our queries as follows:</p>
+
+<pre> 
  // do some random pointless operations
  Versioned<String> value = client.get("some_key");
  value.setObject("some_value");

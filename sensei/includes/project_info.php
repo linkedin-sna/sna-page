@@ -12,8 +12,11 @@
   $PROJ_KEYWORDS = "distributed,search,database,cluster,cloud,zoie,bobo,norbert,lucene,zookeeper";
 
   /* Favicon image file location and type */
-  $PROJ_FAVICON_PATH = "http://path/to/favicon.png";
-  $PROJ_FAVICON_MIME = "image/png";
+  $PROJ_FAVICON_PATH = "images/sensei_black_fav.jpg";
+  $PROJ_FAVICON_MIME = "image/jpg";
+  
+  
+  $PROJ_ICON_PATH = "images/sensei_white_transparent_s.png";
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("issues" => "http://snaprojects.jira.com/browse/SENSEI",

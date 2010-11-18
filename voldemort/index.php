@@ -32,7 +32,7 @@ a caching layer which will require hashtable semantics anyway.  For these applic
 </p>
 <ul>
   <li>Voldemort combines in memory caching with the storage system so that a separate caching tier is not required (instead the storage system itself
-      is just fast.</li>
+      is just fast)</li>
   <li>Unlike MySQL replication, both reads and writes scale horizontally</li>
   <li>Data portioning is transparent, and allows for cluster expansion without rebalancing all data</li>
   <li>Data replication and placement is decided by a simple API to be able to accommodate a wide range of application specific strategies</li>

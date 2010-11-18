@@ -18,6 +18,7 @@
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("download" => "#",
                           "code" => "#",
+                          "performance" => "performance.php",
                           "quickstart" => "quickstart.php",
                           "design" => "design.php",
                           "wiki" => "http://snaprojects.jira.com/browse/KAFKA",

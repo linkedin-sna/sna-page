@@ -20,6 +20,8 @@
                           "code" => "#",
                           "performance" => "performance.php",
                           "quickstart" => "quickstart.php",
+                          "configuration" => "configuration.php",
+                          "performance" => "performance.php",
                           "design" => "design.php",
                           "wiki" => "http://snaprojects.jira.com/browse/KAFKA",
                           "bugs" => "http://snaprojects.jira.com/wiki/display/KAFKA",
@@ -27,7 +29,7 @@
                           );
 
   /* Project color */
-  $PROJ_PRIMARY_COLOR = "#330000";
+  $PROJ_PRIMARY_COLOR = "#2e4a8e";
 
   /* Google analytics tracking code */
   $PROJ_GOOGLE_ANALYTICS = "UA-7818013-2";

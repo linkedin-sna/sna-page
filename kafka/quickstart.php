@@ -69,9 +69,9 @@ $ ./kafka-server.sh server.properties
 The server can be instantiated directly in your code.
 
 <pre>
-val props = Utils.loadProps(“/path/to/server.properties”)
-val server = new KafkaServer(new KafkaConfig(props))
-server.startup
+Properties props = Utils.loadProps(“/path/to/server.properties”);
+KafkaServer server = new KafkaServer(new KafkaConfig(props));
+server.startup();
 </pre>
 
 <h3> Consumer </h3>
@@ -79,19 +79,18 @@ server.startup
 <h4> Simple Consumer </h4>
 
 <pre>
-<small>
-// create a consumer to connect to the server host, port, socket timeout of 10 secs, socket receive buffer of ~1MB
-</small>val consumer = new SimpleConsumer(host, port, 10000, 1024000)
+<small>// create a consumer to connect to the server host, port, socket timeout of 10 secs, socket receive buffer of ~1MB</small>
+SimpleConsumer consumer = new SimpleConsumer(host, port, 10000, 1024000);
 
 <small>// create a fetch request for topic “test”, partition 0, offset 0 and fetch size of 1MB</small>
-val fetchRequest = new FetchRequest(“test”, 0, 0, 1000000)
+FetchRequest fetchRequest = new FetchRequest(“test”, 0, 0, 1000000);
 
 <small>// get the message set from the consumer</small>
-val messageSets = consumer.multifetch(fetchRequest)
+ByteBufferMessageSet messageSets = consumer.multifetch(fetchRequest);
 
 <small>// Iterate through the messages</small>
-for(message <- messages) {
-   println("consumed: " + Utils.toString(message.payload, "UTF-8"))
+for(message : messages) {
+   System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"))
 }
 </pre>
 
@@ -99,49 +98,53 @@ for(message <- messages) {
 
 <pre>
 <small>// create consumer properties</small>
-val props = new Properties
+Properties props = new Properties();
 <small>// specify the zookeeper connection url for the local zookeeper</small>
-props.put(“zk.connect”, “localhost:2181”)
+props.put(“zk.connect”, “localhost:2181”);
 <small>// specify the zookeeper connection timeout</small>
-props.put(“zk.connectiontimeoutms”, “1000000”)
+props.put(“zk.connectiontimeoutms”, “1000000”);
 <small>// specify the name of the consumer group</small>
-props.put(“groupid”, “test_group”)
+props.put(“groupid”, “test_group”);
 
 <small>// create the consumer config</small>
-val consumerConfig = new ConsumerConfig(props)
+ConsumerConfig consumerConfig = new ConsumerConfig(props);
 
-<small>// create the zookeeper consumer </small>
-val consumerConnector: ConsumerConnector = Consumer.create(consumerConfig)
+<small>// create the zookeeper consumer</small> 
+ConsumerConnector consumerConnector = Consumer.create(consumerConfig);
 
 <small>// create 4 consumer partitioned streams for topic “test”</small>
-val topicMessageStreams = consumerConnector.createMessageStreams(Predef.Map(“test” -> 4))
+Map&lt;String, List&lt;KafkaMessageStream>> topicMessageStreams = consumerConnector.createMessageStreams(createMap(“test”, 4));
 
 <small>// create list of 4 threads to consume from its respective message stream</small>
-var threadList = List[ZKConsumerThread]()
-for ((topic, streamList) <- topicMessageStreams)
-  for (stream <- streamList)
-    threadList ::= new ZKConsumerThread(stream)
-
-for (thread <- threadList)
-  thread.start
+List threadList = new ArrayList&lt;ZKConsumerThread>();
+for(Map.Entry&lt;String, List&lt;KafkaMessageStream>> topicStream : topicMessageStreams.entrySet)
+  for(stream : topicStream.value())
+    threadList.add(new ZKConsumerThread(stream));
+</code>
+for (thread : threadList)
+  thread.start();
 
 <small>// the class describing each consumer processing thread</small>
-class ZKConsumerThread(stream: KafkaMessageStream) extends Thread {
-  val shutdownLatch = new CountDownLatch(1)
+class ZKConsumerThread extends Thread {
+  private CountDownLatch shutdownLatch = new CountDownLatch(1)
+   private KafkaMessageStream stream = null;
+   public ZKConsumerThread(KafkaMessageStream kstream) {
+	stream = kstream;  	
+   }
 
   override def run() {
-    println("Starting consumer thread..")
-    for (message <- stream) {
-      println("consumed: " + Utils.toString(message.payload, "UTF-8"))
+    System.out.println("Starting consumer thread..");
+    for (message : stream) {
+      System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"));
     }
-    shutdownLatch.countDown
-    println("thread shutdown !" )
+    shutdownLatch.countDown();
   }
 
   def shutdown() {
-    shutdownLatch.await
+    shutdownLatch.await();
   }          
 }
+
 </pre>
 
 <?php require "../includes/footer.php" ?>

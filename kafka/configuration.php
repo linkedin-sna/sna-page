@@ -4,77 +4,76 @@
 
 <h2> Configuration </h2>
 
-<h3> Server </h3>
+<h3> Important configuration properties for Kafka broker: </h3>
 
-<h4> server.properties </h4>
+<p>
+<ul>
+<li> When deploying multiple broker servers in the same kafka instance, each broker needs to have a unique <code>broker.id</code>.
+</li>
 
-<p>This file contains parameters required to start up a single instance of Kafka. Here is what each of those parameters mean -</p>
+<li> For better performance, kafka server flushes data to disks periodically. A produced message is only exposed to the consumer after
+it's flushed to disk. The flush frequency can be controlled by the number of messages received.
+<ul>
+<li>    <code>log.flush.interval</code> controls the number of messages accumulated in each topic (partition) before the data is flushed to disk.
+</li>
+</ul>
+Alternatively, the flush frequency can be controlled by time.
+<ul>
+<li> <code>log.default.flush.scheduler.interval.ms</code> controls the frequency that the time-based log flusher checks whether any log needs to be flushed to disk.
+</li>
+<li> <code>log.default.flush.interval.ms</code> controls the maximum time that a message in any topic is kept in memory before flushed to disk. The value only makes sense if it's a multiple of <code>log.default.flush.scheduler.interval.ms</code>.
+</li>
+<li> <code>topic.flush.intervals.ms</code> controls the maximum time that a message in selected topics is kept in memory before flushed to disk. The per-topic value only makes sense if it's a multiple of <code>log.default.flush.scheduler.interval.ms</code>.
+</li>
+</ul>
 
-<li><i>hostname</i>&mdash; the hostname of the broker. If not set, will pick up from the value returned from getLocalHost</li></li>
+<li><code>log.cleanup.interval.mins</code> controls how often the log cleaner checks logs eligible for deletion. A log file is eligible for deletion if it hasn't been modified for <code>log.retention.hours</code> hours.
+</li>
 
-<li><i>port</i>&mdash; the broker port to listen and accept connections on</li>
+<li><code>log.dir</code> specifies the root directory in which all log data is kept.</li> 
 
-<li><i>broker.id</i>&mdash; the id for this server</li>
+<li><code>log.file.size</code> controls the maximum size of a single log file.</li>
 
-<li><i>socket.send.buffer</i>&mdash; the SO_SNDBUFF buffer of the socket sever sockets</li>
+<li><code>num.threads</code> controls the number of worker threads in the broker to serve all requests.</li>
 
-<li><i>socket.receive.buffer</i>&mdash; the SO_RCVBUFF buffer of the socket sever sockets</li>
+<li><code>num.partitions</code> specified the default number of partitions per topic.</li> 
 
-<li><i>max.socket.request.bytes</i>&mdash; the maximum number of bytes in a socket request</li>
+<li><code>topic.partition.count.map</code> controls the number of partitions for selected topics. </li>
 
-<li><i>num.threads</i>&mdash; the number of threads the server uses</li>
+<li> <code>zk.connect</code> specifies the zookeeper connection string. </li>
 
-<li><i>monitoring.period.secs</i>&mdash; the interval in which to measure performance statistics</li>
+<li> <code>zk.connectiontimeout.ms</code> specifies the max time that the client waits to establish a connection to zookeeper.</li>
 
-<li><i>num.partitions</i>&mdash; the number of log partitions per topic</li> 
+<li> <code>zk.sessiontimeout.ms</code><code>zk.connectiontimeout.ms</code> is the zookeeper session timeout. </li>
 
-<li><i>log.dir</i>&mdash; the directory in which the log data is kept</li> 
+<li> More details about server configuration can be found at <code>kafka.server.KafkaConfig</code>. </li>
 
-<li><i>log.file.size</i>&mdash; the maximum size of a single log file</li>
+</ul>
+</p>
 
-<li><i>log.flush.interval</i>&mdash; the number of messages to accept without flushing the log to disk</li>
 
-<li><i>log.retention.hours</i>&mdash; the number of hours to keep log data before deleting it</li>
+<h3> Important configuration properties for the high-level consumer: </h3>
 
-<li><i>log.cleanup.interval.mins</i>&mdash; the number of minutes between checking for logs eligible for deletion</li>
+<ul>
+<li><code>groupid</code> is a string that uniquely identifies a set of consumers within the same consumer group. </li>
 
-<li><i>enable.zookeeper</i>&mdash; enable zookeeper registration in the server</li>
+<li><code>autocommit.enable</code>, if set to true, the consumer periodically commits to zookeeper the latest consumed offset of each partition. </li>
 
-<li><i>topic.flush.intervals.ms</i>&mdash; topic flush interval map topic_name => key, int => flush interval in seconds</li>
+<li><code>autocommit.interval.ms</code> is the frequency that the consumed offsets are committed to zookeeper. </li>
 
-<li><i>log.default.flush.interval.ms</i>&mdash; default topic flush interval in ms</li>
+<li><code>autooffset.reset</code> controls what to do if an offset is out of range.
+<ul>
+ <li> <code>smallest</code>: automatically reset the offset to the smallest offset available on the broker.</li>
+ <li> <code>largest</code> : automatically reset the offset to the largest offset available on the broker.</li>
+ <li> <code>anything else</code>: throw an exception to the consumer</li>
+</ul>
+</li>
 
-<li><i>log.default.flush.scheduler.interval.ms</i>&mdash; default topic scheduler flusher time interval to schedule flush on log files </li>
+<li><code>consumer.timeout.ms</code>: By default, this value is -1 and a consumer blocks indefinitely if no new message is available for consumption. By setting the value to a positive integer, a timeout exception is thrown to the consumer if no message is available for consumption after the specified timeout value. </li>
 
-<li><i>topic.partition.count.map</i>&mdash; topic partition count map (topic_name => key, int => # of partitions)</li>
+<li><code>zk.connect</code>, <code>zk.connectiontimeout.ms</code> and <code>zk.connectiontimeout.ms</code> are the same as described in the broker configuration.</li>
 
-<h3> Zookeeper Consumer </h3>
-
-<h4> consumer.properties </h4>
-
-<li><i>groupid</i>&mdash; consumer group ID 
-
-<li><i>consumerid</i>&mdash; Set this explicitly for only testing purpose. It is generated automatically if not set</li>
-
-<li><i>zk.session.timeoutms</i>&mdash; the socket timeout for network requests</li>
-
-<li><i>socket.buffersize</i>&mdash; the socket receive buffer for network requests</li>
-
-<li><i>fetch.size</i>&mdash; the number of byes of messages to attempt to fetch</li>
-
-<li><i>backoff.incrementms</i>&mdash; to avoid repeatedly polling a broker node which has no new data we will backoff every time we get an incomplete response from that broker (i.e. fewer than fetchSize bytes). Each successive incomplete request increments the backoff by this amount</li> 
-
-<li><i>autocommit.enable</i>&mdash; if true automatically commit any message set fetched without waiting for confirmation from the consumer of processing</li>
-
-<li><i>autocommit.intervalms</i>&mdash; the interval at which the auto commit thread will commit the data</li>
-
-<li><i>queuedchunks.max</i>&mdash; max fetched chunks in a queue </li>
-
-<li><i>autooffset.reset</i>&mdash; if the consumer tries fetching an invalid offset, this options decides if the offset can automatically be reset to either the earliest or the latest offset available on the server </li>  
-
-<li><i>consumer.timeoutms</i>&mdash; this option times out the consumer threads if there is no data consumed for this period</li>
-
-<li><i>embeddedconsumer.topics</i>&mdash; this option is useful for replicating the data from a remote Kafka server locally. The replication is performed for the topics specified here. The format is topic1:1,topic2:1</li> 
-
+<li> More details about server configuration can be found at <code>kafka.consumer.ConsumerConfig</code>. </li>
+</ul>
 <?php require "../includes/footer.php" ?>
 

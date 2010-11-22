@@ -21,7 +21,7 @@ In recent years, however, activity data has become a critical part of the produc
 	<li>Relevance and ranking uses which may want to count ratings or votes or click-through to determine which of a given set of items is most popular or relevant.</li>
 	<li>Security: Sites need to block abusive crawlers, rate-limiting apis, detecting spamming attempts, and other detection and prevention systems that key off site activity.</li>
 	<li>Operational monitoring: Most sites needs some kind of real-time, heads-up monitoring that can track performance and trigger alerts if something goes wrong.</li>
-	<li>Reporting and Batch processing: It is common to load data into a datawarehouse or Hadoop system for offline analysis and reporting on business activity</li>
+	<li>Reporting and Batch processing: It is common to load data into a data warehouse or Hadoop system for offline analysis and reporting on business activity</li>
 </ul>
 </p>
 <h2>Characteristics of activity stream data</h2>	
@@ -243,6 +243,14 @@ class SimpleConsumer {
    */ 
   public MultiFetchResponse multifetch(List&lt;FetchRequest&gt; fetches);
 
+  /**
+   * Get a list of valid offsets (up to maxSize) before the given time.
+   * The result is a list of offsets, in descending order.
+   * @param time: time in millisecs,
+   *              if set to OffsetRequest$.MODULE$.LATIEST_TIME(), get from the latest offset available.
+   *              if set to OffsetRequest$.MODULE$.EARLIEST_TIME(), get from the earliest offset available.
+   */
+  public long[] getOffsetsBefore(String topic, int partition, long time, int maxNumOffsets);
 }
 </pre>
 
@@ -288,7 +296,7 @@ Messages consist of a fixed-size header and variable length opaque byte array pa
 A log for a topic named "my_topic" with two partitions consists of two directories (namely <code>my_topic_0</code> and <code>my_topic_1</code>) populated with data files containing the messages for that topic. The format of the log files is a sequence of "log entries""; each log entry is a 4 byte integer <i>N</i> storing the message length which is followed by the <i>N</i> message bytes. Each message is uniquely identified by a 64-bit integer <i>offset</i> giving the byte position of the start of this message in the stream of all messages ever sent to that topic on that partition. The on-disk format of each message is given below. Each log file is named with the offset of the first message it contains. So the first file created will be 00000000000.kafka, and each additional file will have an integer name roughly <i>N</i> bytes from the previous file where <i>N</i> is the max log file size given in the configuration.
 </p>
 <pre>
-Message on-disk format
+On-disk format of a message
 
 message length : 4 bytes (value: 1+4+n) 
 magic value    : 1 byte
@@ -451,7 +459,8 @@ Consumer rebalancing is triggered on each addition or removal of both broker nod
    6.   let i be the index position of Ci in LIST_C and N = LIST_P.size/LIST_C.size
    7.   assign partitions from i*N to (i+1)*N - 1 to consumer Ci
    8.   remove current entries owned by Ci from the partition owner registry
-   9.   add newly assigned partitions to the partition owner registry (we may need to re-try this until the original partition owner releases its ownership)
+   9.   add newly assigned partitions to the partition owner registry 
+        (we may need to re-try this until the original partition owner releases its ownership)
 </pre>
 <p>
 When rebalancing is triggered at one consumer, rebalancing should be triggered in other consumers within the same group about the same time.

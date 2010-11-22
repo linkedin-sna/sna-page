@@ -6,77 +6,123 @@
 	
 <h3> Step 1: Download the code </h3>
 
-Download a recent stable release from here
-
-<h3> Step 2: Start a local Kafka server </h3>
+Download a recent stable release from here.
 
 <pre>
->./kafka-server.sh server.properties
+<b>&gt; tar xzf kafka-&lt;VERSION&gt;.tgz</b>
+<b>&gt; cd kafka-&lt;VERSION&gt;</b>
 </pre>
 
-<h3> Step 3: Start a producer </h3>
+<h3>Step 2: Start the server</h3>
 
-Start a producer to send messages to the local kafka server for topic “test”
+Kafka brokers and consumers use this for co-ordination. 
+<p>
+First start the zookeeper server. You can use the convenience script packaged with kafka to get a quick-and-dirty single-node zookeeper instance.
 
 <pre>
-./run-class.sh kafka.TestProducer 
-USAGE: kafka.TestProducer$ kafka.properties topic
+<b>&gt; bin/zookeeper-server-start.sh config/zookeeper.properties</b>
+[2010-11-21 23:45:02,335] INFO Reading configuration from: config/zookeeper.properties 
+...
+</pre>
 
->./run-class.sh kafka.TestProducer server.properties test
+Now start the Kafka server:
+<pre>
+<b>&gt; bin/kafka-server.sh config/server.properties</b>
+jkreps-mn-2:kafka-trunk jkreps$ bin/kafka-server-start.sh config/server.properties 
+[2010-11-21 23:51:39,608] INFO starting log cleaner every 60000 ms (kafka.log.LogManager)
+[2010-11-21 23:51:39,628] INFO connecting to ZK: localhost:2181 (kafka.server.KafkaZooKeeper)
+...
+</pre>
+
+<h3>Step 3: Send some messages</h3>
+
+A toy producer script is available to send plain text messages. To use it, run the following command:
+
+<pre>
+<b>&gt; bin/kafka-producer-shell.sh --server kafka://localhost:9092 --topic test</b>
 > hello
 sent: hello (14 bytes)
 > world
 sent: world (14 bytes)
 </pre>
 
-<h3> Step 4: Start a consumer </h3>
+<h3>Step 5: Start a consumer</h3>
 
-Start a consumer to process messages from the local Kafka server for topic “test” and default partition 0
+Start a toy consumer to dump out the messages you sent to the console:
 
 <pre>
-./run-class.sh kafka.TestConsumer 
-USAGE: kafka.TestConsumer$ kafka.properties topic partition
-
-./run-class.sh kafka.TestConsumer server.properties test 0
+<b>&gt; bin/kafka-consumer-shell.sh --topic test --props config/consumer.properties</b>
 Starting consumer...
-multi fetched 28 bytes from offset 0
+...
 consumed: hello
 consumed: world
 </pre>
 
-<h2> Details </h2>
+If you have each of the above commands running in a different terminal then you should now be able to type messages into the producer terminal and see them appear in the consumer terminal.
 
-<h3> Server </h3>
+<h3>Step 4: Write some code</h3>
 
-<h4> 1. Start from the command line </h4>
+Below is some very simple examples of using Kafka for sending messages, more complete examples can be found in the Kafka source code in the examples/ directory.
 
-You must first build the jar using ant, then do the following -
+<h4>Producer Code</h4>
 
-<pre>
-$ KAFKA_HOME=’/path/to/kafka’
-$ cd $KAFKA_HOME
-$ ./kafka-server.sh server.properties
-[2010-11-18 10:33:00,608] INFO No log directory found, creating '/tmp/kafka-logs' (kafka.log.LogManager)
-[2010-11-18 10:33:00,632] INFO starting log cleaner every 60000 ms (kafka.log.LogManager)
-[2010-11-18 10:33:00,751] INFO Starting Kafka server... (kafka.server.KafkaServer)
-[2010-11-18 10:33:00,833] INFO Awaiting connections on port 9092 (kafka.network.Acceptor)
-[2010-11-18 10:33:00,839] INFO starting log flusher every 5000 ms with flush map Map() (kafka.log.LogManager)
-[2010-11-18 10:33:00,839] INFO Server started. (kafka.server.KafkaServer)
-</pre>
-
-<h4> Embedded server </h4>	
-
-The server can be instantiated directly in your code.
+Using the producer is quite simple:
 
 <pre>
-Properties props = Utils.loadProps(“/path/to/server.properties”);
-KafkaServer server = new KafkaServer(new KafkaConfig(props));
-server.startup();
+String host = "localhost";
+int port = 9092;
+int bufferSize = 64*1024;
+int connectionTimeoutMs = 30*1000;
+int reconnectInterval = 1000;
+KafkaProducer producer = new KafkaProducer(host, port, bufferSize, connectionTimeoutMs, reconnectInterval);
+
+String topic = "test";
+int partition = 0;
+List<Message> messages = Arrays.asList(new Message("a message".getBytes()), 
+	                                   new Message("another message".getBytes()),
+	                                   new Message("a third message".getBytes()));
+producer.send(topic, partition, messages)
 </pre>
 
-<h3> Consumer </h3>
+<h4>Consumer Code</h4>
+
+The consumer code is slightly more complex as it enables multithreaded consumption:
+
+<pre>
+// specify some consumer properties
+Properties props = new Properties();
+props.put(“zk.connect”, “localhost:2181”);
+props.put(“zk.connectiontimeoutms”, “1000000”);
+props.put(“groupid”, “test_group”);
+
+// Create the connection to the cluster
+ConsumerConfig consumerConfig = new ConsumerConfig(props);
+ConsumerConnector consumerConnector = Consumer.create(consumerConfig);
+
+// create 4 partitions of the stream for topic “test”, to allow 4 threads to consume
+Map&lt;String, List&lt;KafkaMessageStream&gt;&gt; topicMessageStreams = 
+    consumerConnector.createMessageStreams(ImmutableMap.of(“test”, 4));
+List&lt;KafkaMessageStream&gt; streams = topicMessageStreams.get("test")
+
+// create list of 4 threads to consume from each of the partitions 
+ExecutorService executor = Executors.newFixedThreadPool(4);
+
+// consume the messages in the threads
+for(KafkaMessageStream>> stream: streams) {
+  final KafkaMessageStream stream = topicStream.getValue();
+  executors.submit(new Runnable() {
+    public void run() {
+      for(Message message: stream) {
+        // process message
+      }	
+    }
+  });
+}
+</pre>
 
 <h4> Simple Consumer </h4>
+
+Kafka has a lower-level consumer api for reading message chunks directly from servers. Under most circumstances this should not be needed. It's usage is as follows:
 
 <pre>
 <small>// create a consumer to connect to the server host, port, socket timeout of 10 secs, socket receive buffer of ~1MB</small>
@@ -85,66 +131,10 @@ SimpleConsumer consumer = new SimpleConsumer(host, port, 10000, 1024000);
 <small>// create a fetch request for topic “test”, partition 0, offset 0 and fetch size of 1MB</small>
 FetchRequest fetchRequest = new FetchRequest(“test”, 0, 0, 1000000);
 
-<small>// get the message set from the consumer</small>
+<small>// get the message set from the consumer and print them out</small>
 ByteBufferMessageSet messageSets = consumer.multifetch(fetchRequest);
-
-<small>// Iterate through the messages</small>
-for(message : messages) {
+for(message : messages)
    System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"))
-}
-</pre>
-
-<h4> Zookeeper Consumer </h4>
-
-<pre>
-<small>// create consumer properties</small>
-Properties props = new Properties();
-<small>// specify the zookeeper connection url for the local zookeeper</small>
-props.put(“zk.connect”, “localhost:2181”);
-<small>// specify the zookeeper connection timeout</small>
-props.put(“zk.connectiontimeoutms”, “1000000”);
-<small>// specify the name of the consumer group</small>
-props.put(“groupid”, “test_group”);
-
-<small>// create the consumer config</small>
-ConsumerConfig consumerConfig = new ConsumerConfig(props);
-
-<small>// create the zookeeper consumer</small> 
-ConsumerConnector consumerConnector = Consumer.create(consumerConfig);
-
-<small>// create 4 consumer partitioned streams for topic “test”</small>
-Map&lt;String, List&lt;KafkaMessageStream>> topicMessageStreams = consumerConnector.createMessageStreams(createMap(“test”, 4));
-
-<small>// create list of 4 threads to consume from its respective message stream</small>
-List threadList = new ArrayList&lt;ZKConsumerThread>();
-for(Map.Entry&lt;String, List&lt;KafkaMessageStream>> topicStream : topicMessageStreams.entrySet)
-  for(stream : topicStream.value())
-    threadList.add(new ZKConsumerThread(stream));
-</code>
-for (thread : threadList)
-  thread.start();
-
-<small>// the class describing each consumer processing thread</small>
-class ZKConsumerThread extends Thread {
-  private CountDownLatch shutdownLatch = new CountDownLatch(1)
-   private KafkaMessageStream stream = null;
-   public ZKConsumerThread(KafkaMessageStream kstream) {
-	stream = kstream;  	
-   }
-
-  override def run() {
-    System.out.println("Starting consumer thread..");
-    for (message : stream) {
-      System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"));
-    }
-    shutdownLatch.countDown();
-  }
-
-  def shutdown() {
-    shutdownLatch.await();
-  }          
-}
-
 </pre>
 
 <?php require "../includes/footer.php" ?>

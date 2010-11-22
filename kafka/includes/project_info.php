@@ -18,6 +18,7 @@
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("download" => "#",
                           "code" => "#",
+                          "performance" => "performance.php",
                           "quickstart" => "quickstart.php",
                           "configuration" => "configuration.php",
                           "performance" => "performance.php",

@@ -46,7 +46,7 @@ Alternatively, the flush frequency can be controlled by time.
 
 <li> <code>zk.sessiontimeout.ms</code> is the zookeeper session timeout. </li>
 
-<li> More details about server configuration can be found at <code>kafka.server.KafkaConfig.scala</code>. </li>
+<li> More details about server configuration can be found in the scala class <code>kafka.server.KafkaConfig</code>. </li>
 
 </ul>
 </p>
@@ -73,7 +73,7 @@ Alternatively, the flush frequency can be controlled by time.
 
 <li><code>zk.connect</code>, <code>zk.connectiontimeout.ms</code> and <code>zk.connectiontimeout.ms</code> are the same as described in the broker configuration.</li>
 
-<li> More details about server configuration can be found at <code>kafka.consumer.ConsumerConfig.scala</code>. </li>
+<li> More details about server configuration can be found in the scala class <code>kafka.consumer.ConsumerConfig</code>. </li>
 </ul>
 <?php require "../includes/footer.php" ?>
 

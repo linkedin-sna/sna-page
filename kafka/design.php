@@ -316,7 +316,7 @@ The exact binary format for messages is versioned and maintained as a standard i
 On-disk format of a message
 
 message length : 4 bytes (value: 1+4+n) 
-"magic" value    : 1 byte
+"magic" value  : 1 byte
 crc            : 4 bytes
 payload        : n bytes
 </pre>

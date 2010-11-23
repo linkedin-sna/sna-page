@@ -22,10 +22,21 @@ A good batch workflow system allows a program to be built out of small reusable 
 Schedulers are readily available (both open source and commercial), but tend to be extremely unfriendly to work with&mdash;they are basically bad graphical user interfaces grafted onto 20-year old command-line clients. We wanted something that made it reasonably easy to visualize job hierarchies and run times without the pain. Previous experience made it clear that a good batch programming framework can make batch programming easy and successful in the same way that a web framework can aid web development beyond what you can do with an HTTP library and sockets.
 </p>
 
+<h2>News</h2>
+<h4>Nov 22, 2010: Azkaban Version 0.06 Released.</h4>
+New to This release:
+<ul>
+<li>New UI Style</li>
+<li>AJAX for job list for reduced page load time</li>
+<li>New Flow View for selective execution and restarts</li>
+<li>More job type support (python, ruby)</li>
+</ul>
+<p>Get it <a style="color:#003399" href="https://github.com/azkaban/azkaban/downloads">here</a>.</p>
+
 <h2>State of the project</h2>
 
 <p>
-We have been using Azkaban internally at <a href="http://www.linkedin.com">LinkedIn</a> for more than nine months, and have about a hundred jobs running in it, mostly Hadoop jobs or ETL of some type. Azkaban is quite new as an open source project though, and we are working now to generalize it enough to make it useful for everyone.
+We have been using Azkaban internally at <a href="http://www.linkedin.com">LinkedIn</a> for since early 2009, and have about a hundred jobs running in it, mostly Hadoop jobs or ETL of some type. Azkaban is quite new as an open source project though, and we are working now to generalize it enough to make it useful for everyone.
 </p>
 <p>
 Any patches, bug reports, or feature ideas are quite welcome. We have created a <a href="http://groups.google.com/group/azkaban-dev">mailing list</a> for this purpose.

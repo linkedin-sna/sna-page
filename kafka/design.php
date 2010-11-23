@@ -18,8 +18,8 @@ In recent years, however, activity data has become a critical part of the produc
 <h2>Use cases for activity stream data</h2>
 <ul>
 	<li>"News feed" features that broadcast the activity of your friends.</li>
-	<li>Relevance and ranking uses which may want to count ratings or votes or click-through to determine which of a given set of items is most popular or relevant.</li>
-	<li>Security: Sites need to block abusive crawlers, rate-limiting apis, detecting spamming attempts, and other detection and prevention systems that key off site activity.</li>
+	<li>Relevance and ranking uses count ratings, votes, or click-through to determine which of a given set of items is most relevant.</li>
+	<li>Security: Sites need to block abusive crawlers, rate-limit apis, detect spamming attempts, and maintain other detection and prevention systems that key off site activity.</li>
 	<li>Operational monitoring: Most sites needs some kind of real-time, heads-up monitoring that can track performance and trigger alerts if something goes wrong.</li>
 	<li>Reporting and Batch processing: It is common to load data into a datawarehouse or Hadoop system for offline analysis and reporting on business activity</li>
 </ul>
@@ -28,10 +28,10 @@ In recent years, however, activity data has become a critical part of the produc
 <p>
 This high-throughput stream of immutable activity data represents a real computational challenge as the volume may easily be 10x or 100x larger than the next largest data source on a site.
 </p>
-<p>Traditional log file aggregation is a respectable and scalable approach to supporting offline use cases like reporting or batch processing; but is too high latency for real-time processing and tends to have rather high operational complexity. On the other hand, existing messaging and queuing systems are good for real-time and near-real-time use-cases, but handle large unconsumed queues very poorly since they often treat persistence as an after thought. This creates problems for feeding the data to offline systems like Hadoop that may only consume some sources once per hour or per day. Kafka is intended to be a single queuing platform that can support both offline and online use cases.
+<p>Traditional log file aggregation is a respectable and scalable approach to supporting offline use cases like reporting or batch processing; but is too high latency for real-time processing and tends to have rather high operational complexity. On the other hand, existing messaging and queuing systems are okay for real-time and near-real-time use-cases, but handle large unconsumed queues very poorly often treating persistence as an after thought. This creates problems for feeding the data to offline systems like Hadoop that may only consume some sources once per hour or per day. Kafka is intended to be a single queuing platform that can support both offline and online use cases.
 </p>
 <p>
-Kafka supports fairly general messaging semantics. Nothing ties it to activity processing, although that was our motivating use case.
+Kafka supports fairly general messaging semantics. Nothing ties it to activity processing, though that was our motivating use case.
 </p>
 
 <h2>Deployment</h2>
@@ -40,7 +40,7 @@ Kafka supports fairly general messaging semantics. Nothing ties it to activity p
 The following diagram gives a simplified view of the deployment topology at LinkedIn.
 </p>
 
-<img src="images/deployment.png">
+<img src="images/tracking_high_level.png">
 
 <p>
 Note that a single kafka cluster handles all activity data from all different sources. This provides a single pipeline of data for both online and offline consumers. This tier acts as a buffer between live activity and asynchronous processing. We also use kafka to replicate all data to a different datacenter for offline consumption.
@@ -67,27 +67,27 @@ Each of these decisions will be discussed in more detail below.
 First some basic terminology and concepts.
 </p>
 <p>
-<i>Messages</i> are the fundamental unit of communication. Messages are <i>published</i> to a <i>topic</i> by a <i>producer</i> which means they are physically sent to a <i>broker</i> (probably on another machine). Some number of <i>consumers</i> subscribe to a topic, and each published message is delivered to all the consumers.
+<i>Messages</i> are the fundamental unit of communication. Messages are <i>published</i> to a <i>topic</i> by a <i>producer</i> which means they are physically sent to a server acting as a <i>broker</i> (probably another machine). Some number of <i>consumers</i> subscribe to a topic, and each published message is delivered to all the consumers.
 </p>
 <p>
-  Producers, consumers, and brokers can all be distributed over multiple machines, and multiple processes within each machine. In the case of consumers, each consumer process belongs to a <i>consumer group</i> and each message is delivered to exactly one process within every consumer group. Hence a consumer group allows many processes and machines to logically act as a single consumer. The concept of consumer group is very powerful and can be used to support both <i>queue</i> and <i>topic</i> found in JMS. To support <i>queue</i>, we can put all consumers in a single consumer group. To support <i>topic</i>, each consumer is put in its own consumer group.
+Kafka is explicitly distributed&mdash;producers, consumers, and brokers can all be run on a cluster of machines that co-operate as a logical group. This happens fairly naturally for brokers and producers, but consumers require some particular support. Each consumer process belongs to a <i>consumer group</i> and each message is delivered to exactly one process within every consumer group. Hence a consumer group allows many processes or machines to logically act as a single consumer. The concept of consumer group is very powerful and can be used to support the semantics of either a <i>queue</i> or <i>topic</i> as found in JMS. To support <i>queue</i> semantics, we can put all consumers in a single consumer group, in which case each message will go to a single consumer. To support <i>topic</i> semantics, each consumer is put in its own consumer group, and then all consumers will receive each message. A more common case in our own usage is that we have multiple logical consumer groups, each consisting of a cluster of consuming machines that act as a logical whole. Kafka has the added benefit in the case of large data that no matter how many consumers a topic has, a message is stored only a single time.
 </p>
 
 <h2>Message Persistence and Caching</h2>
 
 <h3>Don't fear the filesystem!</h3>
 <p>
-Kafka relies heavily on the filesystem for storing and caching messages. There is a general perception that "disks are slow" which makes people skeptical that a persistent structure can offer competitive performance. In fact disks are both much slower and must faster than people expect depending on how they are used; and a properly designed disk structure can be faster than the network.
+Kafka relies heavily on the filesystem for storing and caching messages. There is a general perception that "disks are slow" which makes people skeptical that a persistent structure can offer competitive performance. In fact disks are both much slower and must faster than people expect depending on how they are used; and a properly designed disk structure can often be as fast as the network.
 </p>
 
 <p>
-The key fact about disk performance is that the throughput of hard drives has been diverging from the latency of a disk seek for the last decade. As a result the performance of linear writes on a 6 7200rpm SATA RAID-5 array is about 300MB/sec but the performance of random writes is only about 50k/sec&mdash;a difference of nearly 10000X. These linear reads and writes are the most predictable of all usage patterns, and hence the one detected and optimized best by the operating system using read-ahead and write-behind techniques that prefetch data in large block multiples and group smaller logical writes into large physical writes. A further discussion of this issue can be found in this <a href="http://deliveryimages.acm.org/10.1145/1570000/1563874/jacobs3.jpg">ACM Queue article</a>; they actually find that sequential disk access can be faster than random memory access!
+The key fact about disk performance is that the throughput of hard drives has been diverging from the latency of a disk seek for the last decade. As a result the performance of linear writes on a 6 7200rpm SATA RAID-5 array is about 300MB/sec but the performance of random writes is only about 50k/sec&mdash;a difference of nearly 10000X. These linear reads and writes are the most predictable of all usage patterns, and hence the one detected and optimized best by the operating system using read-ahead and write-behind techniques that prefetch data in large block multiples and group smaller logical writes into large physical writes. A further discussion of this issue can be found in this <a href="http://deliveryimages.acm.org/10.1145/1570000/1563874/jacobs3.jpg">ACM Queue article</a>; they actually find that sequential disk access can in some cases be faster than random memory access!
 </p>
 <p>
 To compensate for this performance divergence modern operating systems have become increasingly aggressive in their use of main memory for disk caching. Any modern OS will happily divert <i>all</i> free memory to disk caching with little performance penalty when the memory is reclaimed. All disk reads and writes will go through this unified cache. This feature cannot easily be turned off without using direct I/O, so even if a process maintains an in-process cache of the data, this data will likely be duplicated in OS pagecache, effectively storing everything twice.
 </p>
 <p>
-Furthermore anyone who has spent any time with Java memory usage knows two things:
+Furthermore we are building on top of the JVM, and anyone who has spent any time with Java memory usage knows two things:
 <ol>
 	<li>The memory overhead of objects is very high, often doubling the size of the data stored (or worse).</li>
 	<li>Java garbage collection becomes increasingly sketchy and expensive as the in-heap data increases.</li>
@@ -145,7 +145,7 @@ To understand the impact of sendfile, it is important to understand the common d
 This is clearly inefficient, there are four copies, two system calls. Using sendfile, this re-copying is avoided by allowing the OS to send the data from pagecache to the network directly. So in this optimized path, only the final copy to the NIC buffer is needed.
 </p>
 <p>
-We expect a common use case to be multiple consumers on a topic. Using the zero-copy optimization above, data is copied into pagecache exactly once and reused on each consumption. By optimizing the common case, messages can be consumed at the limit of the network connection.
+We expect a common use case to be multiple consumers on a topic. Using the zero-copy optimization above, data is copied into pagecache exactly once and reused on each consumption instead of being stored in memory and copied out to kernel space every time it is read. This allows messages to be consumed at a rate that approaches the limit of the network connection.
 </p>
 <p>
 For more background on the sendfile and zero-copy support in Java, see this <a href="http://www.ibm.com/developerworks/linux/library/j-zerocopy">article</a> on IBM developerworks.	
@@ -188,7 +188,7 @@ Kafka does two unusual things with respect to metadata. First the stream is part
 Kafka also maintains this state about what has been consumed to the client. This provides an easy out for some simple cases, and has a few side benefits. In the simplest cases the consumer may simply be entering some aggregate value into a centralized, transactional OLTP database. In this case the consumer can store the state of what is consumed in the same transaction as the database modification. This solves a distributed consensus problem, by removing the distributed part! A similar trick works for some non-transactional systems as well. A search system can store its consumer state with its index segments. Though it may provide no durability guarantees, this means that the index is always in sync with the consumer state: if an unflushed index segment is lost in a crash, the indexes can always resume consumption from the latest checkpointed offset. Likewise our Hadoop load job which does parallel loads from Kafka, does a similar trick. Individual mappers write the offset of the last consumed message to HDFS at the end of the map task. If a job fails and gets restarted, each mapper simply restarts from the offsets stored in HDFS.
 </p>
 <p>
-There is a side benefit of this decision. A consumer can deliberately <i>rewind</i> back to an old offset and reconsume data. This violates the common contract of a queue, but turns out to be an essential feature for many consumers. For example, if the consumer code has a bug and is discovered after some messages are consumed, the consumer can reconsume those messages once the bug is fixed. As another example, rewinding consumption is useful for maintaining a consistent text index.
+There is a side benefit of this decision. A consumer can deliberately <i>rewind</i> back to an old offset and re-consume data. This violates the common contract of a queue, but turns out to be an essential feature for many consumers. For example, if the consumer code has a bug and is discovered after some messages are consumed, the consumer can re-consume those messages once the bug is fixed.
 </p>
 <h3>Push vs. pull</h3>
 <p>
@@ -197,84 +197,98 @@ A related question is whether consumers should pull data from brokers or brokers
 
 <h2>Distribution</h2>
 <p>
-Currently, there is no built-in load balancing between the producers and the brokers in kafka. One can rely on a hardware load balancer to distribute the producer load across multiple brokers.
+Kafka is built to be run across a cluster of machines as the common case. Brokers and consumers co-ordinate through Zookeeper to discover topics and co-ordinate consumption. There is no central "master" node, instead brokers and consumers co-ordinate amongst one-another as homogenious set of peers. The set of machines in the cluster is fully elastic: brokers and consumers can both be added and removed at anytime without any manual configuration change.
 </p>
 <p>
-Kafka does have built-in load balancing between the consumers and the brokers. This is achieved by using zookeeper. Each broker and each consumer register its state in zookeeper. Everytime there is a broker or a consumer change, each consumer is notified about the change through the zookeeper watcher. The consumer then reads the current information about all relevant brokers and consumers, and determines which brokers it should consume data from.
+Currently, there is no built-in load balancing between the producers and the brokers in Kafka; in our own usage we publish from a large number of heterogeneous machines and so it is desirable that the publisher not need any explicit knowledge of the cluster topology. We rely on a hardware load balancer to distribute the producer load across multiple brokers. We will consider adding this in a future release to allow semantic partitioning of messages (i.e. publishing all messages to a particular broker based on some id to ensure an ordered stream of updates within that id).
+</p>
+<p>
+Kafka does have built-in load balancing between the consumers and the brokers. To achieve this co-ordination, each broker and each consumer register its state and maintains its metadata in Zookeeper. When there is a broker or a consumer change, each consumer is notified about the change through the zookeeper watcher. The consumer then reads the current information about all relevant brokers and consumers, and determines which brokers it should consume data from.
+</p>
+<p>
+This kind of cluster-aware balancing of consumption has several advantages:
+<ul>
+	<li>It allows better semantics around ordering for the consumer processes (since all updates to a particular partition are handled in order as a single stream by the consumer).</li>
+	<li>It also enforces fair balancing across the cluster so that every broker is being consumed from.</li>
+	<li>Finally, because the processes do not co-ordinate except when a new broker or consumer appears, it can be more efficient. Rather than "locking" and "unlocking" the partition on each request (which may be more expensive than the actual consumption) we can simply lock the partition to a particular consumer process until a topology change occurs. This allows a much lazier updating of metadata in exchange for better performance when that is desired.</li>
+</ul>
 </p>
 
 <h1>Implementation Details</h1>
 
 <p>
-The following gives a brief description of some relevant implementation details.
+The following gives a brief description of some relevant lower-level implementation details for some parts of the system described in the above section.
 </p>
 <h2>API Design</h2>
-<p>
-Producer API:
-</p>
+
+<h3>Producer API</h3>
+
+The producer API is extremely basic, it maintains a connection to a particular broker, and allows sending an ordered set of messages to a particular topic and partition on that broker.
+
 <pre>
 class KafkaProducer {
-  /**
-   *   Send a set of messages to a topic in a partition.
-   */ 
+	
+  /* Send a set of messages to a topic in a partition. */ 
   public void send(String topic, int partition, ByteBufferMessageSet messages);
   
-  /**
-   *   Send a list of produce requests to a broker.
-   */ 
+  /* Send a list of produce requests to a broker. */ 
   public void multiSend(ProducerRequest produces[]);
 
 }
 </pre>
-<p>
-We have 2 levels of consumer APIs. The low-level API allows a consumer to consume from a specific broker. The consumer has the full control of maintaining the consumed offsets. The high-level API hides the details of brokers from the consumer and can also automatically maintain offsets as messages are consumed.
-</p>
-<pre>
-low-level consumer API:
 
+<h3>Consumer APIs</h3>
+<p>
+We have 2 levels of consumer APIs. The low-level "simple" API maintains a connection to a single broker and has a close correspondence to the network requests sent to the server. This API is completely stateless, with the offset being passed in on every request, allowing the user to maintain this metadata however they choose.
+</p>
+<p>
+The high-level API hides the details of brokers from the consumer and allows consuming off the cluster of machines without concern for the underlying topology. It also maintains the state of what has been consumed.
+</p>
+
+<h4>Low-level API</h4>
+<pre>
 class SimpleConsumer {
-  /**
-   *   Send fetch request to a broker and get back a set of messages.
-   */ 
+	
+  /* Send fetch request to a broker and get back a set of messages. */ 
   public ByteBufferMessageSet fetch(FetchRequest request);
 
-  /**
-   *   Send a list of fetch requests to a broker and get back a response set.
-   */ 
+  /* Send a list of fetch requests to a broker and get back a response set. */ 
   public MultiFetchResponse multifetch(List&lt;FetchRequest&gt; fetches);
 
 }
 </pre>
 
-<pre>
-high-level consumer API:
+The low-level API is used to implement the high-level API as well as being used directly for some of our offline consumers (such as the hadoop consumer) which have particular requirements around maintaining state.
 
-/**
- *   create a consumer connector.
- */ 
+<h4>High-level API</h4>
+<pre>
+
+/* create a connection to the cluster */ 
 ConsumerConnector connector = Consumer.create(consumerConfig);
 
 interface ConsumerConnector {
+	
   /**
+   * This method is used to get a list of KafkaMessageStreams, which are iterators over topic.
    *  Input: a map of &lt;topic, #streams&gt;
    *  Output: a map of &lt;topic, list of message streams&gt;
    *          Each message stream supports a message iterator.
    */
   public Map&lt;String,List&lt;KafkaMessageStream&gt;&gt; createMessageStreams(Map&lt;String,Int&gt; topicCountMap); 
 
-  /**
-   *  Commit the offsets of all messages consumed so far.
-   */
+  /* Commit the offsets of all messages consumed so far. */
   public commitOffsets()
   
-  /**
-   *  shut down the connector
-   */
+  /* Shut down the connector */
   public shutdown()
 }
-
 </pre>
-
+<p>
+This API is centered around iterators, implemented by the KafkaMessageStream class. Each KafkaMessageStream represents the stream of messages from one or more partitions on one or more servers. Each stream is used for single threaded processing, so the client can provide the number of desired streams in the create call. Thus a stream may represent the merging of multiple server partitions (to correspond to the number of processing threads), but each partition only goes to one stream.
+</p>
+<p>
+The create call registers the consumer for the topic, which results in rebalancing the consumer/broker assignment. To minimize this rebalancing the API encourages creating many topic streams in a single call.	
+</p>
 <h2>Network Layer</h2>
 <p>
 The network layer is a fairly straight-forward NIO server, and will not be described in great detail. The sendfile implementation is done by giving the <code>MessageSet</code> interface a <code>writeTo</code> method. This allows the file-backed message set to use the more efficient <code>transferTo</code> implementation instead of an in-process buffered write. The threading model is a single acceptor thread and <i>N</i> processor threads which handle a fixed number of connections each. This design has been pretty thoroughly tested <a href="http://sna-projects.com/blog/2009/08/introducing-the-nio-socketserver-implementation">elsewhere</a> and found to be simple to implement and fast. The protocol is kept quite simple to allow for future the implementation of clients in other languages.
@@ -285,13 +299,14 @@ Messages consist of a fixed-size header and variable length opaque byte array pa
 </p>
 <h2>Log</h2>
 <p>
-A log for a topic named "my_topic" with two partitions consists of two directories (namely <code>my_topic_0</code> and <code>my_topic_1</code>) populated with data files containing the messages for that topic. The format of the log files is a sequence of "log entries""; each log entry is a 4 byte integer <i>N</i> storing the message length which is followed by the <i>N</i> message bytes. Each message is uniquely identified by a 64-bit integer <i>offset</i> giving the byte position of the start of this message in the stream of all messages ever sent to that topic on that partition. The on-disk format of each message is given below. Each log file is named with the offset of the first message it contains. So the first file created will be 00000000000.kafka, and each additional file will have an integer name roughly <i>N</i> bytes from the previous file where <i>N</i> is the max log file size given in the configuration.
+A log for a topic named "my_topic" with two partitions consists of two directories (namely <code>my_topic_0</code> and <code>my_topic_1</code>) populated with data files containing the messages for that topic. The format of the log files is a sequence of "log entries""; each log entry is a 4 byte integer <i>N</i> storing the message length which is followed by the <i>N</i> message bytes. Each message is uniquely identified by a 64-bit integer <i>offset</i> giving the byte position of the start of this message in the stream of all messages ever sent to that topic on that partition. The on-disk format of each message is given below. Each log file is named with the offset of the first message it contains. So the first file created will be 00000000000.kafka, and each additional file will have an integer name roughly <i>S</i> bytes from the previous file where <i>S</i> is the max log file size given in the configuration.
+</p>
+<p>
+The exact binary format for messages is versioned and maintained as a standard interface so message sets can be transfered between producer, broker, and client without recopying or conversion when desirable. This format is as follows:
 </p>
 <pre>
-Message on-disk format
-
 message length : 4 bytes (value: 1+4+n) 
-magic value    : 1 byte
+"magic" value    : 1 byte
 crc            : 4 bytes
 payload        : n bytes
 </pre>
@@ -301,7 +316,7 @@ The use of the message offset as the message id is unusual. Our original idea wa
 <img src="images/kafka_log.png">
 <h3>Writes</h3>
 <p>
-The log allows serial appends which always go to the last file. This file is rolled over to a fresh file when it reaches a configurable size (say 1GB). The log takes a configuration parameter <i>M</i> which gives the number of messages to write before forcing the OS to flush the file to disk. This gives a durability guarantee of losing at most <i>M</i> messages in the event of a system crash. There is a time-based flushing parameter too.
+The log allows serial appends which always go to the last file. This file is rolled over to a fresh file when it reaches a configurable size (say 1GB). The log takes two configuration parameter <i>M</i> which gives the number of messages to write before forcing the OS to flush the file to disk, and <i>S</i> which gives a number of seconds after which a flush is forced. This gives a durability guarantee of losing at most <i>M</i> messages or <i>S</i> seconds of data in the event of a system crash.
 </p>
 <h3>Reads</h3>
 <p>
@@ -351,43 +366,45 @@ Note that two kinds of corruption must be handled: truncation in which an unwrit
 <h2>Distribution</h2>
 <h3>Zookeeper Directories</h3>
 <p>
-The following paths are created in zookeeper to maintain the state of the brokers and the consumers.
+The following gives the zookeeper structures and algorithms used for co-ordination between consumers and brokers.
 </p>
 
 <h3>Notation</h3>
 <p>
-When an element in a path is denoted [xyz], that means that the value of xyz is not fixed and there is in fact a znode for each possible value of xyz. For example /topics/[topic] would be a directory named /topics containing a sub-directory for each topic name. Numerical ranges are also given such as [0...5] to indicate the subdirectories 0, 1, 2, 3, 4. An arrow -> is used to indicate the contents of a znode. For example /hello -> world would indicate a znode /hello containing the value "world".
+When an element in a path is denoted [xyz], that means that the value of xyz is not fixed and there is in fact a zookeeper znode for each possible value of xyz. For example /topics/[topic] would be a directory named /topics containing a sub-directory for each topic name. Numerical ranges are also given such as [0...5] to indicate the subdirectories 0, 1, 2, 3, 4. An arrow -> is used to indicate the contents of a znode. For example /hello -> world would indicate a znode /hello containing the value "world".
 </p>
 
-<h3>Broker Id Registry</h3>
+<h3>Broker Node Registry</h3>
 <pre>
 /brokers/ids/[0...N] --> host:port (ephemeral node)
 </pre>
 <p>
-This is a list of all present broker nodes. A unique logical broker id is configured on each broker node. On startup, a broker node registers itself by creating a znode with the logical broker id under /brokers/ids. The purpose of the logical broker id is to allow a broker to be moved to a different physical machine without affecting consumers. An attempt to register a broker id that is already in use (say because two servers are configured with the same broker id) is an error.
+This is a list of all present broker nodes, each of which provides a unique logical broker id which identifies it to consumers (which must be given as part of its configuration). On startup, a broker node registers itself by creating a znode with the logical broker id under /brokers/ids. The purpose of the logical broker id is to allow a broker to be moved to a different physical machine without affecting consumers. An attempt to register a broker id that is already in use (say because two servers are configured with the same broker id) is an error.
 </p>
-
+<p>
+Since the broker registers itself in zookeeper using ephemeral znodes, this registration is dynamic and will disappear if the broker is shutdown or dies (thus notifying consumers it is no longer available).	
+</p>
 <h3>Broker Topic Registry</h3>
 <pre>
-/brokers/topics/[topic]/[0...N] -->nPartions (ephemeral node)
+/brokers/topics/[topic]/[0...N] --> nPartions (ephemeral node)
 </pre>
 
 <p>
-The first time a broker starts to produce a topic, it creates a znode in the broker topic registry and sets the value to be the number of partitions in that topic.
+Each broker registers itself under the topics it maintains and stores the number of partitions for that topic.
 </p>
 
 <h3>Consumers and Consumer Groups</h3>
 <p>
-Consumers of topics also register themselves in Zookeeper, in order to balance the consumption of data and track their offsets in each partition.
+Consumers of topics also register themselves in Zookeeper, in order to balance the consumption of data and track their offsets in each partition for each broker they consume from.
 </p>
 
 <p>
-Multiple consumers can form a group and jointly consume a single topic produced by all brokers. Each consumer in the same group is given a unique group_id. 
-For example if one consumer is your hadoop etl process, which is run in many mapper processes then you might assign these consumers the id hadoop-etl so that each event in a given topic goes to exactly one consumer in the consumer group.
+Multiple consumers can form a group and jointly consume a single topic. Each consumer in the same group is given a shared group_id. 
+For example if one consumer is your foobar process, which is run across three machines, then you might assign this group of consumers the id "foobar". This group id is provided in the configuration of the consumer, and is your way to tell the consumer which group it belongs to.
 </p>
 
 <p>
-The consumers in a group divide up the partitions as fairly as possible. To avoid synchronization, currently each broker partition is consumed by exactly one consumer in a consumer group.
+The consumers in a group divide up the partitions as fairly as possible, each partition is consumed by exactly one consumer in a consumer group.
 </p>
 
 <h3>Consumer Id Registry</h3>
@@ -396,7 +413,7 @@ In addition to the group_id which is shared by all consumers in a group, each co
 <pre>
 /consumers/[group_id]/ids/[consumer_id] --> {"topic1": #streams, ..., "topicN": #streams} (ephemeral node)
 </pre>
-Each of the consumers in the group registers under its group and creates a znode with its consumer_id. The value of the znode contains a map of &lt;topic, #streams&gt;. Messages are distributed into all the message streams created by consumers in the same group.
+Each of the consumers in the group registers under its group and creates a znode with its consumer_id. The value of the znode contains a map of &lt;topic, #streams&gt;. This id is simply used to identify each of the consumers which is currently active within a group. This is an ephemeral node so it will disappear if the consumer process dies.
 </p>
 
 <h3>Consumer Offset Tracking</h3>
@@ -410,7 +427,7 @@ Consumers track the maximum offset they have consumed in each partition. This va
 <h3>Partition Owner registry</h3>
 
 <p>
-Each broker partition is consumed by a single consumer within a given consumer group. The consumer must establish its ownership of a given partition before any consumption can begin. To establish its ownership, a consumer writes its own id under a particular broker partition.
+Each broker partition is consumed by a single consumer within a given consumer group. The consumer must establish its ownership of a given partition before any consumption can begin. To establish its ownership, a consumer writes its own id in an ephemeral node under the particular broker partition it is claiming.
 </p>
 
 <pre>
@@ -423,7 +440,7 @@ Each broker partition is consumed by a single consumer within a given consumer g
 The broker nodes are basically independent, so they only publish information about what they have. When a broker joins, it registers itself under the broker node registry directory and writes information about its host name and port. The broker also register the list of existing topics and their logical partitions in the broker topic registry. New topics are registered dynamically when they are created on the broker.
 </p>
 
-<h3>Consumer registration</h3>
+<h3>Consumer registration algorithm</h3>
 
 <p>
 When a consumer starts, it does the following:
@@ -438,32 +455,26 @@ When a consumer starts, it does the following:
 </ol>
 </p>
 
-<h3>Consumer Rebalancing</h3>
+<h3>Consumer rebalancing algorithm</h3>
 <p>
-Consumer rebalancing is triggered on each addition or removal of both broker nodes and other consumers within the same group. For a given topic and a given consumer group, broker partitions are divided evenly among consumers within the group. A partition is always consumed by a single consumer. If there are more consumers than partitions, some consumers won't get any data at all. During rebalancing, we try to assign partitions to consumers in such a way that reduces the number of broker nodes each consumer has to connect to. Each consumer Ci does the following during rebalancing:
+The consumer rebalancing algorithms allows all the consumers in a group to come into consensus on which consumer is consuming which partitions. Consumer rebalancing is triggered on each addition or removal of both broker nodes and other consumers within the same group. For a given topic and a given consumer group, broker partitions are divided evenly among consumers within the group. A partition is always consumed by a single consumer. If there are more consumers than partitions, some consumers won't get any data at all. During rebalancing, we try to assign partitions to consumers in such a way that reduces the number of broker nodes each consumer has to connect to.
+</p>
+<p>
+Each consumer does the following during rebalancing:
 </p>
 <pre>
-   1. For each topic T that Ci subscribes to 
-   2.   let LIST_P be all partitions producing topic T
-   3.   let LIST_C be all consumers in the same group as Ci that consume topic T
-   4.   sort LIST_P (so partitions on the same broker are clustered together)
-   5.   sort LIST_C
-   6.   let i be the index position of Ci in LIST_C and N = LIST_P.size/LIST_C.size
-   7.   assign partitions from i*N to (i+1)*N - 1 to consumer Ci
-   8.   remove current entries owned by Ci from the partition owner registry
+   1. For each topic T that C<sub>i</sub> subscribes to 
+   2.   let P<sub>T</sub> be all partitions producing topic T
+   3.   let C<sub>G</sub> be all consumers in the same group as C<sub>i</sub> that consume topic T
+   4.   sort P<sub>T</sub> (so partitions on the same broker are clustered together)
+   5.   sort C<sub>G</sub>
+   6.   let i be the index position of C<sub>i</sub> in C<sub>G</sub> and N = size(P<sub>T</sub>)/size(C<sub>G</sub>)
+   7.   assign partitions from i*N to (i+1)*N - 1 to consumer C<sub>i</sub>
+   8.   remove current entries owned by C<sub>i</sub> from the partition owner registry
    9.   add newly assigned partitions to the partition owner registry (we may need to re-try this until the original partition owner releases its ownership)
 </pre>
 <p>
 When rebalancing is triggered at one consumer, rebalancing should be triggered in other consumers within the same group about the same time.
-</p>
-
-<h2>Future work:</h2>
-<p>
-<ul>
- <li> Compression
- <li> Replication in the brokers
- <li> Stream processing on kafka streams
-</ul>
 </p>
 
 </h2>

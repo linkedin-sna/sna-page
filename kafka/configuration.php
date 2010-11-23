@@ -8,7 +8,7 @@
 
 <p>
 <ul>
-<li> When deploying multiple broker servers in the same kafka instance, each broker needs to have a unique <code>broker.id</code>.
+<li> When deploying multiple broker servers in the same kafka instance, each broker needs to have a unique <code>brokerid</code>.
 </li>
 
 <li> For better performance, kafka server flushes data to disks periodically. A produced message is only exposed to the consumer after
@@ -44,9 +44,9 @@ Alternatively, the flush frequency can be controlled by time.
 
 <li> <code>zk.connectiontimeout.ms</code> specifies the max time that the client waits to establish a connection to zookeeper.</li>
 
-<li> <code>zk.sessiontimeout.ms</code><code>zk.connectiontimeout.ms</code> is the zookeeper session timeout. </li>
+<li> <code>zk.sessiontimeout.ms</code> is the zookeeper session timeout. </li>
 
-<li> More details about server configuration can be found at <code>kafka.server.KafkaConfig</code>. </li>
+<li> More details about server configuration can be found at <code>kafka.server.KafkaConfig.scala</code>. </li>
 
 </ul>
 </p>
@@ -65,7 +65,7 @@ Alternatively, the flush frequency can be controlled by time.
 <ul>
  <li> <code>smallest</code>: automatically reset the offset to the smallest offset available on the broker.</li>
  <li> <code>largest</code> : automatically reset the offset to the largest offset available on the broker.</li>
- <li> <code>anything else</code>: throw an exception to the consumer</li>
+ <li> <code>anything else</code>: throw an exception to the consumer.</li>
 </ul>
 </li>
 
@@ -73,7 +73,7 @@ Alternatively, the flush frequency can be controlled by time.
 
 <li><code>zk.connect</code>, <code>zk.connectiontimeout.ms</code> and <code>zk.connectiontimeout.ms</code> are the same as described in the broker configuration.</li>
 
-<li> More details about server configuration can be found at <code>kafka.consumer.ConsumerConfig</code>. </li>
+<li> More details about server configuration can be found at <code>kafka.consumer.ConsumerConfig.scala</code>. </li>
 </ul>
 <?php require "../includes/footer.php" ?>
 

@@ -138,7 +138,7 @@ while (true) {
   for(message : messages) {
     System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"))
     <small>// advance the offset after consuming each message</small>
-    offset += MessageSet.entrySize(message)
+    offset += MessageSet.entrySize(message);
   }
 }
 </pre>

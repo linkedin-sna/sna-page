@@ -17,10 +17,7 @@
 	<p>It will run a simulator with 40 producer and 20 consumer threads 
            producing/consuming from a local kafkaserver.&nbsp; The simulator is going to
            run 15 minutes and the results are going to be saved under 
-           report-html/data</p>
-
-
-	<p>and they will be plotted from there. Basically it will write MB of 
+           report-html/data and they will be plotted from there. Basically it will write MB of 
            data consumed/produced, number of messages consumed/produced given a 
            number of topic and report.html will plot the charts.</p>
 

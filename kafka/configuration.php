@@ -17,4 +17,3 @@
 <?php include('includes/consumer_config.php'); ?>
 
 <?php require "../includes/footer.php" ?>
-

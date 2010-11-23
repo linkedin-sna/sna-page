@@ -91,9 +91,9 @@ The consumer code is slightly more complex as it enables multithreaded consumpti
 <pre>
 // specify some consumer properties
 Properties props = new Properties();
-props.put(“zk.connect”, “localhost:2181”);
-props.put(“zk.connectiontimeoutms”, “1000000”);
-props.put(“groupid”, “test_group”);
+props.put("zk.connect", "localhost:2181");
+props.put("zk.connectiontimeout.ms", "1000000");
+props.put("groupid", "test_group");
 
 // Create the connection to the cluster
 ConsumerConfig consumerConfig = new ConsumerConfig(props);
@@ -101,7 +101,7 @@ ConsumerConnector consumerConnector = Consumer.create(consumerConfig);
 
 // create 4 partitions of the stream for topic “test”, to allow 4 threads to consume
 Map&lt;String, List&lt;KafkaMessageStream&gt;&gt; topicMessageStreams = 
-    consumerConnector.createMessageStreams(ImmutableMap.of(“test”, 4));
+    consumerConnector.createMessageStreams(ImmutableMap.of("test", 4));
 List&lt;KafkaMessageStream&gt; streams = topicMessageStreams.get("test")
 
 // create list of 4 threads to consume from each of the partitions 
@@ -128,13 +128,19 @@ Kafka has a lower-level consumer api for reading message chunks directly from se
 <small>// create a consumer to connect to the server host, port, socket timeout of 10 secs, socket receive buffer of ~1MB</small>
 SimpleConsumer consumer = new SimpleConsumer(host, port, 10000, 1024000);
 
-<small>// create a fetch request for topic “test”, partition 0, offset 0 and fetch size of 1MB</small>
-FetchRequest fetchRequest = new FetchRequest(“test”, 0, 0, 1000000);
+long offset = 0;
+while (true) {
+  <small>// create a fetch request for topic “test”, partition 0, current offset, and fetch size of 1MB</small>
+  FetchRequest fetchRequest = new FetchRequest("test", 0, offset, 1000000);
 
-<small>// get the message set from the consumer and print them out</small>
-ByteBufferMessageSet messageSets = consumer.multifetch(fetchRequest);
-for(message : messages)
-   System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"))
+  <small>// get the message set from the consumer and print them out</small>
+  ByteBufferMessageSet messageSets = consumer.fetch(fetchRequest);
+  for(message : messages) {
+    System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"))
+    <small>// advance the offset after consuming each message</small>
+    offset += MessageSet.entrySize(message)
+  }
+}
 </pre>
 
 <?php require "../includes/footer.php" ?>

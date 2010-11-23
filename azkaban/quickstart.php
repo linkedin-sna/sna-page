@@ -25,10 +25,10 @@ You can then navigate to <a href="http://localhost:8081">http://localhost:8081</
 There is a prebuilt war file in the <code>dist/</code> directory of the release. This file can be deployed using standard means in Tomcat or any other servlet container. In this case, the job directory must be set with the $AZKABAN_HOME environment variable.
 
 <p>
-Whether it is run through Tomcat or from the command line, the following screenshot shows what should display for the first page.
+Whether it is run through Tomcat or from the command line, the following screenshot displays the index page.
 </p>
 
-<img src="images/page-empty.png">
+<img src="images/index-page.png">
 
 <h2>Jobs</h2>
 
@@ -75,7 +75,7 @@ Directly editing the job files works when developing a job flow on your desktop,
 <p>
 	
 <p>
-Add these files to a zip file, such as <code>foobar.zip</code>.
+Add these files to a zip file, such as <code>foobar.zip</code>. Note that the path will automatically filled with the zip name. The path determines the path in Azkaban to install the zip. Installing the zip to a pre-existing path will overwrite the existing installed zip.
 <pre>
 zip -u foobar.zip *.job
 </pre>
@@ -86,7 +86,9 @@ zip -u foobar.zip *.job
 This should now display in the user interface as the following hierarchy:
 </p>
 <p><img src="images/index-foobar.png"></p>
-
+<p>
+'bar' is a dependency of 'foo' and both are under 'foobar' section, which refers to the installed path. Jobs which are not dependencies of other jobs will appear as roots of the job 'tree'.
+</p>
 <p>
 Now executing the job <code>bar</code> first executes <code>foo</code>. If <code>foo</code> completes successfully <code>bar</code> runs; otherwise, it is considered failed.
 </p>
@@ -107,6 +109,13 @@ $ bin/run-job.sh --job-dir /some-dir/azkaban-jobs my-job
 <h3>Viewing a Job</h3>
 <p>Selecting a job takes you to the Job Details page. From this page, job properties can be redefined or new jobs can be created. You can also view the history of job execution logs and job runtimes.</p>
 <img src="images/job-details.png">
+
+<h3>Flows</h3>
+<p>Azkaban can display your dependency tree. There are two ways to do this. Hover over a job to see the View Flow link, or clicking on View/Restart link on the history page. </p>
+<p>Use the mouse to move nodes and pan the graph, and the mouse wheel and the zoom bar to zoom in and out. Right clicking on the nodes allows you to disable nodes. Disable nodes appear faded out, and act as no-op jobs: they will 'run' but do nothing.</p>
+<img src="images/flow_view.png">
+<p>Pressing on restart in the history view will color the nodes depending on its status. Red for failed, green for success, blue for running (or waiting to run), and grey for ready. Clicking on Execute will run the flow immediately, and will run all jobs that aren't disabled. The above image represents a failed flow with the failure status trickling down to 'commmand_ls'. 'java_sleep' is disabled so clicking on Execute will re-run the flow but java_sleep will do nothing.</p>
+
 
 <h3>Hierarchical Configuration</h3>
 

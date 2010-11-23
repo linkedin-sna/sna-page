@@ -21,7 +21,7 @@ In recent years, however, activity data has become a critical part of the produc
 	<li>Relevance and ranking uses count ratings, votes, or click-through to determine which of a given set of items is most relevant.</li>
 	<li>Security: Sites need to block abusive crawlers, rate-limit apis, detect spamming attempts, and maintain other detection and prevention systems that key off site activity.</li>
 	<li>Operational monitoring: Most sites needs some kind of real-time, heads-up monitoring that can track performance and trigger alerts if something goes wrong.</li>
-	<li>Reporting and Batch processing: It is common to load data into a datawarehouse or Hadoop system for offline analysis and reporting on business activity</li>
+	<li>Reporting and Batch processing: It is common to load data into a data warehouse or Hadoop system for offline analysis and reporting on business activity</li>
 </ul>
 </p>
 <h2>Characteristics of activity stream data</h2>	
@@ -255,6 +255,14 @@ class SimpleConsumer {
   /* Send a list of fetch requests to a broker and get back a response set. */ 
   public MultiFetchResponse multifetch(List&lt;FetchRequest&gt; fetches);
 
+  /**
+   * Get a list of valid offsets (up to maxSize) before the given time.
+   * The result is a list of offsets, in descending order.
+   * @param time: time in millisecs,
+   *              if set to OffsetRequest$.MODULE$.LATIEST_TIME(), get from the latest offset available.
+   *              if set to OffsetRequest$.MODULE$.EARLIEST_TIME(), get from the earliest offset available.
+   */
+  public long[] getOffsetsBefore(String topic, int partition, long time, int maxNumOffsets);
 }
 </pre>
 
@@ -305,6 +313,8 @@ A log for a topic named "my_topic" with two partitions consists of two directori
 The exact binary format for messages is versioned and maintained as a standard interface so message sets can be transfered between producer, broker, and client without recopying or conversion when desirable. This format is as follows:
 </p>
 <pre>
+On-disk format of a message
+
 message length : 4 bytes (value: 1+4+n) 
 "magic" value    : 1 byte
 crc            : 4 bytes
@@ -468,10 +478,11 @@ Each consumer does the following during rebalancing:
    3.   let C<sub>G</sub> be all consumers in the same group as C<sub>i</sub> that consume topic T
    4.   sort P<sub>T</sub> (so partitions on the same broker are clustered together)
    5.   sort C<sub>G</sub>
-   6.   let i be the index position of C<sub>i</sub> in C<sub>G</sub> and N = size(P<sub>T</sub>)/size(C<sub>G</sub>)
+   6.   let i be the index position of C<sub>i</sub> in C<sub>G</sub> and let N = size(P<sub>T</sub>)/size(C<sub>G</sub>)
    7.   assign partitions from i*N to (i+1)*N - 1 to consumer C<sub>i</sub>
    8.   remove current entries owned by C<sub>i</sub> from the partition owner registry
-   9.   add newly assigned partitions to the partition owner registry (we may need to re-try this until the original partition owner releases its ownership)
+   9.   add newly assigned partitions to the partition owner registry
+        (we may need to re-try this until the original partition owner releases its ownership)
 </pre>
 <p>
 When rebalancing is triggered at one consumer, rebalancing should be triggered in other consumers within the same group about the same time.

@@ -27,7 +27,7 @@ First start the zookeeper server. You can use the convenience script packaged wi
 
 Now start the Kafka server:
 <pre>
-<b>&gt; bin/kafka-server.sh config/server.properties</b>
+<b>&gt; bin/kafka-server-start.sh config/server.properties</b>
 jkreps-mn-2:kafka-trunk jkreps$ bin/kafka-server-start.sh config/server.properties 
 [2010-11-21 23:51:39,608] INFO starting log cleaner every 60000 ms (kafka.log.LogManager)
 [2010-11-21 23:51:39,628] INFO connecting to ZK: localhost:2181 (kafka.server.KafkaZooKeeper)
@@ -81,8 +81,8 @@ KafkaProducer producer = new KafkaProducer(host, port, bufferSize, connectionTim
 String topic = "test";
 int partition = 0;
 List<Message> messages = Arrays.asList(new Message("a message".getBytes()), 
-	                                   new Message("another message".getBytes()),
-	                                   new Message("a third message".getBytes()));
+                                       new Message("another message".getBytes()),
+                                       new Message("a third message".getBytes()));
 producer.send(topic, partition, messages)
 </pre>
 

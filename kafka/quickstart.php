@@ -60,11 +60,13 @@ consumed: world
 
 If you have each of the above commands running in a different terminal then you should now be able to type messages into the producer terminal and see them appear in the consumer terminal.
 
-<h3>Step 4: Write some code</h3>
+<h3>Step 6: Write some code</h3>
 
 Below is some very simple examples of using Kafka for sending messages, more complete examples can be found in the Kafka source code in the examples/ directory.
 
 <h4>Producer Code</h4>
+
+<h5>1. send() API </h5>
 
 Using the producer is quite simple:
 
@@ -82,6 +84,80 @@ List<Message> messages = Arrays.asList(new Message("a message".getBytes()),
 	                                   new Message("another message".getBytes()),
 	                                   new Message("a third message".getBytes()));
 producer.send(topic, partition, messages)
+</pre>
+
+<h5>2. Log4j appender </h5>
+
+Data can also be produced to a Kafka server in the form of a log4j appender. In this way, minimal code needs to be written in order to send some data across to the Kafka server. 
+Here is an example of how to use the Kafka Log4j appender -
+
+Start by defining the Kafka appender in your log4j.properties file.
+<pre>
+<small>// define the kafka log4j appender config parameters</small>
+log4j.appender.KAFKA=kafka.log4j.KafkaAppender
+<small>// set the hostname of the kafka server</small>
+log4j.appender.KAFKA.Host=localhost
+<small>// set the port on which the Kafka server is listening for connections</small>
+log4j.appender.KAFKA.Port=9092
+<small>// the topic under which the logger messages are to be posted</small>
+log4j.appender.KAFKA.Topic=test-topic
+<small>// the serializer to be used to turn an object into a Kafka message</small>
+log4j.appender.KAFKA.Serializer=kafka.log4j.AppenderStringSerializer
+<small>// do not set the above KAFKA appender as the root appender</small>
+log4j.rootLogger=INFO
+<small>// set the logger for your package to be the KAFKA appender</small>
+log4j.logger.test.package=INFO, KAFKA
+</pre>
+
+Data can be sent using a log4j appender as follows -
+
+<pre>
+Logger logger = Logger.getLogger(classOf[KafkaLog4jAppenderTest])    
+logger.info("test")
+</pre>
+
+<h5>3. Asynchronous batching producer </h5>
+This is a higher level producer API, providing tunable batching of messages and asynchronous dispatch of batches of serialized messages to the configured Kafka server.
+
+<p>The batching of data can be controlled using the following parameters -
+<ul>
+<li> queue size &ndash; this parameter specifies the total size of the in memory queue used by the batching producer. A batch cannot be larger than this value. </li>
+<li> batch size &ndash; this parameter specifies a batch of data buffered in the producer queue. Once more data than this size is accumulated, it is serialized and sent to the Kafka server. </li>
+<li> serializer class &ndash; this specifies the serializer to be used by the async producer to serialize the incoming data into sets of Kafka messages, before sending them to the Kafka server. </li>
+<li> queue time in ms &ndash; this parameter controls the time for which the batched data lives in the queue. Once this time expires, the data in the queue is serialized and dispatched to the Kafka server. </li>
+</ul>
+</p>
+
+Here is some code on how to use the asynchronous batching producer -
+
+<pre>
+Properties props = new Properties();
+props.put("host", "localhost");
+props.put("port", "9092");
+props.put("queue.size", "200");
+props.put("serializer.class", "kafka.producer.StringSerializer");
+ProducerConfig config = new ProducerConfig(props);
+    
+KafkaProducer basicProducer =  new KafkaProducer(host, port, 64*1024, 100000, 10000);
+
+AsyncKafkaProducer[String] producer = new AsyncKafkaProducer[String](config, basicProducer, new StringSerializer());
+
+<small>// start the async producer</small>
+producer.start();
+for(i <- 0 until 200) {
+   producer.send("test");
+}
+producer.close();
+</pre>
+
+Here is a simple string serializer used by the above example -
+
+<pre>
+class StringSerializer extends Serializer<String> {
+  public String toEvent(Message message) { return message.toString(); }
+  public Message toMessage(String event) { return new Message(event.getBytes); }
+  public getTopic(String event) { return event.concat("-topic"); }
+}
 </pre>
 
 <h4>Consumer Code</h4>

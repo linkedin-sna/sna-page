@@ -57,13 +57,14 @@
         <p> This does not have any affect on the performance based on our experiements<p>
 
         <h3> What is the effect of number of producers on the size of data produced? </h3>
-         <p> Based on our experiments, the number of topic has a minimal effect on the total data produced 
-             The below graph is an experiment where we used 40 producers and varied the number of topics<p>
+         <p> Based on our experiments, the number of producer has a minimal effect on the total data produced <p>
         <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyProdMB.jpg" width="400" height="200"/></span><br />
      	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyProdMsg.jpg" width="400" height="200"/></span><br />
 
         <h3> What is the effect of number of topics on the size of data produced? </h3>
-         <p> Based on our experiments, the number of producer has a minimal effect on the total data produced <p>
+         <p> Based on our experiments, the number of topic has a minimal effect on the total data produced 
+             The below graph is an experiment where we used 40 producers and varied the number of topics<p>
+
         <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyTopicMB.jpg" width="400" height="200"/></span><br />
      	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyTopicMsg.jpg" width="400" height="200"/></span><br />
 
@@ -116,6 +117,6 @@
 
 
 
-	<p>The charts similar to below graphs can be plotted with report.html automatically.</p>
+	<p>The charts similar to above graphs can be plotted with report.html automatically.</p>
 
 <?php require "../includes/footer.php" ?>

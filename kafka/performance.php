@@ -3,6 +3,71 @@
 <?php include "../includes/advert.php" ?>
 
 <body>
+
+
+
+	<h2><a name="KafkaPerformanceTestPlan-PerformanceResults"></a>Performance Results</h2>
+	<p>We measured</p>
+
+	<ol>
+		<li>Messages/sec at consumer and producer</li>
+				 <li>MB/sec at consumer, and producer</li>
+				 </ol>
+
+
+
+				 <p>We&nbsp; varied number of topics,&nbsp; number of consumers, number of 
+                                  producers and the data size and do a controlled test to see how each of 
+                                 these affect the performance.</p>
+
+
+      <p>We took below setting for some of the parameters:</p>
+
+      <ul>
+	<li>message size = 200 bytes</li>
+		    <li>batch size = 200</li>
+		    	      <li>fetch size = 1MB</li>
+			      		<li>flush interval = 600 messages</li>
+					</ul>
+
+
+
+					<p>There&nbsp; is 1 broker and several remote consumers and producers.</p>
+
+
+
+
+
+        In our performance tests, we run experiments to answer below questions.
+        <h3>How much data can we push and what is the effect of batch size? </h3>
+		<p>We can push about 50MB/sec to the system. However, this number changes with the batch size. The below graphs show the relation between these two.<p>
+		 <p><span style="" class="image-wrap"><img border="0" src="images/perf/batchMB.jpg" width="400" height="200"/></span><br />
+     	<span style="" class="image-wrap"><img border="0" src="images/perf/batchNumMsg.jpg" width="400" height="200"/></span><br />
+
+
+        <h3>How much data can we consume? And how the number of consumers affect that?</h3>
+         <p>According to our experiments, we can consume about 100M/sec from a broker and the total does not seem to change as we increase
+		  the number of consumers (however, data consumed per consumer decreases linearly as tota consumed data does not change)<p>
+		<p>The below graphs show how the number of consumers affect the total data consumed from the server and the data consumed per consumer.</p>
+        <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyconsumerMB.jpg" width="400" height="200"/></span><br />
+     	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyconsumerNumMsg.jpg" width="400" height="200"/></span><br />
+
+
+        <h3> Does data size effect our performance numbers? </h3>
+        <p> This does not have any affect on the performance based on our experiements<p>
+
+        <h3> What is the effect of number of producers on the size of data produced? </h3>
+         <p> Based on our experiments, the number of topic has a minimal effect on the total data produced 
+             The below graph is an experiment where we used 40 producers and varied the number of topics<p>
+        <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyProdMB.jpg" width="400" height="200"/></span><br />
+     	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyProdMsg.jpg" width="400" height="200"/></span><br />
+
+        <h3> What is the effect of number of topics on the size of data produced? </h3>
+         <p> Based on our experiments, the number of producer has a minimal effect on the total data produced <p>
+        <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyTopicMB.jpg" width="400" height="200"/></span><br />
+     	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyTopicMsg.jpg" width="400" height="200"/></span><br />
+
+
 	<h2>How to Run a Performance Test</h2>
 
 
@@ -17,7 +82,10 @@
 	<p>It will run a simulator with 40 producer and 20 consumer threads 
            producing/consuming from a local kafkaserver.&nbsp; The simulator is going to
            run 15 minutes and the results are going to be saved under 
-           report-html/data and they will be plotted from there. Basically it will write MB of 
+           report-html/data</p>
+
+
+	<p>and they will be plotted from there. Basically it will write MB of 
            data consumed/produced, number of messages consumed/produced given a 
            number of topic and report.html will plot the charts.</p>
 
@@ -50,122 +118,4 @@
 
 	<p>The charts similar to below graphs can be plotted with report.html automatically.</p>
 
-
-
-	<h2><a name="KafkaPerformanceTestPlan-PerformanceResults"></a>Performance Results</h2>
-
-
-
-	<p>We measured</p>
-
-	<ol>
-		<li>Messages/sec at broker, consumer and producer</li>
-				 <li>MB/sec at broker, consumer, and producer</li>
-				 </ol>
-
-
-
-				 <p>We&nbsp; varied number of topics,&nbsp; number of consumers, number of 
-                                  producers and the data size and do a controlled test to see how each of 
-                                 these affect the performance.</p>
-
-
-      <p>We took below setting for some of the parameters:</p>
-
-      <ul>
-	<li>message size = 200 bytes</li>
-		    <li>batch size = 200</li>
-		    	      <li>fetch size = 1MB</li>
-			      		<li>flush interval = 600 messages</li>
-					</ul>
-
-
-
-					<p>Each performance run is an hour long run. There&nbsp; is 1 broker and several remote consumers and producers.</p>
-
-
-					<p><span style="font-weight: bold;">Scenario-1:</span></p>
-
-
-
-					<p># of partition = 10</p>
-
-
-					<p># of topics = 10</p>
-
-
-					<p># of producer =0</p>
-
-
-					<p># of consumer =10, 20,30, ...</p>
-
-
-					<p>The below graphs show how the number of consumers affect the total 
-data consumed from the server and the data consumed per consumer.</p>
-
-
-
-
-
-
-
-
-
-     <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyconsumerMB.jpg" width="400" height="200"/></span><br />
-     	      
-<span style="" class="image-wrap"><img border="0" src="images/perf/onlyconsumerNumMsg.jpg" width="400" height="200"/></span><br />
-      	       
-<span style="font-weight: bold;">Scenario - 2:</span></p>
-
-
-      <p># of partition = 10</p>
-
-
-      <p># of consumer = 20</p>
-
-
-      <p># of producer = 40</p>
-
-
-      <p># of topis 1 .... 50</p>
-
-
-      <p>The below graphs show how the number of topics affect the total data 
- consumed/produced from the server and the data consumed/produced per 
-consumer/producer.</p>
-
-
-	<p>&nbsp; <span style="" class="image-wrap"><img border="0" src="images/perf/MBvsnumtopic.jpg" width="400" height="200" /></span></p>
-
-
-	<p> <span style="" class="image-wrap"><img border="0" src="images/perf/nummessvsnumtopic.jpg" width="400" height="200" /> </span></p>
-
-
-
-	<p><span style="font-weight: bold;">Scenario - 3</span></p>
-
-
-	<p># of partition = 10</p>
-
-
-	<p># of consumer = 20</p>
-
-
-	<p># of producer =1 ,10,....</p>
-
-
-	<p># of topis = 10</p>
-
-
-	<p>The below graphs show how the number of producers affect the total 
-data  consumed/produced from the server and the data consumed/produced 
-per consumer.</p>
-
-
-
-    <p>&nbsp; <span style="" class="image-wrap"><img border="0" src="images/perf/MBvsnumberofproducers-10-topic.jpg" width="400" height="200" /></span></p>
-
-
-    <p><span style="" class="image-wrap"><img border="0" src="images/perf/messagevsnumprod-10-topic.jpg" width="400" height="200" /></span></p
-	
 <?php require "../includes/footer.php" ?>

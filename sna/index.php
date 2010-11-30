@@ -29,7 +29,8 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
           <a href="http://www.vimeo.com/5187210">NoSQL SF</a>, 
           <a href="http://www.sdforum.org/index.cfm?fuseaction=Document.filterdocumentlist&topicRadio=Topic&topicOnly=32&docPublishYear=getAllYears">SDForum</a>,
           <a href="http://behemoth.strlen.net/~alex/Voldemort_NoSQL_Oakland.ppt">NoSQL Oakland</a>,
-          <a href="http://qconsf.com/sf2009/file?path=/qcon-sanfran-2009/slides/JayKreps_ProjectVoldemortScalingSimpleStorageAtLinkedIn.pdf">QCon</a></li>
+          <a href="http://qconsf.com/sf2009/file?path=/qcon-sanfran-2009/slides/JayKreps_ProjectVoldemortScalingSimpleStorageAtLinkedIn.pdf">QCon</a>, 
+		  <a href="http://behemoth.strlen.net/~alex/voldemort-devoxx.pdf">Devoxx</a>
     </li>
     <li>Jay Kreps &ndash; <a href="http://www.slideshare.net/ydn/6-data-applicationlinkedinhadoopsummmit2010">Hadoop Summit 2010</a></li>
     <li> John Wang &ndash; 

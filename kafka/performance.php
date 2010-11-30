@@ -41,16 +41,15 @@
         In our performance tests, we run experiments to answer below questions.
         <h3>How much data can we push and what is the effect of batch size? </h3>
 		<p>We can push about 50MB/sec to the system. However, this number changes with the batch size. The below graphs show the relation between these two.<p>
-		 <p><span style="" class="image-wrap"><img border="0" src="images/perf/batchMB.jpg" width="400" height="200"/></span><br />
-     	<span style="" class="image-wrap"><img border="0" src="images/perf/batchNumMsg.jpg" width="400" height="200"/></span><br />
+		 <p><span style="" class="image-wrap"><img border="0" src="images/onlyBatchSize.jpg" width="500" height="300"/></span><br /></p>
 
 
         <h3>How much data can we consume? And how the number of consumers affect that?</h3>
          <p>According to our experiments, we can consume about 100M/sec from a broker and the total does not seem to change as we increase
 		  the number of consumers (however, data consumed per consumer decreases linearly as tota consumed data does not change)<p>
 		<p>The below graphs show how the number of consumers affect the total data consumed from the server and the data consumed per consumer.</p>
-        <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyconsumerMB.jpg" width="400" height="200"/></span><br />
-     	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyconsumerNumMsg.jpg" width="400" height="200"/></span><br />
+        <p><span style="" class="image-wrap"><img border="0" src="images/onlyConsumer.jpg" width="500" height="300"/></span> </p>
+
 
 
         <h3> Does data size effect our performance numbers? </h3>
@@ -58,15 +57,13 @@
 
         <h3> What is the effect of number of producers on the size of data produced? </h3>
          <p> Based on our experiments, the number of producer has a minimal effect on the total data produced <p>
-        <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyProdMB.jpg" width="400" height="200"/></span><br />
-     	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyProdMsg.jpg" width="400" height="200"/></span><br />
+     	<p><span style="" class="image-wrap"><img border="0" src="images/onlyProducer.jpg" width="500" height="300"/></span><br /></p>
 
         <h3> What is the effect of number of topics on the size of data produced? </h3>
          <p> Based on our experiments, the number of topic has a minimal effect on the total data produced 
              The below graph is an experiment where we used 40 producers and varied the number of topics<p>
 
-        <p><span style="" class="image-wrap"><img border="0" src="images/perf/onlyTopicMB.jpg" width="400" height="200"/></span><br />
-     	<span style="" class="image-wrap"><img border="0" src="images/perf/onlyTopicMsg.jpg" width="400" height="200"/></span><br />
+        <p><span style="" class="image-wrap"><img border="0" src="images/onlyTopic.jpg" width="500" height="300"/></span><br /></p>
 
 
 	<h2>How to Run a Performance Test</h2>

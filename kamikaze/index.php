@@ -1,23 +1,31 @@
 <?php require "includes/project_info.php" ?>
 <?php require "../includes/header.php" ?>
 <?php include "../includes/advert.php" ?>
-<h1>Kamikaze</h1>
-<h2>Kamikaze and search engines</h2>
-<b>Kamikaze</b>  is a utility package wrapping set implementations on sorted integer arrays. Search indexes, graph algorithms and certain sparse matrix representations tend to make heavy use of sorted integer arrays. 
-<p>
-For example, in search engines, for each term t, the index, or called inverted index, contains an inverted list, which is typically a sequence of sorted integer document IDs (and other information which can also be considered as sequences of integers). Thus, inverted index compression techniques are concerned with compressing sequences of sorted integers. 
-</p>
+
+<h2>Kamikaze Uses</h2>
 
 <p>
-A graph is often implemented as adanjency lists. In many cases, each list can be easily organized as a sorted integer array. For example, for the social graphs in large-scale social networks like Linkedin or Facebook, each list is, for a particular member, a sequence of all his friends (represented as integer member IDs). The performance of many algorithms on such graphs is thus greatly affected by the efficiency of various operations on such lists. For example, in order to find all common friends of two members, we need to find all intersected member IDs of their friend lists. 
+<b>Kamikaze</b> is a utility package for performing operations on compressed arrays of sorted integers. Search indexes, graph algorithms, and certain sparse matrix representations make heavy use of integer arrays, and special compression techniques are needed to get good compression performance on this data. 
 </p>
 
+<h3>Use in search engines</h3>
 <p>
-A matrix can be considered as an alternative implementation of a graph especially when most nodes are directly connected with each other. However, when the matrix is sparse (which is very common for the first or second degree friends in social graphs), it is more efficient to first transfer it into the adancency lists and then do various operations on the resulting lists.
+In search engines, the index is a mapping from terms to a list of documents matching that term. The documents are typically stored as a sequence of sorted integer document IDs (and other information which can also be considered as sequences of integers). Thus, inverted index compression techniques are concerned with compressing sequences of sorted integers. 
 </p>
 
+<h3>Use in sparse graph algorithms</h3>
 <p>
-In the above applications (large scale search engines or social networks), we often need to process a huge amount of data (arrays of integers) within milliseconds. The data often need to be compressed to be hold in main memory. Due to compression, the disk traffic and the network traffic are also greatly reduced since much less amount of data need to be communicated. We also need to be able to decompress the data very efficiently to maximize, for example, the query throughput of search engines. To achieve these goals, large search engines have been trying a lot of methods. For example, Lucene uses variable-byte coding (please refer to <a href="http://books.google.com/books?id=2F74jyPl48EC&amp;dq=managing+gigabytes&amp;printsec=frontcover&amp;source=bn&amp;hl=en&amp;ei=qMZuTKqyEIuosQOg5ZmiCw&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=4&amp;ved=0CCoQ6AEwAw#v=onepage&amp;q&amp;f=false">Managing Gigabytes</a> for various inverted index compression methods) to compress indexes. Google also uses variable-byte coding to encode part of its indexes a long time ago and has switched to <a href="http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/people/jeff/WSDM09-keynote.pdf">other compression</a> methods lately (In my opinion, their new method is a variation of PForDelta which is also implemented in Kamikaze and optimized in Kamikaze version 3.0.0). Therefore, we can see that it is very important to build Kamikaze on top of a good compression method that can achieve both the small compressed size and fast decompression speed. 
+A graph is often implemented as a sparce adjacency list of nodes, where nodes are represented by integer ids. In this case, each list can be easily organized as a sorted integer array. For example, for the social graphs in large-scale social networks like Linkedin or Facebook, each list is, for a particular member, a sequence of his or her friends user ids. The performance of many algorithms on such graphs is thus greatly affected by the efficiency of various operations on such lists. For example, in order to find all common friends of two members, we need to find all intersected member IDs of their friend lists. 
+</p>
+
+<h3>Use in sparse matrix algorithms</h3>
+<p>
+A matrix can be considered as an alternative implementation of a graph especially when most nodes are directly connected with each other. However, when the matrix is sparse (which is very common for the first or second degree friends in social graphs), it is more efficient to first transfer it into the adjacency lists and then do various operations on the resulting lists.
+</p>
+
+<h3>P4Delta Compression</h3>
+<p>
+In the above applications (large scale search engines or social networks), we often need to process a huge amount of data (arrays of integers) within milliseconds. The data often need to be compressed to be hold in main memory. Due to compression, the disk traffic and the network traffic are also greatly reduced since much less amount of data need to be communicated. We also need to be able to decompress the data very efficiently to maximize, for example, the query throughput of search engines. To achieve these goals, large search engines have been trying a lot of methods. For example, Lucene uses variable-byte coding (please refer to <a href="http://books.google.com/books?id=2F74jyPl48EC&amp;dq=managing+gigabytes&amp;printsec=frontcover&amp;source=bn&amp;hl=en&amp;ei=qMZuTKqyEIuosQOg5ZmiCw&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=4&amp;ved=0CCoQ6AEwAw#v=onepage&amp;q&amp;f=false">Managing Gigabytes</a> for various inverted index compression methods) to compress indexes. Google also uses variable-byte coding to encode part of its indexes a long time ago and has switched to <a href="http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/people/jeff/WSDM09-keynote.pdf">other compression</a> methods lately (their new method can be seen as a variation on PForDelta, the same algorithm implemented in Kamikaze and optimized in Kamikaze version 3.0.0). Therefore, we can see that it is very important to build Kamikaze on top of a good compression method that can achieve both the small compressed size and fast decompression speed. 
 </p>
 
 <p>

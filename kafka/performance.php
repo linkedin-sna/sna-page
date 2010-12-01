@@ -53,8 +53,8 @@
 
 
         <h3> Does data size effect our performance numbers? </h3>
-        <p> This does not have any affect on the performance based on our experiements<p>
-
+        <p> This does not have any affect on the performance based on our experiements. The below graph shows the number of messages produced with respect to data size.<p>
+     	<p><span style="" class="image-wrap"><img border="0" src="images/dataSize.jpg" width="500" height="300"/></span><br /></p>
         <h3> What is the effect of number of producers on the size of data produced? </h3>
          <p> Based on our experiments, the number of producer has a minimal effect on the total data produced <p>
      	<p><span style="" class="image-wrap"><img border="0" src="images/onlyProducer.jpg" width="500" height="300"/></span><br /></p>

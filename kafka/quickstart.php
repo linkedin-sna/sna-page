@@ -6,7 +6,7 @@
 	
 <h3> Step 1: Download the code </h3>
 
-Download a recent stable release from here.
+<a href="downloads" title="Kafka downloads">Download</a> a recent stable release.
 
 <pre>
 <b>&gt; tar xzf kafka-&lt;VERSION&gt;.tgz</b>
@@ -199,7 +199,7 @@ for(KafkaMessageStream>> stream: streams) {
 <h4>Hadoop Consumer</h4>
 
 <p>
-Providing a horizontally scalable solution for aggregating and loading data into Hadoop was one of our basic use cases. To support this use case, we provide a Hadoop-based consumer which spawns off many map tasks to pull data from the Kafka cluster in parallel. This provides extremely fast pull-based Hadoop data load capabilities (we were able to fully saturate the network with only a handful of kafka servers).
+Providing a horizontally scalable solution for aggregating and loading data into Hadoop was one of our basic use cases. To support this use case, we provide a Hadoop-based consumer which spawns off many map tasks to pull data from the Kafka cluster in parallel. This provides extremely fast pull-based Hadoop data load capabilities (we were able to fully saturate the network with only a handful of Kafka servers).
 </p>
 
 <p>

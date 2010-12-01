@@ -19,8 +19,7 @@
   $PROJ_ICON_PATH = "images/decomposer.jpeg";
 
   /* Navigation links in the sidebar */
-  $PROJ_NAV_LINKS = array("blog" => "http://www.decomposer.org/blog",
-                          "source" => "http://code.google.com/p/decomposer/source/checkout",
+  $PROJ_NAV_LINKS = array("source" => "http://code.google.com/p/decomposer/source/checkout",
                           "javadoc" => "http://decomposer.googlecode.com/svn/trunk/doc/javadoc/index.html",
                           "wiki" => "http://code.google.com/p/decomposer/w/list");
 

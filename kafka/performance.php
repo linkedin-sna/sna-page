@@ -29,35 +29,29 @@ In our performance tests, we run experiments to answer below questions.
 the number of consumer threads.<p>
 <p><span style="" class="image-wrap"><img border="0" src="images/onlyConsumer.jpg" width="500" height="300"/></span> </p>
 
-<h3> Does data size effect our performance numbers? </h3>
-<p> This does not have any affect on the performance based on our experiements[add graph]<p>
+<h3> Does data size effect our performance? </h3>
+<p><span style="" class="image-wrap"><img border="0" src="images/dataSize.jpg" width="500" height="300"/></span><br /></p>
 
 <h3>What is the effect of the number of producer threads on producer throughput?</h3>
 <p>We are able to max out production with only a few threads.<p>
 <p><span style="" class="image-wrap"><img border="0" src="images/onlyProducer.jpg" width="500" height="300"/></span><br /></p>
 
 <h3> What is the effect of number of topics on producer throughput?</h3>
-<p>Based on our experiments, the number of topic has a minimal effect on the total data produced 
+<p>Based on our experiments, the number of topic has a minimal effect on the total data produced.
 The below graph is an experiment where we used 40 producers and varied the number of topics<p>
 
 <p><span style="" class="image-wrap"><img border="0" src="images/onlyTopic.jpg" width="500" height="300"/></span><br /></p>
 
 <h2>How to Run a Performance Test</h2>
 
-
 <p>The performance related code is under perf folder. To run the simulator :</p>
 
-
-
 <p>&nbsp;../run-simulator.sh -kafkaServer=localhost -numTopic=10&nbsp;  -reportFile=report-html/data -time=15 -numConsumer=20 -numProducer=40  -xaxis=numTopic</p>
-
-
 
 <p>It will run a simulator with 40 producer and 20 consumer threads 
           producing/consuming from a local kafkaserver.&nbsp; The simulator is going to
           run 15 minutes and the results are going to be saved under 
           report-html/data</p>
-
 
 <p>and they will be plotted from there. Basically it will write MB of 
           data consumed/produced, number of messages consumed/produced given a 
@@ -65,8 +59,6 @@ The below graph is an experiment where we used 40 producers and varied the numbe
 
 
       <p>Other parameters include numParts, fetchSize, messageSize.</p>
-
-
 
       <p>In order to test how the number of topic affects the performance the below script can be used (it is under utl-bin)</p>
 

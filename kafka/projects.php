@@ -65,10 +65,20 @@ Not all the projects are started yet. Below is a list of projects which would be
 
 <h3>Other Languages</h3>
 
+<p>
 We offer a JVM-based client for production and consumption and also a rather primitive native python client. It would be great to improve this list. The lower-level protocols are well documented <a href="design.php">here</a> and should be relatively easy to implement in any language that supports standard socket I/O.
+</p>
 
 <h3>Long Poll</h3>
 
+<p>
 The consumer currently uses a simple polling mechanism. The fetch request always returns immediately, yielding no data if no new messages have arrived, and using a simple backoff mechanism when there are no new messages to avoid to frequent requests to the broker. This is efficient enough, but the lowest possible latency of the consumer is given by the polling frequency. It would be nice to enhance the consumer API to allow an option in the fetch request to have the server block for a given period of time waiting for data to be available rather than immediately returning and then waiting to poll again. This would provide somewhat improved latency in the low-throughput case where the consumer is often waiting for a message to arrive.
+</p>
+
+<h3>Syslogd Producer</h3>
+
+<p>
+We currently have a custom producer and also a log4j appender to work for "logging"-type applications. Outside the java world, however, the standard for logging is syslogd. It would be great to have an asynchronous producer that worked with syslogd to support these kinds of applications.
+</p>
 
 <?php require "../includes/footer.php" ?>

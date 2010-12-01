@@ -9,11 +9,11 @@ Azkaban is simple batch scheduler for constructing and running Hadoop jobs or ot
 <h2>What is it?</h2>
 
 <p>
-A batch job scheduler can be seen as a combination of the <code>cron</code> and <code>make</code> Unix utilities. Batch jobs need to be scheduled to run periodically. They also typically have intricate dependency chains&mdash;for example, dependencies on various data extraction processes or previous steps. Larger processes might have 50 or 60 steps, of which some might run in parallel and others must wait for one another. Combining all these processes into a single program allows you to control the dependency management, but can lead to sprawling monolithic programs that are difficult to test or maintain. Simply scheduling the individual pieces to run at different times avoids the monolithic problem, but introduces many timing assumptions that are inevitably broken. Azkaban is a <i>workflow</i> scheduler that allows the pieces to be declaratively assembled into a single workflow, and for that workflow to be scheduled to run periodically.
+A batch job scheduler can be seen as a combination of the <code>cron</code> and <code>make</code> Unix utilities combined with a friendly UI. Batch jobs need to be scheduled to run periodically. They also typically have intricate dependency chains&mdash;for example, dependencies on various data extraction processes or previous steps. Larger processes might have 50 or 60 steps, of which some might run in parallel and others must wait for the output of earlier steps. Combining all these processes into a single program allows you to control the dependency management, but can lead to sprawling monolithic programs that are difficult to test or maintain. Simply scheduling the individual pieces to run at different times avoids the monolithic problem, but introduces many timing assumptions that are inevitably broken. Azkaban is a <i>workflow</i> scheduler that allows the independent pieces to be declaratively assembled into a single workflow, and for that workflow to be scheduled to run periodically.
 </p>
 
 <p>
-A good batch workflow system allows a program to be built out of small reusable pieces that need not know about one another. By declaring dependencies, you can control sequencing. Other functionality available from Azkaban can then be layered on top of the job&mdash;email notifications of success or failure, resource locking, retry on failure, log collection, historical job runtime information, and so on. 	
+A good batch workflow system allows a program to be built out of small reusable pieces that need not know about one another. By declaring dependencies, you can control sequencing. Other functionality available from Azkaban can then be declaratively layered on top of the job without having to add any code. This includes things like email notifications of success or failure, resource locking, retry on failure, log collection, historical job runtime information, and so on. 	
 </p>
 
 <h2>Why was it made?</h2>
@@ -36,7 +36,7 @@ New to This release:
 <h2>State of the project</h2>
 
 <p>
-We have been using Azkaban internally at <a href="http://www.linkedin.com">LinkedIn</a> for since early 2009, and have about a hundred jobs running in it, mostly Hadoop jobs or ETL of some type. Azkaban is quite new as an open source project though, and we are working now to generalize it enough to make it useful for everyone.
+We have been using Azkaban internally at <a href="http://www.linkedin.com">LinkedIn</a> for since early 2009, and have several hundred jobs running in it, mostly Hadoop jobs or ETL of some type. Azkaban is quite new as an open source project though, and we are working now to generalize it enough to make it useful for everyone.
 </p>
 <p>
 Any patches, bug reports, or feature ideas are quite welcome. We have created a <a href="http://groups.google.com/group/azkaban-dev">mailing list</a> for this purpose.

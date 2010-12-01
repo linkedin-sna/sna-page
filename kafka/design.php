@@ -214,6 +214,20 @@ This kind of cluster-aware balancing of consumption has several advantages:
 </ul>
 </p>
 
+<h2>Support for Hadoop and other batch data load</h2>
+
+<p>
+Scalable persistence allows for the possibility of supporting batch data loads that periodically snapshot data into an offline system for batch processing.  We make use of this for loading data into our data warehouse and Hadoop clusters.
+</p>
+
+<p>
+Batch processing happens in stages beginning with the data load stage and proceeding in an acyclic graph of processing and output stages (e.g. as supported <a href="../azkaban">here</a>). An essential feature of support for this model is the ability to re-run the data load from a point in time (in case anything goes wrong).
+</p>
+
+<p>
+In the case of Hadoop we parallelize the data load by splitting the load over individual map tasks, one for each node/topic/partition combination, allowing full parallelism in the loading. Hadoop provides the task management, and tasks which fail can restart without danger of duplicate data.
+</p>
+
 <h1>Implementation Details</h1>
 
 <p>

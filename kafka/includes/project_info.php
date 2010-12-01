@@ -16,15 +16,15 @@
   $PROJ_FAVICON_MIME = "image/png";
 
   /* Navigation links in the sidebar */
-  $PROJ_NAV_LINKS = array("download" => "#",
-                          "code" => "#",
-                          "performance" => "performance.php",
+  $PROJ_NAV_LINKS = array("download" => "downloads/",
+                          "code" => "https://github.com/kafka-dev/kafka",
                           "quickstart" => "quickstart.php",
+                          "design" => "design.php",
                           "configuration" => "configuration.php",
                           "performance" => "performance.php",
-                          "design" => "design.php",
-                          "wiki" => "http://snaprojects.jira.com/browse/KAFKA",
-                          "bugs" => "http://snaprojects.jira.com/wiki/display/KAFKA",
+                          "current&nbsp;work" => "projects.php",
+                          "wiki" => "http://snaprojects.jira.com/wiki/display/KAFKA",
+                          "bugs" => "http://snaprojects.jira.com/browse/KAFKA",
                           "mailing list" => "http://groups.google.com/group/kafka-dev"
                           );
 

@@ -196,9 +196,19 @@ for(KafkaMessageStream>> stream: streams) {
 }
 </pre>
 
-<h4> Simple Consumer </h4>
+<h4>Hadoop Consumer</h4>
 
-Kafka has a lower-level consumer api for reading message chunks directly from servers. Under most circumstances this should not be needed. It's usage is as follows:
+<p>
+Providing a horizontally scalable solution for aggregating and loading data into Hadoop was one of our basic use cases. To support this use case, we provide a Hadoop-based consumer which spawns off many map tasks to pull data from the Kafka cluster in parallel. This provides extremely fast pull-based Hadoop data load capabilities (we were able to fully saturate the network with only a handful of kafka servers).
+</p>
+
+<p>
+Usage information on the hadoop consumer can be found <a href="https://github.com/kafka-dev/kafka/tree/master/contrib/hadoop-consumer">here</a>.
+</p>
+
+<h4>Simple Consumer</h4>
+
+Kafka has a lower-level consumer api for reading message chunks directly from servers. Under most circumstances this should not be needed. But just in case, it's usage is as follows:
 
 <pre>
 <small>// create a consumer to connect to the server host, port, socket timeout of 10 secs, socket receive buffer of ~1MB</small>

@@ -30,7 +30,7 @@ the number of consumer threads.<p>
 <p><span style="" class="image-wrap"><img border="0" src="images/onlyConsumer.jpg" width="500" height="300"/></span> </p>
 
 <h3> Does data size effect our performance numbers? </h3>
-<p> This does not have any affect on the performance based on our experiements<p>
+<p> This does not have any affect on the performance based on our experiements[add graph]<p>
 
 <h3>What is the effect of the number of producer threads on producer throughput?</h3>
 <p>We are able to max out production with only a few threads.<p>

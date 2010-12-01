@@ -16,7 +16,7 @@ Kafka is aimed at providing a publish-subscribe solution that can handle all act
 </p>
 
 <p>
-See our <a href="design.php">design</a> page for more details.	
+The use for activity stream processing makes Kafka comparable to <a href="https://github.com/facebook/scribe">Facebook's Scribe</a> or <a href="https://github.com/cloudera/flume">Cloudera's Flume</a>, though the architecture and primitives are very different for these systems and make Kafka more comparable to a traditional messaging system. See our <a href="design.php">design</a> page for more details.	
 </p>
 
 <p>

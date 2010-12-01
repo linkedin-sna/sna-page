@@ -3,10 +3,10 @@
   $PROJ_NAME = "Krati";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "A persistent high-performance data store";
+  $PROJ_SUBTITLE = "A persistent high-performance data store.";
 
   /* HTML header description for SEO */
-  $PROJ_DESCRIPTION = "A persistent high-performance data store";
+  $PROJ_DESCRIPTION = "A persistent high-performance data store.";
 
   /* HTML header keywords for SEO */
   $PROJ_KEYWORDS = "realtime,key value store,content service,java nio";

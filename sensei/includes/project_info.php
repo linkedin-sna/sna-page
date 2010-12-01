@@ -3,7 +3,7 @@
   $PROJ_NAME = "Sensei";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "Distributed elastic realtime searchable database";
+  $PROJ_SUBTITLE = "A distributed, elastic, realtime, searchable database.";
 
   /* HTML header description for SEO */
   $PROJ_DESCRIPTION = "distributed elastic realtime searchable database";

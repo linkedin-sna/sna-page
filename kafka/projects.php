@@ -45,7 +45,7 @@ Messages are currently written to a single broker with no replication between br
 We have a patch that provides end-to-end message set compression from producer to broker and broker to consumer with no need for intervening decompression. We hope to add this feature soon.
 </p>
 
-<h3>Stdout Consumer</h3>
+<h3>Console Consumer</h3>
 
 <p>
 The interaction with zookeeper and complexity of the elastic load balancing of consumers makes implementing the equivalent of the rich consumer interface outside of the JVM somewhat difficult (implementing the low-level fetch api is quite easy). A simple approach to this problem could work similar to Hadoop Streaming and simply provide a consumer which dumps to standard output in some user-controllable format. This can be piped to another program in any language which simply reads from standard input to receive the data from the stream.
@@ -79,6 +79,12 @@ The consumer currently uses a simple polling mechanism. The fetch request always
 
 <p>
 We currently have a custom producer and also a log4j appender to work for "logging"-type applications. Outside the java world, however, the standard for logging is syslogd. It would be great to have an asynchronous producer that worked with syslogd to support these kinds of applications.
+</p>
+
+<h3>Hierarchical Topics</h3>
+
+<p>
+Currently streams are divided into only two levels&mdash;topics and partitions. This is unnecessarily limited. We should add support for hierarchical topics and allow subscribing to an arbitrary subset of paths. For example one could have /events/clicks and /events/logins and one could subscribe to either of these alone or get the merged stream by subscribing to the parent directory, /events.
 </p>
 
 <?php require "../includes/footer.php" ?>

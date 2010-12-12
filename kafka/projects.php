@@ -84,7 +84,11 @@ We currently have a custom producer and also a log4j appender to work for "loggi
 <h3>Hierarchical Topics</h3>
 
 <p>
-Currently streams are divided into only two levels&mdash;topics and partitions. This is unnecessarily limited. We should add support for hierarchical topics and allow subscribing to an arbitrary subset of paths. For example one could have /events/clicks and /events/logins and one could subscribe to either of these alone or get the merged stream by subscribing to the parent directory, /events.
+Currently streams are divided into only two levels&mdash;topics and partitions. This is unnecessarily limited. We should add support for hierarchical topics and allow subscribing to an arbitrary subset of paths. For example one could have /events/clicks and /events/logins and one could subscribe to either of these alone or get the merged stream by subscribing to the parent directory /events.
+</p>
+
+<p>
+In this model, partitions are naturally just subtopics (for example /events/clicks/0 might be one partition). This reduces the conceptual weight of the system and adds some power.
 </p>
 
 <?php require "../includes/footer.php" ?>

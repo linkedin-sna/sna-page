@@ -45,8 +45,8 @@ Messages are currently written to a single broker with no replication between br
 We have a patch that provides end-to-end message set compression from producer to broker and broker to consumer with no need for intervening decompression. We hope to add this feature soon.
 </p>
 
-<h3>Console Consumer</h3>
-
+<h3><s>Console Consumer</s></h3>
+<p>Done!</p>
 <p>
 The interaction with zookeeper and complexity of the elastic load balancing of consumers makes implementing the equivalent of the rich consumer interface outside of the JVM somewhat difficult (implementing the low-level fetch api is quite easy). A simple approach to this problem could work similar to Hadoop Streaming and simply provide a consumer which dumps to standard output in some user-controllable format. This can be piped to another program in any language which simply reads from standard input to receive the data from the stream.
 </p>

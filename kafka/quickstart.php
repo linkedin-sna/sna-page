@@ -220,7 +220,7 @@ while (true) {
   FetchRequest fetchRequest = new FetchRequest("test", 0, offset, 1000000);
 
   <small>// get the message set from the consumer and print them out</small>
-  ByteBufferMessageSet messageSets = consumer.fetch(fetchRequest);
+  ByteBufferMessageSet messages = consumer.fetch(fetchRequest);
   for(message : messages) {
     System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"))
     <small>// advance the offset after consuming each message</small>

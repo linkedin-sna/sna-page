@@ -25,7 +25,7 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
 <ul>
   <li>Joseph Adler &ndash; <a href="http://en.oreilly.com/datascience/public/schedule/detail/15330">When is Data Size a Problem?</a>, <a href="http://strataconf.com/strata2011/public/schedule/detail/17164">Working with Data (O'Reilly Strata Conference)</a></li>
   <li>Chris Conrad &ndash; <a href="http://days2010.scala-lang.org/node/138/159">Scala Days 2010</a></li>
-	<li>Voldemort &ndash;
+  <li>Voldemort &ndash;
           <a href="http://www.vimeo.com/5187210">NoSQL SF</a>, 
           <a href="http://www.sdforum.org/index.cfm?fuseaction=Document.filterdocumentlist&topicRadio=Topic&topicOnly=32&docPublishYear=getAllYears">SDForum</a>,
           <a href="http://behemoth.strlen.net/~alex/Voldemort_NoSQL_Oakland.ppt">NoSQL Oakland</a>,
@@ -51,6 +51,7 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
    </li>
    <li>Sam Shah &ndash; <a href="http://strataconf.com/strata2011/public/schedule/detail/16932">Building data products with Hadoop</a> (O'Reilly Strata)</li>
    <li>Pete Skomoroch &ndash; <a href="http://strataconf.com/strata2011/public/schedule/detail/17174">Distilling Data Exhaust: How to Surface Insights and Build Products</a> (O'Reilly Strata)</li>
+   <li>Christian Posse &ndash; <a href="media/basna.pdf">Operating Smartly  in a Networked World</a> (Keynote address, <a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=10270&copyownerid=12652">IEEE International Workshop on Business Applications of Social Network Analysis 2010</a>)</li>
 </ul>
 </span>
 

@@ -331,13 +331,8 @@ A number of properties are made available to jobs of all types by the framework.
     <td>foo, bar</td>
   </tr>
   <tr>
-    <td><code>success.emails</code></td>
-    <td>A comma-separated list of email addresses to notify upon the success of the job</td>
-    <td>gwb@whitehouse.gov, barryo@whitehouse.gov</td>
-  </tr>
-  <tr>
-    <td><code>failure.emails</code></td>
-    <td>A comma-separated list of email addresses to notify upon the failure of the job</td>
+    <td><code>notify.emails</code></td>
+    <td>A comma-separated list of email addresses to notify upon success and failure of the job</td>
     <td>gwb@whitehouse.gov, barryo@whitehouse.gov</td>
   </tr>
   <tr>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<html xmlns:og="http://ogp.me/ns#">
 	<head>
 		<title><?= $PROJ_NAME ?></title>
 		<link rel='stylesheet' href='styles.php' type='text/css'>
@@ -11,7 +11,13 @@
 			if($PROJ_DESCRIPTION)
 			    echo "<meta name=\"description\" content=\"${PROJ_DESCRIPTION}\">";
 		?>
-		<meta http-equiv='Content-Type' content='text/html;charset=utf-8'>
+		<meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
+		
+		<meta property="og:title" value="${PROJ_NAME}" />
+		<meta property="og:image" value="${PROJ_ICON_PATH}" />
+		<meta property="og:description" value="${PROJ_DESCRIPTION}" />
+		<meta property="og:site_name" value="SNA Projects" />
+		<meta property="og:type" value="website" />
 	</head>
 	<body>
 		<div>

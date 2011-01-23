@@ -6,7 +6,7 @@
   $PROJ_SUBTITLE = "Search, Network, Analytics.";
 
   /* HTML header description for SEO */
-  $PROJ_DESCRIPTION = "blah blah";
+  $PROJ_DESCRIPTION = "SNA Homepage";
 
   /* HTML header keywords for SEO */
   $PROJ_KEYWORDS = "Project Voldemort, Voldemort, key-value storage, distributed storage, Amazon Dynamo, persistence, scalability";

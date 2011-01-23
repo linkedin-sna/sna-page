@@ -10,10 +10,6 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
 <div class="section_label"><a name="books">books</a></div>
 <span>
   <ul>
-  <li>
-  <i>Lucene in Depth: Advanced Search Techniques with Lucene</i> - Manning Publications (in progress)
- by Jake Mannix, John Wang, Jiong Wang, Yasuhiro Matsuda
-   </li>
    <li>
   <i>R in a Nutshell</i> - O'Reilly by Joseph Adler
   </li>
@@ -38,8 +34,12 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
 		<li><a href="http://www.sdforum.org/index.cfm?fuseaction=Document.filterdocumentlist&topicRadio=Topic&topicOnly=32&docPublishYear=getAllYears">Jay Kreps Voldemort SDForum</a> (with Bhupesh Bansal)</li>
 		<li><a href="http://www.vimeo.com/5187210">Voldemort at NoSQL SF</a></li>
 	  </ul>
-    <li> John Wang &ndash; 
-        <a href="http://docs.google.com/present/view?id=d7qvbkn_28cgpvm96r">SDForum - LinkedIn Search</a>
+    <li> John Wang
+	    <ul>
+		  <li><a href="http://qconsf.com/sf2010/presentation/LinkedIn+Search%3A++Searching+the+Social+Graph+in+Real+Time">QCon SF 2010</a></li>
+		  <li><a href="http://www.lucidimagination.com/events/revolution2010/videos/jwang">Lucene Revolution 2010</a></li>
+          <li><a href="http://docs.google.com/present/view?id=d7qvbkn_28cgpvm96r">SDForum - LinkedIn Search</a></li>
+        </ul>
     </li>
     <li>
 	    Alex Feinberg

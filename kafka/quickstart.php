@@ -76,7 +76,7 @@ int port = 9092;
 int bufferSize = 64*1024;
 int connectionTimeoutMs = 30*1000;
 int reconnectInterval = 1000;
-KafkaProducer producer = new KafkaProducer(host, port, bufferSize, connectionTimeoutMs, reconnectInterval);
+SimpleProducer producer = new SimpleProducer(host, port, bufferSize, connectionTimeoutMs, reconnectInterval);
 
 String topic = "test";
 int partition = 0;
@@ -138,7 +138,7 @@ props.put("queue.size", "200");
 props.put("serializer.class", "kafka.producer.StringSerializer");
 ProducerConfig config = new ProducerConfig(props);
     
-KafkaProducer basicProducer =  new KafkaProducer(host, port, 64*1024, 100000, 10000);
+SimpleProducer basicProducer =  new SimpleProducer(host, port, 64*1024, 100000, 10000);
 
 AsyncKafkaProducer[String] producer = new AsyncKafkaProducer[String](config, basicProducer, new StringSerializer());
 
@@ -184,8 +184,7 @@ List&lt;KafkaMessageStream&gt; streams = topicMessageStreams.get("test")
 ExecutorService executor = Executors.newFixedThreadPool(4);
 
 // consume the messages in the threads
-for(KafkaMessageStream>> stream: streams) {
-  final KafkaMessageStream stream = topicStream.getValue();
+for(final KafkaMessageStream>> stream: streams) {
   executors.submit(new Runnable() {
     public void run() {
       for(Message message: stream) {

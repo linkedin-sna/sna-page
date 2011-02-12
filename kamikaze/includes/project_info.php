@@ -23,9 +23,10 @@
                           "performance" => "performance.php",
                           "quick start" => "quickstart.php",
                           "suggestion" => "suggestion.php",
-                          "downloads" => "http://github.com/hyan/kamikaze/downloads",
+                          "releases" => "releases.php",
                           "source" => "http://github.com/hyan/kamikaze",
                           "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
+                          "team" => "team.php",
                           "mailing list" => "http://groups.google.com/group/kamikaze-users",
                           "bugs" => "http://snaprojects.jira.com/browse/KAMI");
 

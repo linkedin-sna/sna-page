@@ -13,10 +13,10 @@
 		?>
 		<meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
 		
-		<meta property="og:title" value="${PROJ_NAME}" />
-		<meta property="og:image" value="${PROJ_ICON_PATH}" />
-		<meta property="og:description" value="${PROJ_DESCRIPTION}" />
-		<meta property="og:site_name" value="SNA Projects" />
+		<meta property="og:title" value="<?= $PROJ_NAME ?>" />
+		<meta property="og:image" value="<?= $PROJ_ICON_PATH ?>" />
+		<meta property="og:description" value="<?= $PROJ_DESCRIPTION ?>" />
+		<meta property="og:site_name" value="sna-projects" />
 		<meta property="og:type" value="website" />
 	</head>
 	<body>

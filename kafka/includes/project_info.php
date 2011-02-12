@@ -23,6 +23,7 @@
                           "configuration" => "configuration.php",
                           "performance" => "performance.php",
                           "current&nbsp;work" => "projects.php",
+                          "faq" => "faq.php",
                           "wiki" => "http://snaprojects.jira.com/wiki/display/KAFKA",
                           "bugs" => "http://snaprojects.jira.com/browse/KAFKA",
                           "mailing list" => "http://groups.google.com/group/kafka-dev"

@@ -223,7 +223,7 @@ new TWTR.Widget({
 	<tr>	
 		<?php echo_person("Rui Wang", "Senior Software Engineer", "/in/ruiwang", img("/p/2/000/013/087/23ebe1e.jpg"), ""); ?>
 		<?php echo_person("Jingwei Wu", "Senior Software Engineer", "/in/wujingwei", img("/p/1/000/060/043/3a38d9e.jpg"), ""); ?>
-   		<?php echo_person("Lili Wu", "Senior Software Engineer", "/pub/lili-wu/0/148/bb3", img("/p/1/000/045/2e2/186c821.jpg"), ""); ?>
+   		<?php echo_person("Lili Wu", "Senior Software Engineer", "/pub/lili-wu/0/148/bb3", img("http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png"), ""); ?>
    		<?php echo_person("Xian Xu", "Senior Software Engineer", "/in/xianxu", img("/p/3/000/071/054/0fdcb2e.jpg"), ""); ?>
    		<?php echo_person("Hao Yan", "Software Engineer", "/in/haoyan", img("/p/3/000/05c/123/381f1b1.jpg"), ""); ?>
 	</tr>

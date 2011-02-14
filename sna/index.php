@@ -165,7 +165,7 @@ new TWTR.Widget({
 		<?php echo_person("Chris Conrad", "Engineering Manager/Senior Software Engineer", "/in/cconrad", img("/p/3/000/03c/318/237e99d.jpg"), ""); ?>
 	</tr>
 	<tr>
-		<?php echo_person("Baoqiu Cui", "Principal Engineer", "/in/cbaoqiu", "/p/1/000/086/04a/3e1082e.jpg", ""); ?>
+		<?php echo_person("Baoqiu Cui", "Principal Engineer", "/in/cbaoqiu", img("/p/1/000/086/04a/3e1082e.jpg"), ""); ?>
 		<?php echo_person("Ramesh Dommeti", "Senior Software Engineer", "/in/rameshdom", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
 		<?php echo_person("Fatih Emekci", "Senior Software Engineer", "/in/fatihemekci", img("/p/3/000/007/3e3/0ebf7c8.jpg"), ""); ?>
 		<?php echo_person("Alex Feinberg", "Senior Software Engineer", "/in/alexfeinberg", img("/p/3/000/028/146/3a654ae.jpg"), ""); ?>

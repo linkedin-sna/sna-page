@@ -165,7 +165,7 @@ new TWTR.Widget({
 		<?php echo_person("Chris Conrad", "Engineering Manager/Senior Software Engineer", "/in/cconrad", img("/p/3/000/03c/318/237e99d.jpg"), ""); ?>
 	</tr>
 	<tr>
-		<?php echo_person("Baoqiu Cui", "Principal Engineer", "/in/cconrad", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
+		<?php echo_person("Baoqiu Cui", "Principal Engineer", "/in/cbaoqiu", "/p/1/000/086/04a/3e1082e.jpg", ""); ?>
 		<?php echo_person("Ramesh Dommeti", "Senior Software Engineer", "/in/rameshdom", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
 		<?php echo_person("Fatih Emekci", "Senior Software Engineer", "/in/fatihemekci", img("/p/3/000/007/3e3/0ebf7c8.jpg"), ""); ?>
 		<?php echo_person("Alex Feinberg", "Senior Software Engineer", "/in/alexfeinberg", img("/p/3/000/028/146/3a654ae.jpg"), ""); ?>
@@ -218,12 +218,12 @@ new TWTR.Widget({
 		<?php echo_person("Eric Tschetter", "Senior Software Engineer", "/pub/eric-tschetter/1/b87/80", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
 		<?php echo_person("Albert Wang", "User Experience Design", "/in/albertdesign", img("/p/1/000/053/214/0bc9d98.jpg"), ""); ?>
 		<?php echo_person("Jiong Wang", "Engineering Manager/Principal Engineer", "/in/jiongwang", img("/p/3/000/003/20c/23255a2.jpg"), ""); ?>
-		<?php echo_person("John Wang", "Architect", "/in/javasoze", img("/p/3/000/022/2db/03432f1.jpg"), ""); ?>
+		<?php echo_person("John Wang", "Architect", "/in/javasoze", img("/p/1/000/08b/33b/012b4d3.jpg"), ""); ?>
 	</tr>
 	<tr>	
 		<?php echo_person("Rui Wang", "Senior Software Engineer", "/in/ruiwang", img("/p/2/000/013/087/23ebe1e.jpg"), ""); ?>
 		<?php echo_person("Jingwei Wu", "Senior Software Engineer", "/in/wujingwei", img("/p/1/000/060/043/3a38d9e.jpg"), ""); ?>
-   		<?php echo_person("Lili Wu", "Senior Software Engineer", "/pub/lili-wu/0/148/bb3", img("http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png"), ""); ?>
+   		<?php echo_person("Lili Wu", "Senior Software Engineer", "/pub/lili-wu/0/148/bb3", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
    		<?php echo_person("Xian Xu", "Senior Software Engineer", "/in/xianxu", img("/p/3/000/071/054/0fdcb2e.jpg"), ""); ?>
    		<?php echo_person("Hao Yan", "Software Engineer", "/in/haoyan", img("/p/3/000/05c/123/381f1b1.jpg"), ""); ?>
 	</tr>

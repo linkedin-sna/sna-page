@@ -28,7 +28,7 @@
 <tr>
     <td><code>topic.flush.intervals.ms</code></td>
     <td>none</td>
-    <td>Per-topic overrides for <code>log.default.flush.interval.ms</code>. Controls the maximum time that a message in selected topics is kept in memory before flushed to disk. The per-topic value only makes sense if it's a multiple of <code>log.default.flush.scheduler.interval.ms</code>.</td>
+    <td>Per-topic overrides for <code>log.default.flush.interval.ms</code>. Controls the maximum time that a message in selected topics is kept in memory before flushed to disk. The per-topic value only makes sense if it's a multiple of <code>log.default.flush.scheduler.interval.ms</code>. E.g., topic1:1000,topic2:2000</td>
 </tr>
 <tr>
     <td><code>log.cleanup.interval.mins</code></td>
@@ -58,7 +58,7 @@
 <tr>
     <td><code>topic.partition.count.map</code></td>
     <td>none</td>
-    <td>Override parameter to control the number of partitions for selected topics.</td>
+    <td>Override parameter to control the number of partitions for selected topics. E.g., topic1:10,topic2:20</td>
 </tr>
 <tr>
     <td><code>zk.connect</code> </td>

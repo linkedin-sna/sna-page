@@ -215,7 +215,7 @@ new TWTR.Widget({
 	</tr>
 	<tr>
 		<?php echo_person("Roshan Sumbaly", "Software Engineer", "/in/rsumbaly", img("/p/2/000/021/3f0/3f5034d.jpg"), ""); ?>
-		<?php echo_person("Eric Tschetter", "Senior Software Engineer", "/pub/eric-tschetter/1/b87/80", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
+		<?php echo_person("Mitul Tiwari", "Senior Research Engineer", "/in/mitultiwari", img("/p/3/000/050/032/1d77323.jpg"), ""); ?>
 		<?php echo_person("Albert Wang", "User Experience Design", "/in/albertdesign", img("/p/1/000/053/214/0bc9d98.jpg"), ""); ?>
 		<?php echo_person("Jiong Wang", "Engineering Manager/Principal Engineer", "/in/jiongwang", img("/p/3/000/003/20c/23255a2.jpg"), ""); ?>
 		<?php echo_person("John Wang", "Architect", "/in/javasoze", img("/p/1/000/08b/33b/012b4d3.jpg"), ""); ?>

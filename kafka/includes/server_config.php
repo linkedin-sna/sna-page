@@ -37,7 +37,7 @@
 </tr>
 <tr>
     <td><code>topic.log.retention.hours</code></td>
-    <td></td>
+    <td>none</td>
     <td>Topic-specific retention time that overrides <code>log.retention.hours</code>, e.g., topic1:10,topic2:20</td>
 </tr>
 <tr>

@@ -31,6 +31,16 @@
     <td>Per-topic overrides for <code>log.default.flush.interval.ms</code>. Controls the maximum time that a message in selected topics is kept in memory before flushed to disk. The per-topic value only makes sense if it's a multiple of <code>log.default.flush.scheduler.interval.ms</code>. E.g., topic1:1000,topic2:2000</td>
 </tr>
 <tr>
+    <td><code>log.retention.hours</code></td>
+    <td>168</td>
+    <td>Controls how long a log file is retained.</td>
+</tr>
+<tr>
+    <td><code>topic.log.retention.hours</code></td>
+    <td></td>
+    <td>Topic-specific retention time that overrides <code>log.retention.hours</code>, e.g., topic1:10,topic2:20</td>
+</tr>
+<tr>
     <td><code>log.cleanup.interval.mins</code></td>
     <td>10</td>
     <td>Controls how often the log cleaner checks logs eligible for deletion. A log file is eligible for deletion if it hasn't been modified for <code>log.retention.hours</code> hours.</td>

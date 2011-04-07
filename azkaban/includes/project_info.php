@@ -26,8 +26,8 @@
                           "download" => "http://github.com/azkaban/azkaban/downloads",
                           "mailing list" => "http://groups.google.com/group/azkaban-dev",
                           "future plans" => "plans.php",
-                          "bugs" => "http://snaprojects.jira.com/browse/AZK",
-                          "wiki" => "http://snaprojects.jira.com/wiki/display/AZK/Home");
+                          "bugs" => "http://linkedin.jira.com/browse/AZK",
+                          "wiki" => "http://linkedin.jira.com/wiki/display/AZK/Home");
 
   /* Project color */
   $PROJ_PRIMARY_COLOR = "#444444";

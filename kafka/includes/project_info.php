@@ -24,8 +24,8 @@
                           "performance" => "performance.php",
                           "current&nbsp;work" => "projects.php",
                           "faq" => "faq.php",
-                          "wiki" => "http://snaprojects.jira.com/wiki/display/KAFKA",
-                          "bugs" => "http://snaprojects.jira.com/browse/KAFKA",
+                          "wiki" => "http://linkedin.jira.com/wiki/display/KAFKA",
+                          "bugs" => "http://linkedin.jira.com/browse/KAFKA",
                           "mailing list" => "http://groups.google.com/group/kafka-dev"
                           );
 

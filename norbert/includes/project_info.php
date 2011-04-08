@@ -19,7 +19,7 @@
   $PROJ_NAV_LINKS = array("source" => "http://github.com/rhavyn/norbert", 
   	"wiki" => "http://wiki.github.com/rhavyn/norbert/", 
   	"talks" => "http://days2010.scala-lang.org/node/138/159",
-  	"bugs" => "http://snaprojects.jira.com/browse/NOR");
+  	"bugs" => "http://linkedin.jira.com/browse/NOR");
 
   /* Project color */
   $PROJ_PRIMARY_COLOR = "#5C1958";

@@ -25,9 +25,9 @@
       "downloads" => "http://github.com/jingwei/krati/downloads",
       "performance" => "performance.php",
       "quickstart" => "quickstart.php",
-      "issues" => "http://snaprojects.jira.com/browse/KRTI",
+      "issues" => "http://linkedin.jira.com/browse/KRTI",
       "group" => "http://groups.google.com/group/krati",
-      "wiki" => "http://snaprojects.jira.com/wiki/display/Krati/Home");
+      "wiki" => "http://linkedin.jira.com/wiki/display/Krati/Home");
 
   /* Project color */
   $PROJ_PRIMARY_COLOR = "#FF4400";

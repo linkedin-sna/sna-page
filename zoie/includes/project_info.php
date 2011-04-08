@@ -21,12 +21,12 @@
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array(
 	  "code" => "http://github.com/javasoze/zoie",
-	  "wiki" => "http://snaprojects.jira.com/wiki/display/Zoie/Home",
+	  "wiki" => "http://linkedin.jira.com/wiki/display/Zoie/Home",
 	  "javadoc" => "http://test.project-voldemort.com:8080/job/Zoie/javadoc/?",
       "mailing list" => "http://groups.google.com/group/zoie",
       "downloads" => "http://github.com/xiaoyang/zoie/downloads",
       "unit tests" => "http://test.project-voldemort.com:8080/job/Zoie/",
-      "bugs" => "http://snaprojects.jira.com/browse/ZOIE");
+      "bugs" => "http://linkedin.jira.com/browse/ZOIE");
 
   /* Project color */
   $PROJ_PRIMARY_COLOR = "#BB3300";

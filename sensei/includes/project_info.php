@@ -19,11 +19,11 @@
   $PROJ_ICON_PATH = "images/sensei_white_transparent_s.png";
 
   /* Navigation links in the sidebar */
-  $PROJ_NAV_LINKS = array("issues" => "http://snaprojects.jira.com/browse/SENSEI",
+  $PROJ_NAV_LINKS = array("issues" => "http://linkedin.jira.com/browse/SENSEI",
                           "source" => "http://github.com/javasoze/sensei",
                           "group" => "http://groups.google.com/group/sensei-search",
-                          "getting started" => "http://snaprojects.jira.com/wiki/display/SENSEI/Getting+Started",
-                          "wiki" => "http://snaprojects.jira.com/wiki/display/SENSEI/Home");
+                          "getting started" => "http://linkedin.jira.com/wiki/display/SENSEI/Getting+Started",
+                          "wiki" => "http://linkedin.jira.com/wiki/display/SENSEI/Home");
 
   /* Project color */
   $PROJ_PRIMARY_COLOR = "#000000";

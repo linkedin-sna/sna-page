@@ -25,10 +25,10 @@
                           "suggestion" => "suggestion.php",
                           "releases" => "releases.php",
                           "source" => "http://github.com/hyan/kamikaze",
-                          "wiki" => "http://snaprojects.jira.com/wiki/display/KAMI/Home",
+                          "wiki" => "http://linkedin.jira.com/wiki/display/KAMI/Home",
                           "team" => "team.php",
                           "mailing list" => "http://groups.google.com/group/kamikaze-users",
-                          "bugs" => "http://snaprojects.jira.com/browse/KAMI");
+                          "bugs" => "http://linkedin.jira.com/browse/KAMI");
 
   /* Project color */
   /*$PROJ_PRIMARY_COLOR = "#63B8FF";*/

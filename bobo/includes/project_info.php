@@ -22,8 +22,8 @@
                           "demo" => "http://test.project-voldemort.com:8888/cars",
                           "source" => "http://github.com/javasoze/bobo",
                           "mailing&nbsp;list" => "http://groups.google.com/group/bobo-browse", 
-                          "wiki" => "http://snaprojects.jira.com/wiki/display/BOBO/Home",
-                          "bugs" => "http://snaprojects.jira.com/browse/BOBO",
+                          "wiki" => "http://linkedin.jira.com/wiki/display/BOBO/Home",
+                          "bugs" => "http://linkedin.jira.com/browse/BOBO",
                           "unit tests" => "http://test.project-voldemort.com:8080/job/bobo-trunk/",
                           "javadoc" => "http://test.project-voldemort.com:8080/job/bobo-trunk/javadoc/",
                           "blog" => "http://invertedindex.blogspot.com/");

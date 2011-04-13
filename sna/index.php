@@ -85,45 +85,6 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
   <li><a href="http://www.infoq.com/articles/linkedin-scala-jruby-voldemort">InfoQ &ndash; LinkedIn Signal: A Case Study for Scala, JRuby and Voldemort</a></li>
 </ul>
 </span>
-
-
-<div class="section_label"><a name="twitter">Twitter</a></div>
-<span>
- Follow us on Twitter - <a href="http://twitter.com/#/list/snaprojects/team">snaprojects/team</a>
- <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-<script>
-new TWTR.Widget({
-  version: 2,
-  type: 'list',
-  rpp: 30,
-  interval: 6000,
-  title: 'Team members',
-  subject: 'SNA projects',
-  width: 'auto',
-  height: 300,
-  theme: {
-    shell: {
-      background: '#fff',
-      color: '#ffffff'
-    },
-    tweets: {
-      background: '#fff',
-      color: '#444444',
-      links: '#6040c2'
-    }
-  },
-  features: {
-    scrollbar: true,
-    loop: false,
-    live: true,
-    hashtags: true,
-    timestamp: true,
-    avatars: true,
-    behavior: 'all'
-  }
-}).render().setList('snaprojects', 'team').start();
-</script>
-</span>
 <div class="section_label"><a name="people">facebook</a></div>
 <div style="margin: auto; width; text-align: center">
 <iframe src="http://www.facebook.com/plugins/likebox.php?id=117749491579773&amp;width=150&amp;connections=2&amp;stream=false&amp;header=false&amp;height=255" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:255px" allowTransparency="true"></iframe>

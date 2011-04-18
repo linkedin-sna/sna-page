@@ -77,7 +77,7 @@ Kafka is explicitly distributed&mdash;producers, consumers, and brokers can all 
 
 <h3>Don't fear the filesystem!</h3>
 <p>
-Kafka relies heavily on the filesystem for storing and caching messages. There is a general perception that "disks are slow" which makes people skeptical that a persistent structure can offer competitive performance. In fact disks are both much slower and must faster than people expect depending on how they are used; and a properly designed disk structure can often be as fast as the network.
+Kafka relies heavily on the filesystem for storing and caching messages. There is a general perception that "disks are slow" which makes people skeptical that a persistent structure can offer competitive performance. In fact disks are both much slower and much faster than people expect depending on how they are used; and a properly designed disk structure can often be as fast as the network.
 </p>
 
 <p>

@@ -68,15 +68,17 @@ Below is some very simple examples of using Kafka for sending messages, more com
 
 <h5>1. send() API </h5>
 
-Using the producer is quite simple:
+Using the sync producer is quite simple:
 
 <pre>
-String host = "localhost";
-int port = 9092;
-int bufferSize = 64*1024;
-int connectionTimeoutMs = 30*1000;
-int reconnectInterval = 1000;
-SimpleProducer producer = new SimpleProducer(host, port, bufferSize, connectionTimeoutMs, reconnectInterval);
+Properties props = new Properties();
+props.put("host", "localhost");
+props.put("port", "9092");
+props.put("buffer.size", String.valueOf(64*1024));
+props.put("connect.timeout.ms", String.valueOf(30*1000));
+props.put("reconnect.interval", "1000");
+
+SyncProducer producer = new SyncProducer(new SyncProducerConfig(props));
 
 String topic = "test";
 int partition = 0;
@@ -94,15 +96,15 @@ Here is an example of how to use the Kafka Log4j appender -
 Start by defining the Kafka appender in your log4j.properties file.
 <pre>
 <small>// define the kafka log4j appender config parameters</small>
-log4j.appender.KAFKA=kafka.log4j.KafkaAppender
-<small>// set the hostname of the kafka server</small>
+log4j.appender.KAFKA=kafka.producer.KafkaLog4jAppender
+<small>// <b>REQUIRED</b>: set the hostname of the kafka server</small>
 log4j.appender.KAFKA.Host=localhost
-<small>// set the port on which the Kafka server is listening for connections</small>
+<small>// <b>REQUIRED</b>: set the port on which the Kafka server is listening for connections</small>
 log4j.appender.KAFKA.Port=9092
-<small>// the topic under which the logger messages are to be posted</small>
+<small>// <b>REQUIRED</b>: the topic under which the logger messages are to be posted</small>
 log4j.appender.KAFKA.Topic=test-topic
-<small>// the serializer to be used to turn an object into a Kafka message</small>
-log4j.appender.KAFKA.Serializer=kafka.log4j.AppenderStringSerializer
+<small>// the serializer to be used to turn an object into a Kafka message. Defaults to kafka.producer.DefaultStringEncoder</small>
+log4j.appender.KAFKA.Serializer=kafka.test.AppenderStringSerializer
 <small>// do not set the above KAFKA appender as the root appender</small>
 log4j.rootLogger=INFO
 <small>// set the logger for your package to be the KAFKA appender</small>
@@ -112,53 +114,53 @@ log4j.logger.test.package=INFO, KAFKA
 Data can be sent using a log4j appender as follows -
 
 <pre>
-Logger logger = Logger.getLogger(classOf[KafkaLog4jAppenderTest])    
+Logger logger = Logger.getLogger(classOf[KafkaLog4jAppender])    
 logger.info("test")
 </pre>
 
-<h5>3. Asynchronous batching producer </h5>
-This is a higher level producer API, providing tunable batching of messages and asynchronous dispatch of batches of serialized messages to the configured Kafka server.
+<h5>3. New producer API </h5>
 
-<p>The batching of data can be controlled using the following parameters -
+With release 0.6, we introduced a new producer API - <code>kafka.producer.Producer&lt;T&gt;</code>. The producer takes in a required config parameter <code>serializer.class</code> that specifies an <code>Encoder&lt;T&gt;</code> to convert T to a Kafka Message. Also, one of the following config parameters need to be specified -
+
 <ul>
-<li> queue size &ndash; this parameter specifies the total size of the in memory queue used by the batching producer. A batch cannot be larger than this value. </li>
-<li> batch size &ndash; this parameter specifies a batch of data buffered in the producer queue. Once more data than this size is accumulated, it is serialized and sent to the Kafka server. </li>
-<li> serializer class &ndash; this specifies the serializer to be used by the async producer to serialize the incoming data into sets of Kafka messages, before sending them to the Kafka server. </li>
-<li> queue time in ms &ndash; this parameter controls the time for which the batched data lives in the queue. Once this time expires, the data in the queue is serialized and dispatched to the Kafka server. </li>
+<li>zk.connect - the zookeeper connection URL, if you want to turn on automatic broker discovery</li>
+<li>broker.partition.info - the list of all brokers in your Kafka cluster in the following format - broker_id1:host1:port1, broker_id2:host2:port2...</li>
 </ul>
-</p>
-
-Here is some code on how to use the asynchronous batching producer -
 
 <pre>
 Properties props = new Properties();
-props.put("host", "localhost");
-props.put("port", "9092");
-props.put("queue.size", "200");
-props.put("serializer.class", "kafka.producer.StringSerializer");
+props.put(“serializer.class”, “kafka.test.TestEncoder”);
+props.put(“zk.connect”, “127.0.0.1:2181”);
 ProducerConfig config = new ProducerConfig(props);
-    
-SimpleProducer basicProducer =  new SimpleProducer(host, port, 64*1024, 100000, 10000);
+Producer<String> producer = new Producer<String>(config);
 
-AsyncKafkaProducer[String] producer = new AsyncKafkaProducer[String](config, basicProducer, new StringSerializer());
-
-<small>// start the async producer</small>
-producer.start();
-for(i <- 0 until 200) {
-   producer.send("test");
+class TestEncoder extends Encoder<String> {
+  public Message toMessage(String event) { return new Message(event.getBytes); }
 }
-producer.close();
 </pre>
 
-Here is a simple string serializer used by the above example -
+<p>If you are using zookeeper based broker discovery, <code>kafka.producer.Producer&lt;T&gt;</code> can route your data to a particular broker partition based on a <code>kafka.producer.Partitioner&lt;T&gt;</code>, specified through the <code>partitioner.class</code> config parameter. It defaults to <code>kafka.producer.DefaultPartitioner</code>. If not, then it sends each request to a random broker partition.</p>
+
+The send API takes in the data to be sent through a <code>kafka.producer.ProducerData&lt;K, T&gt;</code> object, where K is the type of the key used by the <code>Partitioner&lt;T&gt;</code> and T is the type of data to send to the broker. In this example, the key and value type, both are String.
+
+<p>You can batch multiple messages and pass a <code>java.util.List&lt;T&gt;</code> as the last argument to the <code>kafka.producer.ProducerData&lt;K, T&gt;</code> object.</p>
 
 <pre>
-class StringSerializer extends Serializer<String> {
-  public String toEvent(Message message) { return message.toString(); }
-  public Message toMessage(String event) { return new Message(event.getBytes); }
-  public getTopic(String event) { return event.concat("-topic"); }
-}
+List<String> messages = new java.util.ArrayList<String>
+messages.add("test1")
+messages.add(“test2”)
+producer.send(new ProducerData<String, String>(“test_topic”, "test_key", messages))
 </pre>
+
+<p>You can also route the data to a random broker partition, by not specifying the key in the <code>kafka.producer.ProducerData&lt;K, T&gt;</code> object. The key defaults to <code>null</code>.</p>
+
+<pre>
+producer.send(new ProducerData<String, String>(“test_topic”, messages))
+</pre>
+
+<p>Finally, the producer should be closed, through</p>
+
+<pre>producer.close();</pre>
 
 <h4>Consumer Code</h4>
 
@@ -173,7 +175,7 @@ props.put("groupid", "test_group");
 
 // Create the connection to the cluster
 ConsumerConfig consumerConfig = new ConsumerConfig(props);
-ConsumerConnector consumerConnector = Consumer.create(consumerConfig);
+ConsumerConnector consumerConnector = Consumer.createJavaConsumerConnector(consumerConfig);
 
 // create 4 partitions of the stream for topic “test”, to allow 4 threads to consume
 Map&lt;String, List&lt;KafkaMessageStream&gt;&gt; topicMessageStreams = 

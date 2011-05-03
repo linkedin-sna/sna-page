@@ -8,8 +8,8 @@
   Below is a list of major projects we are currently pursuing. If you have thoughts on these or want to help, please <a href="http://groups.google.com/group/kafka-dev">let us know</a>.
 </p>
 
-<h3>Rich Producer Interface</h3>
-
+<h3><s>Rich Producer Interface</s></h3>
+<p>Done. Released with v0.6</p>
 <p>
 The current producer connects to a single broker and publishes all data there. This feature would add a higher-level api would allow a cluster aware producer which would semantically map messages to kafka nodes and partitions. This allows partitioning the stream of messages with some semantic partition function based on some key in the message to spread them over broker machines&mdash;e.g. to ensure that all messages for a particular user go to a particular partition and hence appear in the same stream for the same consumer thread.
 </p>

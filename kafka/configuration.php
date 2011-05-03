@@ -12,8 +12,14 @@
 
 <h3> Important configuration properties for the high-level consumer: </h3>
 
-<p>More details about server configuration can be found in the scala class <code>kafka.consumer.ConsumerConfig</code>.</p> 
+<p>More details about consumer configuration can be found in the scala class <code>kafka.consumer.ConsumerConfig</code>.</p> 
 
 <?php include('includes/consumer_config.php'); ?>
+
+<h3> Important configuration properties for the producer: </h3>
+
+<p>More details about producer configuration can be found in the scala class <code>kafka.producer.ProducerConfig</code>.</p> 
+
+<?php include('includes/producer_config.php'); ?>
 
 <?php require "../includes/footer.php" ?>

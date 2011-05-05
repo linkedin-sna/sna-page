@@ -16,7 +16,7 @@
   $PROJ_FAVICON_MIME = "image/png";
 
   /* Navigation links in the sidebar */
-  $PROJ_NAV_LINKS = array("download" => "downloads/",
+  $PROJ_NAV_LINKS = array("download" => "downloads.php",
                           "code" => "https://github.com/kafka-dev/kafka",
                           "quickstart" => "quickstart.php",
                           "design" => "design.php",

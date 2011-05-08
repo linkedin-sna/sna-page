@@ -66,28 +66,6 @@ Below is some very simple examples of using Kafka for sending messages, more com
 
 <h4>Producer Code</h4>
 
-<h5>1. send() API </h5>
-
-Using the sync producer is quite simple:
-
-<pre>
-Properties props = new Properties();
-props.put("host", "localhost");
-props.put("port", "9092");
-props.put("buffer.size", String.valueOf(64*1024));
-props.put("connect.timeout.ms", String.valueOf(30*1000));
-props.put("reconnect.interval", "1000");
-
-SyncProducer producer = new SyncProducer(new SyncProducerConfig(props));
-
-String topic = "test";
-int partition = 0;
-List<Message> messages = Arrays.asList(new Message("a message".getBytes()), 
-                                       new Message("another message".getBytes()),
-                                       new Message("a third message".getBytes()));
-producer.send(topic, partition, messages)
-</pre>
-
 <h5>2. Log4j appender </h5>
 
 Data can also be produced to a Kafka server in the form of a log4j appender. In this way, minimal code needs to be written in order to send some data across to the Kafka server. 
@@ -118,49 +96,103 @@ Logger logger = Logger.getLogger(classOf[KafkaLog4jAppender])
 logger.info("test")
 </pre>
 
-<h5>3. New producer API </h5>
+<h5>1. Producer API </h5>
 
-With release 0.6, we introduced a new producer API - <code>kafka.producer.Producer&lt;T&gt;</code>. The producer takes in a required config parameter <code>serializer.class</code> that specifies an <code>Encoder&lt;T&gt;</code> to convert T to a Kafka Message. Also, one of the following config parameters need to be specified -
+With release 0.6, we introduced a new producer API - <code>kafka.producer.Producer&lt;T&gt;</code>. Here are examples of using the producer -
 
-<ul>
-<li>zk.connect - the zookeeper connection URL, if you want to turn on automatic broker discovery</li>
-<li>broker.partition.info - the list of all brokers in your Kafka cluster in the following format - broker_id1:host1:port1, broker_id2:host2:port2...</li>
-</ul>
-
+<ol>
+<li>First, start a local instance of the zookeeper server
+<pre>./bin/zookeeper-server-start.sh config/zookeeper.properties</pre>
+</li>
+<li>Next, start a kafka broker
+<pre>./bin/kafka-server-start.sh config/server.properties</pre>
+</li>
+<li>Now, create the producer with all configuration defaults and using zookeeper based broker discovery.
 <pre>
 Properties props = new Properties();
-props.put(“serializer.class”, “kafka.test.TestEncoder”);
 props.put(“zk.connect”, “127.0.0.1:2181”);
+props.put("serializer.class", "kafka.serializer.StringEncoder");
 ProducerConfig config = new ProducerConfig(props);
-Producer<String> producer = new Producer<String>(config);
-
-class TestEncoder extends Encoder<String> {
-  public Message toMessage(String event) { return new Message(event.getBytes); }
+Producer&lt;String, String&gt; producer = new Producer&lt;String, String&gt;(config);
+</pre>
+</li>
+<li>Send a single message
+<pre>
+ProducerData&lt;String, String&gt; data = new ProducerData&lt;String, String&gt;("test-topic", "test-message");
+producer.send(data);	
+</pre>
+</li>
+<li>Send multiple messages to multiple topics in one request
+<pre>
+List&lt;String&gt; messages = new java.util.ArrayList&lt;String&gt;();
+messages.add("test-message1");
+messages.add("test-message2");
+ProducerData&lt;String, String&gt; data1 = new ProducerData&lt;String, String&gt;("test-topic1", messages);
+ProducerData&lt;String, String&gt; data2 = new ProducerData&lt;String, String&gt;("test-topic2", messages);
+List&lt;ProducerData&lt;String, String&gt;&gt; dataForMultipleTopics = new ArrayList&lt;ProducerData&lt;String, String&gt;&gt;();
+dataForMultipleTopics.add(data1);
+dataForMultipleTopics.add(data2);
+producer.send(dataForMultipleTopics);	
+</pre>
+</li>
+<li>Partition on a key
+<pre>
+ProducerData&lt;String, String&gt; data = new ProducerData&lt;String, String&gt;("test-topic", "test-key", "test-message");
+producer.send(data);
+</pre>
+</li>
+<li>Partition using custom partitioner
+<p>If you are using zookeeper based broker discovery, <code>kafka.producer.Producer&lt;T&gt;</code> can route your data to a particular broker partition based on a <code>kafka.producer.Partitioner&lt;T&gt;</code>, specified through the <code>partitioner.class</code> config parameter. It defaults to <code>kafka.producer.DefaultPartitioner</code>. If not, then it sends each request to a random broker partition.</p>
+<pre>
+class TrackingDataPartitioner extends Partitioner[MemberIdLocation] {
+  def partition(data: MemberIdLocation, numPartitions: Int): Int = {
+    (data.location.hashCode % numPartitions)
+  }
+}
+<small>// create the producer config to plug in the above partitioner</small>
+Properties props = new Properties();
+props.put(“zk.connect”, “127.0.0.1:2181”);
+props.put("partitioner.class", "xyz.MemberIdPartitioner");
+ProducerConfig config = new ProducerConfig(props);
+Producer&lt;String, String&gt; producer = new Producer&lt;String, String&gt;(config);
+</pre>
+</li>
+<li>Use custom Encoder 
+<p>The producer takes in a required config parameter <code>serializer.class</code> that specifies an <code>Encoder&lt;T&gt;</code> to convert T to a Kafka Message. Default is the no-op kafka.serializer.DefaultEncoder.</p>
+<pre>
+class TrackingDataSerializer extends Encoder&lt;TrackingData&gt; {
+  <small>// Say you want to use your own custom Avro encoding</small>
+  CustomAvroEncoder avroEncoder = new CustomAvroEncoder();
+  def toMessage(event: TrackingData):Message = {
+	new Message(avroEncoder.getBytes(event));
+  }
 }
 </pre>
-
-<p>If you are using zookeeper based broker discovery, <code>kafka.producer.Producer&lt;T&gt;</code> can route your data to a particular broker partition based on a <code>kafka.producer.Partitioner&lt;T&gt;</code>, specified through the <code>partitioner.class</code> config parameter. It defaults to <code>kafka.producer.DefaultPartitioner</code>. If not, then it sends each request to a random broker partition.</p>
-
-The send API takes in the data to be sent through a <code>kafka.producer.ProducerData&lt;K, T&gt;</code> object, where K is the type of the key used by the <code>Partitioner&lt;T&gt;</code> and T is the type of data to send to the broker. In this example, the key and value type, both are String.
-
-<p>You can batch multiple messages and pass a <code>java.util.List&lt;T&gt;</code> as the last argument to the <code>kafka.producer.ProducerData&lt;K, T&gt;</code> object.</p>
-
+</li>
+<li>Using static list of brokers, instead of zookeeper based broker discovery
+<p>Some applications would rather not depend on zookeeper. In that case, the config parameter <code>broker.list</code> 
+can be used to specify the list of all brokers in the Kafka cluster.- the list of all brokers in your Kafka cluster in the following format - 
+<code>broker_id1:host1:port1, broker_id2:host2:port2...</code></p>
 <pre>
-List<String> messages = new java.util.ArrayList<String>
-messages.add("test1")
-messages.add(“test2”)
-producer.send(new ProducerData<String, String>(“test_topic”, "test_key", messages))
+<small>// you can stop the zookeeper instance as it is no longer required</small>
+./bin/zookeeper-server-stop.sh	
+<small>// create the producer config object </small>
+Properties props = new Properties();
+props.put(“broker.list”, “0:localhost:9092”);
+props.put("serializer.class", "kafka.serializer.StringEncoder");
+ProducerConfig config = new ProducerConfig(props);
+<small>// send a message using default partitioner </small>
+Producer&lt;String, String&gt; producer = new Producer&lt;String, String&gt;(config);	
+List&lt;String&gt; messages = new java.util.ArrayList&lt;String&gt;();
+messages.add("test-message");
+ProducerData&lt;String, String&gt; data = new ProducerData&lt;String, String&gt;("test-topic", messages);
+producer.send(data);	
 </pre>
-
-<p>You can also route the data to a random broker partition, by not specifying the key in the <code>kafka.producer.ProducerData&lt;K, T&gt;</code> object. The key defaults to <code>null</code>.</p>
-
-<pre>
-producer.send(new ProducerData<String, String>(“test_topic”, messages))
-</pre>
-
-<p>Finally, the producer should be closed, through</p>
-
+</li>
+<li>Finally, the producer should be closed, through
 <pre>producer.close();</pre>
+</li>
+</ol>
 
 <h4>Consumer Code</h4>
 

@@ -214,6 +214,32 @@ This kind of cluster-aware balancing of consumption has several advantages:
 </ul>
 </p>
 
+<h2>Producer</h2>
+
+<h3>Automatic load balancing</h3>
+<p>
+In v0.6, we introduced built-in automatic load balancing between the producers and the brokers in Kafka; Currently, in our own usage we publish from a large number of heterogeneous machines and so it is desirable that the publisher not need any explicit knowledge of the cluster topology. We rely on a hardware load balancer to distribute the producer load across multiple brokers. An advantage of using the hardware load balancer is the “healthcheck” service that detects if a broker is down and forwards the producer request to another healthy broker. In v0.6, this “healthcheck” feature is provided in the cluster-aware producer. Producers discover the available brokers in a cluster and the number of partitions on each, by registering watchers in zookeeper. Since the number of broker partitions is configurable per topic, zookeeper watchers are registered on the following events -
+</p>
+<ul>
+<li>a new broker comes up</li>
+<li>a broker goes down</li>
+<li>a new topic is registered</li>
+<li>a broker gets registered for an existing topic</li>
+</ul>
+<p>
+Internally, the producer maintains an elastic pool of connections to the brokers, one per broker. This pool is kept updated to establish/maintain connections to all the live brokers, through the zookeeper watcher callbacks. When a producer request for a particular topic comes in, a broker partition is picked by the partitioner (see section on Semantic partitioning). The available producer connection is used from the pool to send the data to the selected  broker partition.
+</p>
+
+<h3>Asynchronous send</h3>
+<p>
+Asynchronous non-blocking operations are fundamental to scaling messaging systems. In Kafka, the producer provides an option to use asynchronous dispatch of produce requests (producer.type=async). This allows buffering of produce requests in a in-memory queue and batch sends that are triggered by a time interval or a pre-configured batch size. Since data is typically published from set of heterogenous machines producing data at variable rates, this asynchronous buffering helps generate uniform traffic to the brokers, leading to better network utilization and higher throughput. 
+</p>
+
+<h3>Semantic partitioning</h3>
+<p>
+Consider an application that would like to maintain an aggregation of the number of profile visitors for each member. It would like to send all profile visit events for a member to a particular partition and, hence, have all updates for a member to appear in the same stream for the same consumer thread. In v0.6, we added the capability to the cluster aware producer to be able to semantically map messages to the available kafka nodes and partitions. This allows partitioning the stream of messages with some semantic partition function based on some key in the message to spread them over broker machines. The partitioning function can be customized by providing an implementation of the kafka.producer.Partitioner interface, default being the random partitioner. For the example above, the key would be member_id and the partitioning function would be hash(member_id)%num_partitions.
+</p>
+
 <h2>Support for Hadoop and other batch data load</h2>
 
 <p>
@@ -237,40 +263,17 @@ The following gives a brief description of some relevant lower-level implementat
 
 <h3>Producer APIs</h3>
 
-<h4>Low-level API</h4>
-
-The low level producer API is extremely basic, it maintains a connection to a particular broker, and allows sending an ordered set of messages to a particular topic and partition on that broker.
-
-<pre>
-class SyncProducer {
-	
-  /* Send a set of messages to a topic in a partition. */ 
-  public void send(String topic, int partition, ByteBufferMessageSet messages);
-  
-  /* Send a list of produce requests to a broker. */ 
-  public void multiSend(ProducerRequest produces[]);
-
-}
-</pre>
-
-<h4>High-level API</h4>
-
 <p>
-With release 0.6, we introduce a new Producer API that wraps the 2 low-level producer APIs - <code>kafka.producer.SyncProducer</code> and <code>kafka.producer.async.AsyncProducer</code>. The goal is to expose all the producer functionalities through a single API to the client. This feature introduces a cluster aware producer that semantically maps messages to kafka nodes and partitions. This allows partitioning the stream of messages with some semantic partition function based on some key in the message to spread them over broker machines—e.g. to ensure that all messages for a particular user go to a particular partition and hence appear in the same stream for the same consumer thread. The new producer -
-<ul>
-<li>can handle queueing/buffering of multiple producer requests and asynchronous dispatch of the batched data</li>
-<li>handles the serialization of data through a user-specified <code>Encoder</code></li> <li>provides zookeeper based automatic broker discovery</li>
-<li>provides software load balancing through an optionally user-specified <code>Partitioner</code></li>
-</ul>
-</p>
-
+The Producer API that wraps the 2 low-level producers - <code>kafka.producer.SyncProducer</code> and <code>kafka.producer.async.AsyncProducer</code>. 
 <pre>
 class Producer<T> {
 	
-  /* Sends the data, partitioned by key to the topic using either the synchronous or the asynchronous producer */
+  /* Sends the data, partitioned by key to the topic using either the */
+  /* synchronous or the asynchronous producer */
   public void send(kafka.javaapi.producer.ProducerData<K,V> producerData);
 
-  /* Sends a list of data, partitioned by key to the topic using either the synchronous or the asynchronous producer */
+  /* Sends a list of data, partitioned by key to the topic using either */
+  /* the synchronous or the asynchronous producer */
   public void send(java.util.List< kafka.javaapi.producer.ProducerData<K,V>> producerData);
 
   /* Closes the producer and cleans up */	
@@ -279,40 +282,39 @@ class Producer<T> {
 }
 </pre>
 
-<p>
-<code>kafka.producer.Producer</code> provides the ability to batch multiple produce requests (<code>producer.type=async</code>), before serializing and dispatching them to the appropriate kafka broker partition. The size of the batch can be controlled by a few config parameters. As events enter a queue, they are buffered in a blocking queue, until either <code>buffer.time</code> or <code>batch.size</code> is reached. A background thread (<code>kafka.producer.async.ProducerSendThread</code>) dequeues the batch of data and lets the <code>kafka.producer.EventHandler</code> serialize and send the data to the appropriate kafka broker partition. A custom event handler can be plugged in through the <code>event.handler</code> config parameter. 
-</p>	
+The goal is to expose all the producer functionality through a single API to the client.  
 
-<p>
-At various stages of this producer queue pipeline, it is helpful to be able to inject callbacks, either for plugging in custom logging/tracing code or custom monitoring logic. This is possible by implementing the <code>kafka.producer.async.CallbackHandler</code> interface and setting <code>callback.handler</code> config parameter to that class.
-</p>
-
-<p>
-A new producer feature added in release 0.6 is zookeeper based automatic broker discovery. By setting the <code>zk.connect parameter</code>, the producer connects to zookeeper to pull the  list of all available brokers in the Kafka cluster. It also registers listeners on the zookeeper paths to invoke callbacks when - 
+The new producer -
 <ul>
-<li>a broker comes up</li>
-<li>a broker goes down</li>
-<li>a new topic gets registered</li>
-<li>a broker gets registered under an existing topic</li>
-</ul>
+<li>can handle queueing/buffering of multiple producer requests and asynchronous dispatch of the batched data - 	
+<p><code>kafka.producer.Producer</code> provides the ability to batch multiple produce requests (<code>producer.type=async</code>), before serializing and dispatching them to the appropriate kafka broker partition. The size of the batch can be controlled by a few config parameters. As events enter a queue, they are buffered in a blocking queue, until either <code>buffer.time</code> or <code>batch.size</code> is reached. A background thread (<code>kafka.producer.async.ProducerSendThread</code>) dequeues the batch of data and lets the <code>kafka.producer.EventHandler</code> serialize and send the data to the appropriate kafka broker partition. A custom event handler can be plugged in through the <code>event.handler</code> config parameter. At various stages of this producer queue pipeline, it is helpful to be able to inject callbacks, either for plugging in custom logging/tracing code or custom monitoring logic. This is possible by implementing the <code>kafka.producer.async.CallbackHandler</code> interface and setting <code>callback.handler</code> config parameter to that class.
 </p>
-
+</li>
+<li>handles the serialization of data through a user-specified <code>Encoder</code> - 
+<pre>
+interface Encoder&lt;T&gt; {
+  public Message toMessage(T data);
+}
+</pre>
+<p>The default is the no-op <code>kafka.serializer.DefaultEncoder</code></p>
+</li>
+<li>provides zookeeper based automatic broker discovery - 
 <p>
-Each of the above events trigger callbacks that update the in-memory data structures to reflect the right set of brokers and the correct number of available partitions on each, for a particular topic. Based on this information, the producer maintains a pool of connections to each of the available brokers. When a producer request comes in, it uses the available producer connection to send the serialized, optionally batched data, and routes it to the appropriate broker partition. 
+The zookeeper based broker discovery and load balancing can be used by specifying the zookeeper connection url through the <code>zk.connect</code> config parameter. For some applications, however, the dependence on zookeeper is inappropriate. In that case, the producer can take in a static list of brokers through the <code>broker.list</code> config parameter. Each produce requests gets routed to a random broker partition in this case. If that broker is down, the produce request fails. 
 </p>
-
+</li>
+<li>provides software load balancing through an optionally user-specified <code>Partitioner</code> - 
 <p>
-The routing decision is influenced by the <code>kafka.producer.Partitioner</code>. The partition API -
+The routing decision is influenced by the <code>kafka.producer.Partitioner</code>. 
 <pre>
 interface Partitioner&lt;T&gt; {
    int partition(T key, int numPartitions);
 }
 </pre>
-uses the key and the number of available broker partitions to return a partition id. This id is used as an index into a sorted list of broker_ids and partitions to pick a broker partition for the producer request. The default partitioning strategy is <code>hash(key)%numPartitions</code>. If the key is null, then a random broker partition is picked. A custom partitioning strategy can also be plugged in using the <code>partitioner.class</code> config parameter.	
+The partition API uses the key and the number of available broker partitions to return a partition id. This id is used as an index into a sorted list of broker_ids and partitions to pick a broker partition for the producer request. The default partitioning strategy is <code>hash(key)%numPartitions</code>. If the key is null, then a random broker partition is picked. A custom partitioning strategy can also be plugged in using the <code>partitioner.class</code> config parameter.	
 </p>
-
-<p>
-For some applications, the dependence on zookeeper is inappropriate. In that case, the producer can take in a static list of brokers through the <code>broker.partition.info</code> config parameter. Each produce requests gets routed to a random broker partition in this case. If that broker is down, the produce request fails. 
+</li>
+</ul>
 </p>
 
 <h3>Consumer APIs</h3>

@@ -19,5 +19,5 @@
 
 <h2>API docs</h2>
 <ul>
-<li><a href="0.6-api/index.html">0.6 API docs</a></li>
+<li><a href="downloads/0.6-api/index.html">0.6 API docs</a></li>
 </ul>

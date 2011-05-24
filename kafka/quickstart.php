@@ -66,7 +66,7 @@ Below is some very simple examples of using Kafka for sending messages, more com
 
 <h4>Producer Code</h4>
 
-<h5>2. Log4j appender </h5>
+<h5>1. Log4j appender </h5>
 
 Data can also be produced to a Kafka server in the form of a log4j appender. In this way, minimal code needs to be written in order to send some data across to the Kafka server. 
 Here is an example of how to use the Kafka Log4j appender -
@@ -96,7 +96,7 @@ Logger logger = Logger.getLogger(classOf[KafkaLog4jAppender])
 logger.info("test")
 </pre>
 
-<h5>1. Producer API </h5>
+<h5>2. Producer API </h5>
 
 With release 0.6, we introduced a new producer API - <code>kafka.producer.Producer&lt;T&gt;</code>. Here are examples of using the producer -
 
@@ -107,7 +107,7 @@ With release 0.6, we introduced a new producer API - <code>kafka.producer.Produc
 <li>Next, start a kafka broker
 <pre>./bin/kafka-server-start.sh config/server.properties</pre>
 </li>
-<li>Now, create the producer with all configuration defaults and using zookeeper based broker discovery.
+<li>Now, create the producer with all configuration defaults and use zookeeper based broker discovery.
 <pre>
 Properties props = new Properties();
 props.put(“zk.connect”, “127.0.0.1:2181”);
@@ -118,6 +118,7 @@ Producer&lt;String, String&gt; producer = new Producer&lt;String, String&gt;(con
 </li>
 <li>Send a single message
 <pre>
+<small>// The message is sent to a randomly selected partition registered in ZK</small>
 ProducerData&lt;String, String&gt; data = new ProducerData&lt;String, String&gt;("test-topic", "test-message");
 producer.send(data);	
 </pre>
@@ -135,16 +136,16 @@ dataForMultipleTopics.add(data2);
 producer.send(dataForMultipleTopics);	
 </pre>
 </li>
-<li>Partition on a key
+<li>Send a message with a partition key. Messages with the same key are sent to the same partition
 <pre>
 ProducerData&lt;String, String&gt; data = new ProducerData&lt;String, String&gt;("test-topic", "test-key", "test-message");
 producer.send(data);
 </pre>
 </li>
-<li>Partition using custom partitioner
-<p>If you are using zookeeper based broker discovery, <code>kafka.producer.Producer&lt;T&gt;</code> can route your data to a particular broker partition based on a <code>kafka.producer.Partitioner&lt;T&gt;</code>, specified through the <code>partitioner.class</code> config parameter. It defaults to <code>kafka.producer.DefaultPartitioner</code>. If not, then it sends each request to a random broker partition.</p>
+<li>Use your custom partitioner
+<p>If you are using zookeeper based broker discovery, <code>kafka.producer.Producer&lt;T&gt;</code> routes your data to a particular broker partition based on a <code>kafka.producer.Partitioner&lt;T&gt;</code>, specified through the <code>partitioner.class</code> config parameter. It defaults to <code>kafka.producer.DefaultPartitioner</code>. If you don't supply a partition key, then it sends each request to a random broker partition.</p>
 <pre>
-class TrackingDataPartitioner extends Partitioner[MemberIdLocation] {
+class MemberIdPartitioner extends Partitioner[MemberIdLocation] {
   def partition(data: MemberIdLocation, numPartitions: Int): Int = {
     (data.location.hashCode % numPartitions)
   }
@@ -152,13 +153,15 @@ class TrackingDataPartitioner extends Partitioner[MemberIdLocation] {
 <small>// create the producer config to plug in the above partitioner</small>
 Properties props = new Properties();
 props.put(“zk.connect”, “127.0.0.1:2181”);
+props.put("serializer.class", "kafka.serializer.StringEncoder");
 props.put("partitioner.class", "xyz.MemberIdPartitioner");
 ProducerConfig config = new ProducerConfig(props);
 Producer&lt;String, String&gt; producer = new Producer&lt;String, String&gt;(config);
 </pre>
 </li>
 <li>Use custom Encoder 
-<p>The producer takes in a required config parameter <code>serializer.class</code> that specifies an <code>Encoder&lt;T&gt;</code> to convert T to a Kafka Message. Default is the no-op kafka.serializer.DefaultEncoder.</p>
+<p>The producer takes in a required config parameter <code>serializer.class</code> that specifies an <code>Encoder&lt;T&gt;</code> to convert T to a Kafka Message. Default is the no-op kafka.serializer.DefaultEncoder.
+Here is an example of a custom Encoder -</p>
 <pre>
 class TrackingDataSerializer extends Encoder&lt;TrackingData&gt; {
   <small>// Say you want to use your own custom Avro encoding</small>
@@ -167,6 +170,11 @@ class TrackingDataSerializer extends Encoder&lt;TrackingData&gt; {
 	new Message(avroEncoder.getBytes(event));
   }
 }
+</pre>
+If you want to use the above Encoder, pass it in to the "serializer.class" config parameter
+<pre>
+Properties props = new Properties();
+props.put("serializer.class", "xyz.TrackingDataSerializer");
 </pre>
 </li>
 <li>Using static list of brokers, instead of zookeeper based broker discovery
@@ -188,6 +196,18 @@ messages.add("test-message");
 ProducerData&lt;String, String&gt; data = new ProducerData&lt;String, String&gt;("test-topic", messages);
 producer.send(data);	
 </pre>
+</li>
+<li>Use the asynchronous producer. This buffers writes in memory until either <code>batch.size</code> or <code>queue.time</code> is reached. After that, data is sent to the Kafka brokers
+<pre>
+Properties props = new Properties();
+props.put("zk.connect"‚ "127.0.0.1:2181");
+props.put("serializer.class", "kafka.serializer.StringEncoder");
+props.put("producer.type", "async");
+ProducerConfig config = new ProducerConfig(props);
+Producer&lt;String, String&gt; producer = new Producer&lt;String, String&gt;(config);
+ProducerData&lt;String, String&gt; data = new ProducerData&lt;String, String&gt;("test-topic", "test-message");
+producer.send(data);
+</pre
 </li>
 <li>Finally, the producer should be closed, through
 <pre>producer.close();</pre>

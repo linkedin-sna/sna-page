@@ -24,7 +24,7 @@
 	  "wiki" => "http://linkedin.jira.com/wiki/display/Zoie/Home",
 	  "javadoc" => "http://test.project-voldemort.com:8080/job/Zoie/javadoc/?",
       "mailing list" => "http://groups.google.com/group/zoie",
-      "downloads" => "http://github.com/xiaoyang/zoie/downloads",
+      "downloads" => "http://github.com/javasoze/zoie/downloads",
       "unit tests" => "http://test.project-voldemort.com:8080/job/Zoie/",
       "bugs" => "http://linkedin.jira.com/browse/ZOIE");
 

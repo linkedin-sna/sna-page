@@ -9,12 +9,12 @@ Overview:
 Zoie is a real-time search and indexing system built on Apache Lucene.
 </p>
 <p>
-Donated by LinkedIn.com on July 19, 2008, and has been deployed in a real-time large-scale consumer website: LinkedIn.com handling millions of searches as well as hundreds of thousands of updates daily.
+Donated by LinkedIn.com on July 19, 2008, and has been deployed in a real-time large-scale consumer website: LinkedIn.com handling millions of searches as well as millions of updates daily.
 </p>
 
 <p>
 <i>
-News: Zoie 2.0.0 is released (<a href="http://github.com/xiaoyang/zoie/downloads">here</a>) - Compatible with Lucene 2.9.x.
+News: Zoie 2.6.0 is released (<a href="http://github.com/javasoze/zoie/downloads">here</a>) - Compatible with Lucene 2.9.x.
 </i>
 </p>
 
@@ -54,9 +54,9 @@ Getting Started:
 Check out the following wikis:
 <ul>
   <li> Code samples: <br/>
-      <a href="http://snaprojects.jira.com/wiki/display/ZOIE/Code+Samples">http://snaprojects.jira.com/wiki/display/ZOIE/Code+Samples</a>
+      <a href="http://snaprojects.jira.com/wiki/display/ZOIE/Code+Samples">http://linkedin.jira.com/wiki/display/ZOIE/Code+Samples</a>
   <li> Running example/demo: <br/>
-      <a href="http://snaprojects.jira.com/wiki/display/ZOIE/Getting+Started+-+Zoie+Example">http://snaprojects.jira.com/wiki/display/ZOIE/Getting+Started+-+Zoie+Example</a>
+      <a href="http://snaprojects.jira.com/wiki/display/ZOIE/Getting+Started+-+Zoie+Example">http://linkedin.jira.com/wiki/display/ZOIE/Getting+Started+-+Zoie+Example</a>
 </ul>
 
 <h1>
@@ -66,7 +66,7 @@ Architecture Diagram:
 <img src="images/zoie-graph.jpg"/>
 </p>
 
-<b>Diclaimer:</b>
+<b>Disclaimer:</b>
 <p>
 All Zoie releases have gone through extensive functional and performance testing by LinkedIn before made public. All major versions are released after a trial period on the production environment.
 </p>

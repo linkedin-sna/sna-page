@@ -80,21 +80,25 @@ log4j.appender.KAFKA.Host=localhost
 <small>// <b>REQUIRED</b>: set the port on which the Kafka server is listening for connections</small>
 log4j.appender.KAFKA.Port=9092
 <small>// <b>REQUIRED</b>: the topic under which the logger messages are to be posted</small>
-log4j.appender.KAFKA.Topic=test-topic
+log4j.appender.KAFKA.Topic=test
 <small>// the serializer to be used to turn an object into a Kafka message. Defaults to kafka.producer.DefaultStringEncoder</small>
 log4j.appender.KAFKA.Serializer=kafka.test.AppenderStringSerializer
 <small>// do not set the above KAFKA appender as the root appender</small>
 log4j.rootLogger=INFO
 <small>// set the logger for your package to be the KAFKA appender</small>
-log4j.logger.test.package=INFO, KAFKA
+log4j.logger.your.test.package=INFO, KAFKA
 </pre>
 
 Data can be sent using a log4j appender as follows -
 
 <pre>
-Logger logger = Logger.getLogger(classOf[KafkaLog4jAppender])    
-logger.info("test")
+Logger logger = Logger.getLogger([your.test.class])    
+logger.info("message from log4j appender");
 </pre>
+
+If your log4j appender fails to send messages, please verify that the correct 
+log4j properties file is being used. You can add 
+<code>-Dlog4j.debug=true</code> to your VM parameters to verify this.
 
 <h5>2. Producer API </h5>
 
@@ -109,6 +113,16 @@ With release 0.6, we introduced a new producer API - <code>kafka.producer.Produc
 </li>
 <li>Now, create the producer with all configuration defaults and use zookeeper based broker discovery.
 <pre>
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+import kafka.javaapi.producer.SyncProducer;
+import kafka.javaapi.message.ByteBufferMessageSet;
+import kafka.message.Message;
+import kafka.producer.SyncProducerConfig;
+
+...
+
 Properties props = new Properties();
 props.put(“zk.connect”, “127.0.0.1:2181”);
 props.put("serializer.class", "kafka.serializer.StringEncoder");
@@ -232,14 +246,14 @@ ConsumerConnector consumerConnector = Consumer.createJavaConsumerConnector(consu
 // create 4 partitions of the stream for topic “test”, to allow 4 threads to consume
 Map&lt;String, List&lt;KafkaMessageStream&gt;&gt; topicMessageStreams = 
     consumerConnector.createMessageStreams(ImmutableMap.of("test", 4));
-List&lt;KafkaMessageStream&gt; streams = topicMessageStreams.get("test")
+List&lt;KafkaMessageStream&gt; streams = topicMessageStreams.get("test");
 
 // create list of 4 threads to consume from each of the partitions 
 ExecutorService executor = Executors.newFixedThreadPool(4);
 
 // consume the messages in the threads
-for(final KafkaMessageStream>> stream: streams) {
-  executors.submit(new Runnable() {
+for(final KafkaMessageStream stream: streams) {
+  executor.submit(new Runnable() {
     public void run() {
       for(Message message: stream) {
         // process message
@@ -264,8 +278,17 @@ Usage information on the hadoop consumer can be found <a href="https://github.co
 Kafka has a lower-level consumer api for reading message chunks directly from servers. Under most circumstances this should not be needed. But just in case, it's usage is as follows:
 
 <pre>
-<small>// create a consumer to connect to the server host, port, socket timeout of 10 secs, socket receive buffer of ~1MB</small>
-SimpleConsumer consumer = new SimpleConsumer(host, port, 10000, 1024000);
+import kafka.api.FetchRequest;
+import kafka.javaapi.consumer.SimpleConsumer;
+import kafka.javaapi.message.ByteBufferMessageSet;
+import kafka.message.Message;
+import kafka.message.MessageSet;
+import kafka.utils.Utils;
+
+...
+
+<small>// create a consumer to connect to the kafka server running on localhost, port 9092, socket timeout of 10 secs, socket receive buffer of ~1MB</small>
+SimpleConsumer consumer = new SimpleConsumer("127.0.0.1", 9092, 10000, 1024000);
 
 long offset = 0;
 while (true) {
@@ -274,8 +297,8 @@ while (true) {
 
   <small>// get the message set from the consumer and print them out</small>
   ByteBufferMessageSet messages = consumer.fetch(fetchRequest);
-  for(message : messages) {
-    System.out.println("consumed: " + Utils.toString(message.payload, "UTF-8"))
+  for(Message message : messages) {
+    System.out.println("consumed: " + Utils.toString(message.payload(), "UTF-8"));
     <small>// advance the offset after consuming each message</small>
     offset += MessageSet.entrySize(message);
   }

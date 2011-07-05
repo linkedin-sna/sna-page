@@ -18,6 +18,7 @@
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("download" => "downloads.php",
                           "code" => "https://github.com/kafka-dev/kafka",
+                          "javadoc" => "javadoc/current",
                           "quickstart" => "quickstart.php",
                           "design" => "design.php",
                           "configuration" => "configuration.php",

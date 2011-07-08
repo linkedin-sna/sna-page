@@ -23,7 +23,7 @@
                           "design" => "design.php",
                           "configuration" => "configuration.php",
                           "performance" => "performance.php",
-                          "current&nbsp;work" => "projects.php",
+                          "projects" => "projects.php",
                           "faq" => "faq.php",
                           "wiki" => "http://linkedin.jira.com/wiki/display/KAFKA",
                           "bugs" => "http://linkedin.jira.com/browse/KAFKA",

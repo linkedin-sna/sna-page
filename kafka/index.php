@@ -20,6 +20,7 @@ The use for activity stream processing makes Kafka comparable to <a href="https:
 </p>
 
 <p>
-This is a new project, and we are interested in building the community; we would welcome any thoughts or patches. You can reach us <a href="http://groups.google.com/group/kafka-dev">here<a/>.
+Kafka has recently become an Apache Incubator project. You can reach us <a href="contact.php">here<a/>.
+</p>
 
 <?php require "../includes/footer.php" ?>

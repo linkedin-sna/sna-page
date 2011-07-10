@@ -27,8 +27,8 @@
                           "faq" => "faq.php",
                           "wiki" => "http://linkedin.jira.com/wiki/display/KAFKA",
                           "bugs" => "http://linkedin.jira.com/browse/KAFKA",
-                          "mailing list" => "http://groups.google.com/group/kafka-dev",
-                          "unit tests" => "http://test.project-voldemort.com:8080/",
+                          "mailing&nbsp;lists" => "contact.php",
+                          "unit&nbsp;tests" => "http://test.project-voldemort.com:8080/",
                           );
 
   /* Project color */

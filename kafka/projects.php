@@ -95,4 +95,20 @@ The interaction with zookeeper and complexity of the elastic load balancing of c
 The current producer connects to a single broker and publishes all data there. This feature would add a higher-level api would allow a cluster aware producer which would semantically map messages to kafka nodes and partitions. This allows partitioning the stream of messages with some semantic partition function based on some key in the message to spread them over broker machines&mdash;e.g. to ensure that all messages for a particular user go to a particular partition and hence appear in the same stream for the same consumer thread.
 </p>
 
+<h1>Project ideas for Scalathon</h1>
+
+The following are some smaller features that you can hack on and play with Kafka -
+
+<h3>Restful producer API</h3>
+We need to make the Kafka server support RESTful producer requests. This allows Kafka to be used in any programming language without implementing the wire protocol in each language. It also makes it easier for web applications to produce data to Kafka. Please refer to the <a href="http://linkedin.jira.com/browse/KAFKA-71">JIRA</a> to contribute. 
+
+<h3>Pluggable decoder for the consumer</h3>
+Since 0.6, the <a href="http://sna-projects.com/kafka/javadoc/current/">producer</a> allows a user to plug in an Encoder that converts data of type T to a Kafka message. We need to do the same thing on the consumer side, by allowing the user to plug in a Decoder that converts a message into an object of type T. Please refer to the <a href="http://linkedin.jira.com/browse/KAFKA-70">JIRA</a> to contribute.
+
+<h3>Producer ACK</h3>
+Currently, the <a href="http://sna-projects.com/kafka/javadoc/current/">producer</a> does not wait for an acknowledgement (ACK) from the Kafka server. The producer just sends the data across and the server appends it to the appropriate log for a topic, but doesn't send an ACK back to the producer. Ideally, after handling the producer's request and writing the data to the log, the server should send back and ACK to the producer. And the producer should proceed sending the next request only after it receives the ACK from the server. Please refer to the <a href="http://linkedin.jira.com/browse/KAFKA-16">JIRA</a> to contribute.
+
+<h3>Size based retention policy</h3>
+The kafka server garbage collects logs according to a time-based retention policy (log.retention.hours). Ideally, the server should also support a size based retention policy (log.retention.size) to prevent any one topic from occupying too much disk space. Please refer to the <a href="http://linkedin.jira.com/browse/KAFKA-3">JIRA</a> to contribute.
+
 <?php require "../includes/footer.php" ?>

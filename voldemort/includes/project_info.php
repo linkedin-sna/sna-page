@@ -12,8 +12,11 @@
   $PROJ_KEYWORDS = "Project Voldemort, Voldemort, key-value storage, distributed storage, Amazon Dynamo, persistence, scalability";
 
   /* Favicon image file location and type */
-  $PROJ_FAVICON_PATH = "http://project-voldemort.com/images/vold-logo-small.png";
+  $PROJ_FAVICON_PATH = "images/voldemort_logo_small.png";
   $PROJ_FAVICON_MIME = "image/png";
+
+  /* Project icon in header */
+  $PROJ_ICON_PATH = "images/voldemort_logo.png";
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array(
@@ -24,12 +27,10 @@
       "download" => "http://github.com/voldemort/voldemort/downloads",
       "snapshot build" => "http://test.project-voldemort.com:8080/job/voldemort-master",
       "configuration" => "configuration.php",
-      "client javadoc" => "/javadoc/client",
-      "all javadoc" => "/javadoc/all",
+      "javadoc" => "/javadoc/all",
       "developer&nbsp;info" => "developer.php",
       "fun&nbsp;projects" => "http://wiki.github.com/voldemort/voldemort/fun-projects",
       "performance" => "performance.php",
-      "unit tests" => "http://test.project-voldemort.com:8080",
       "bugs" => "http://code.google.com/p/project-voldemort/issues",
       "wiki" => "http://wiki.github.com/voldemort/voldemort");
 

@@ -305,7 +305,7 @@ String and identity serialization are pretty self-explanatory. Documentation / T
 
 <p>We use versioning and read-repair. This has a the best availability guarantees, and the highest efficiency (only W writes network roundtrips are required for N replicas where W can be configured to be less than N). 2PC typically requires 2N blocking roundtrips. Paxos variations vary quite a bit but are comparable to 2PC.</p>
 
-<p>Many of the specifics are borrowed from the Amazon paper below</p>
+<p>Another approach to reach consistency is by using <i>Hinted Handoff</i>. In this method during writes if we find that the destination nodes are down we store a "hint" of the updated value on one of the alive nodes. Then when these down nodes come back up the "hints" are pushed to them thereby making the data consistent. Many of the specifics are borrowed from the Amazon paper below</p>
 
 <p>Here are some good write-ups on this subject:</p>
 

@@ -48,10 +48,17 @@
   &lt;/cluster&gt;
 </pre>
 
+<p>
 One thing that is important to understand is that partitions are not static partitions of servers, but rather they are a mechanism for partitioning the key space in such a way that each key is statically mapped to a particular data
-partition. What this means is that a particular cluster may support many stores each with different replication factors&mdash;the replication factor is not hardcoded in the cluster design. This is important, since some data is more important than other data, and the correct trade-off between performance and consistency for one store may be different from another store. The number of data partitions cannot be changed. Online redistribution of data is not yet supported, but this provides the mechanism by which it will work when it is. Partitions will be moved to the new servers (or rebalanced between servers), but the total number of partitions will always remain the same, as will the mapping of key to partition. This means it is important to give a good number of partitions to start with. The script test/integration/generate_partitions.py will generate this part of the config for you.
+partition. What this means is that a particular cluster may support many stores each with different replication factors&mdash;the replication factor is not hardcoded in the cluster design. This is important, since some data is more important than other data, and the correct trade-off between performance and consistency for one store may be different from another store. 
+</p>
+<p>
+Another important point to remember is that the number of data partitions cannot be changed. We do support an online redistribution ( rebalancing ) of partitions. In other words inclusion of new nodes results in moving ownership of partitions, but the total number of partitions will always remain the same, as will the mapping of key to partition. This means it is important to give a good number of partitions to start with. The script <a href="https://github.com/voldemort/voldemort/blob/master/bin/generate_cluster_xml.py">here</a> will generate this part of the config for you.
+</p>
 
+<p>
 Note that the configuration is currently simple files so it is important that the data in cluster.xml and stores.xml be exactly the same on each server, and that the node ids and partitions not be changed, since that can mean that clients will think their data should be on node <i>X</i> when really it was stored on node <i>Y</i>. This limitation will be removed as the configuration is moved into voldemort itself.
+</p>
 
 <h3>Store configuration</h3>
 

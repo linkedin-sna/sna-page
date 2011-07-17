@@ -147,6 +147,11 @@
  	<th colspan="3">Slop store configuration</th>
 </tr>
 <tr>
+	<td>slop.enable</td>
+	<td>true</td>
+	<td>Do we want to initialize a storage engine for slops + have the job enabled?</td>
+</tr>
+<tr>
 	<td>slop.store.engine</td>
 	<td>bdb</td>
 	<td>What storage engine should we use for storing misdelivered messages that need to be rerouted?</td>
@@ -154,7 +159,7 @@
 <tr>
 	<td>slop.pusher.enable</td>
 	<td>true</td>
-	<td>Enable the slop pusher job which pushes every 'slop.frequency.ms' ms</td>
+	<td>Enable the slop pusher job which pushes every 'slop.frequency.ms' ms ( Prerequisite - slop.enable=true )</td>
 </tr>
 <tr>
 	<td>slop.read.byte.per.sec</td>
@@ -231,22 +236,50 @@
 	<td>Enable gossup every n ms</td>
 </tr>
 <tr>
+	<th colspan="3">Admin service</th>
+</tr>
+<tr>
+	<td>admin.enable</td>
+	<td>true</td>
+	<td>Enable the Admin service?</td>
+</tr>
+<tr>
+	<td>admin.max.threads</td>
+	<td>20</td>
+	<td>Max Number of threads used by Admin services. Used by BIO ( i.e. if enable.nio.connector = false )</td>
+</tr>
+<tr>
+	<td>admin.core.threads</td>
+	<td>max(1, ${admin.max.threads} / 2)</td>
+	<td>The number of threads to keep alive by Admin service even when idle. Used by BIO ( i.e. if enable.nio.connector = false )</td>
+</tr>
+<tr>
+	<td>nio.admin.connector.selectors</td>
+	<td>max ( 8, number of processors )</td>
+	<td>Number of selector threads for admin operations. Used by NIO ( i.e. if enable.nio.connector = true )</td>
+</tr>
+<tr>
  	<th colspan="3">Core Voldemort server configuration</th>
 <tr>
 <tr>
-	<td>scheduler.threads</td>
-	<td>6</td>
-	<td>Number of threads to use for scheduled jobs</td>
+	<td>enable.nio.connector</td>
+	<td>false</td>
+	<td>Enable NIO on server side</td>
+</tr>
+<tr>
+	<td>nio.connector.selectors</td>
+	<td>max ( 8, number of processors )</td>
+	<td>Number of selector threads for normal operations. Used by NIO ( i.e. if enable.nio.connector = true )</td>
 </tr>
 <tr>
 	<td>max.threads</td>
 	<td>100</td>
-	<td>The maximum number of threads the server can use ( Used by HTTP and BIO service only )</td>
+	<td>The maximum number of threads the server can use ( Used by HTTP and BIO - enable.nio.connector = false -  service only )</td>
 </tr>
 <tr>
 	<td>core.threads</td>
 	<td>max(1, ${max.threads} / 2)</td>
-	<td>The number of threads to keep alive even when idle.</td>
+	<td>The number of threads to keep alive even when idle ( Used by HTTP and BIO - enable.nio.connector = false -  service only )</td>
 </tr>
 <tr>
 	<td>socket.timeout.ms</td>
@@ -257,6 +290,16 @@
 	<td>routing.timeout.ms</td>
 	<td>5000</td>
 	<td>The total amount of time to wait for adequate responses from all nodes before throwing an error.</td>
+</tr>
+<tr>
+	<td>stream.read.byte.per.sec</td>
+	<td>10 * 1000 * 1000</td>
+	<td>Max read throughput allowed when Admin service streams data</td>
+</tr>
+<tr>
+	<td>stream.write.byte.per.sec</td>
+	<td>10 * 1000 * 1000</td>
+	<td>Max write throughput allowed when Admin service streams data</td>
 </tr>
 <tr>
 	<td>http.enable</td>
@@ -284,28 +327,8 @@
 	<td>Track load statistics on the stores.</td>
 </tr>
 <tr>
-	<td>admin.enable</td>
-	<td>true</td>
-	<td>Enable the Admin service?</td>
-</tr>
-<tr>
-	<td>admin.max.threads</td>
-	<td>20</td>
-	<td>Max Number of threads used by Admin services</td>
-</tr>
-<tr>
-	<td>admin.core.threads</td>
-	<td>max(1, ${admin.max.threads} / 2)</td>
-	<td>The number of threads to keep alive by Admin service even when idle</td>
-</tr>
-<tr>
-	<td>stream.read.byte.per.sec</td>
-	<td>10 * 1000 * 1000</td>
-	<td>Max read throughput allowed when Admin service streams data</td>
-</tr>
-<tr>
-	<td>stream.write.byte.per.sec</td>
-	<td>10 * 1000 * 1000</td>
-	<td>Max write throughput allowed when Admin service streams data</td>
+	<td>scheduler.threads</td>
+	<td>6</td>
+	<td>Number of threads to use for scheduled jobs</td>
 </tr>
 </table>

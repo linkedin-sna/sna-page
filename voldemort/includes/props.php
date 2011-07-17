@@ -5,9 +5,9 @@
 	<th>description</th>
 </tr>
 <tr>
-	<td>node.id</td>
-    <td>none</td>
-    <td>The unique, sequential identifier for this server in the cluster (starts with 0)</td>
+ 	<td>node.id</td>
+        <td>none</td>
+        <td>The unique, sequential identifier for this server in the cluster (starts with 0)</td>
 </tr>
 <tr>
 	<td>voldemort.home</td>
@@ -25,13 +25,16 @@
 	<td>The directory where voldemort configuration is stored</td>
 </tr>
 <tr>
+ 	<th colspan="3">BDB stores configuration</th>
+</tr>
+<tr>
 	<td>enable.bdb.engine</td>
 	<td>true</td>
 	<td>Should the BDB engine be enabled?</td>
 </tr>
 <tr>
 	<td>bdb.cache.size</td>
-	<td>200MB (make it bigger!!!)</td>
+	<td>200MB</td>
 	<td>The BDB cache that is shared by all BDB tables. Bigger is better.</td>
 </tr>
 <tr>
@@ -70,6 +73,19 @@
 	<td>How often in ms should we checkpoint the transaction log</td>
 </tr>
 <tr>
+	<td>bdb.one.env.per.store</td>
+	<td>false</td>
+	<td>Use one BDB environment for every store</td>
+</tr>
+<tr>
+	<td>bdb.cleaner.threads</td>
+	<td>1</td>
+	<td>Number of BDB cleaner threads</td>
+</tr>
+<tr>
+     	<th colspan="3">MySQL stores configuration</th>
+</tr>
+<tr>
 	<td>enable.mysql.engine</td>
 	<td>false</td>
 	<td>Should we enabled the mysql storage engine? Doing so will create a connection pool that will be used for the mysql instance</td>
@@ -100,14 +116,7 @@
 	<td>The name of the mysql database</td>
 </tr>
 <tr>
-	<td>enable.memory.engine</td>
-	<td>true</td>
-	<td>Should we enable the memory storage engine? Might as well this takes no resources and is just here for consistency.</td>
-</tr>
-<tr>
-	<td>enable.cache.engine</td>
-	<td>true</td>
-	<td>Should we enable the cache storage engine? Might as well this takes no resources and is just here for consistency.</td>
+     	<th colspan="3">Read-only stores configuration</th>
 </tr>
 <tr>
 	<td>enable.readonly.engine</td>
@@ -115,19 +124,14 @@
 	<td>Should we enable the readonly storage engine?</td>
 </tr>
 <tr>
-	<td>readonly.file.wait.timeout.ms</td>
-	<td>4000</td>
-	<td>The maximum time to wait to acquire a filehandle to perform reads.</td>
-</tr>
-<tr>
 	<td>readonly.backups</td>
 	<td>1</td>
 	<td>The number of backup copies of the data to keep around for rollback.</td>
 </tr>
 <tr>
-	<td>readonly.file.handles</td>
-	<td>5</td>
-	<td>The number of file descriptors to pool per store.</td>
+	<td>readonly.search.strategy</td>
+	<td>BinarySearchStrategy</td>
+	<td>Class name of search strategy to use while finding key. We support BinarySearchStrategy and InterpolationSearchStrategy</td>
 </tr>
 <tr>
 	<td>readonly.data.directory</td>
@@ -135,14 +139,109 @@
 	<td>The directory in which to store readonly data files.</td>
 </tr>
 <tr>
+	<td>readonly.delete.backup.ms</td>
+	<td>0</td>
+	<td>Millisecond we wait for before deleting old data. Useful to decreasing IO during swap.</td>
+</tr>
+<tr>
+ 	<th colspan="3">Slop store configuration</th>
+</tr>
+<tr>
 	<td>slop.store.engine</td>
 	<td>bdb</td>
 	<td>What storage engine should we use for storing misdelivered messages that need to be rerouted?</td>
 </tr>
 <tr>
+	<td>slop.pusher.enable</td>
+	<td>true</td>
+	<td>Enable the slop pusher job which pushes every 'slop.frequency.ms' ms</td>
+</tr>
+<tr>
+	<td>slop.read.byte.per.sec</td>
+	<td>10 * 1000 * 1000</td>
+	<td>Slop max read throughput </td>
+</tr>
+<tr>
+	<td>slop.write.byte.per.sec</td>
+	<td>10 * 1000 * 1000</td>
+	<td>Slop max write throughput </td>
+</tr>
+<tr>
+	<td>pusher.type</td>
+	<td>StreamingSlopPusherJob</td>
+	<td>Job type to use for pushing out the slops</td>
+</tr>
+<tr>
+	<td>slop.frequency.ms</td>
+	<td>5 * 60 * 1000</td>
+	<td>Frequency at which we'll try to push out the slops </td>
+</tr>
+<tr>
+	<th colspan="3">Rebalancing configuration</th>
+</tr>
+<tr>
+	<td>enable.rebalancing</td>
+	<td>true</td>
+	<td>Enable rebalance service?</td>
+</tr>
+<tr>
+	<td>max.rebalancing.attempts</td>
+	<td>3</td>
+	<td>Number of attempts the server side rebalancer makes to fetch data</td>
+</tr>
+<tr>
+	<td>rebalancing.timeout.seconds</td>
+	<td>10 * 24 * 60 * 60</td>
+	<td>Time we give for the server side rebalancing to finish copying data</td>
+</tr>
+<tr>
+	<td>max.parallel.stores.rebalancing</td>
+	<td>3</td>
+	<td>Stores to rebalancing in parallel</td>
+</tr>
+<tr>
+	<td>rebalancing.optimization</td>
+	<td>true</td>
+	<td>Should we run our rebalancing optimization for non-partition aware stores?</td>
+</tr>
+<tr>
+	<th colspan="3">Retention configuration</th>
+</tr>
+<tr>
+	<td>retention.cleanup.first.start.hour</td>
+	<td>0</td>
+	<td>Hour when we want to start the first retention cleanup job</td>
+</tr>
+<tr>
+	<td>retention.cleanup.period.hours</td>
+	<td>24</td>
+	<td>Run the retention clean up job every n hours</td>
+</tr>
+<tr>
+	<th colspan="3">Gossip configuration</th>
+<tr>
+<tr>
+	<td>enable.gossip</td>
+	<td>false</td>
+	<td>Enable gossip to synchronize state</td>
+</tr>
+<tr>
+	<td>gossip.interval.ms</td>
+	<td>30*1000</td>
+	<td>Enable gossup every n ms</td>
+</tr>
+<tr>
+ 	<th colspan="3">Core Voldemort server configuration</th>
+<tr>
+<tr>
+	<td>scheduler.threads</td>
+	<td>6</td>
+	<td>Number of threads to use for scheduled jobs</td>
+</tr>
+<tr>
 	<td>max.threads</td>
 	<td>100</td>
-	<td>The maximum number of threads the server can use.</td>
+	<td>The maximum number of threads the server can use ( Used by HTTP and BIO service only )</td>
 </tr>
 <tr>
 	<td>core.threads</td>
@@ -175,11 +274,6 @@
 	<td>Enable JMX monitoring?</td>
 </tr>
 <tr>
-	<td>slop.detection.enable</td>
-	<td>false</td>
-	<td>Enable detection of misdelivered messages for persistence and redelivery.</td>
-</tr>
-<tr>
 	<td>enable.verbose.logging</td>
 	<td>true</td>
 	<td>Log every operation on all stores.</td>
@@ -188,21 +282,6 @@
 	<td>enable.stat.tracking</td>
 	<td>true</td>
 	<td>Track load statistics on the stores.</td>
-</tr>
-<tr>
-	<td>enable.gossip</td>
-	<td>false</td>
-	<td>Enable gossip to synchronize state</td>
-</tr>
-<tr>
-	<td>pusher.poll.ms</td>
-	<td>2 * 60 * 1000</td>
-	<td>How often should misdelivered "slop" data be pushed out to nodes?</td>
-</tr>
-<tr>
-	<td>scheduler.threads</td>
-	<td>3</td>
-	<td>The number of threads to use for scheduling periodic jobs</td>
 </tr>
 <tr>
 	<td>admin.enable</td>
@@ -228,15 +307,5 @@
 	<td>stream.write.byte.per.sec</td>
 	<td>10 * 1000 * 1000</td>
 	<td>Max write throughput allowed when Admin service streams data</td>
-</tr>
-<tr>
-	<td>enable.rebalancing</td>
-	<td>true</td>
-	<td>Enable rebalance service?</td>
-</tr>
-<tr>
-	<td>max.rebalancing.attempts</td>
-	<td>3</td>
-	<td>Number of attempts made during rebalancing</td>
 </tr>
 </table>

@@ -12,7 +12,7 @@
   $PROJ_KEYWORDS = "Project Voldemort, Voldemort, key-value storage, distributed storage, Amazon Dynamo, persistence, scalability";
 
   /* Favicon image file location and type */
-  $PROJ_FAVICON_PATH = "images/voldemort_logo_small.png";
+  $PROJ_FAVICON_PATH = "images/voldemort_logo.png";
   $PROJ_FAVICON_MIME = "image/png";
 
   /* Project icon in header */

@@ -25,8 +25,7 @@
                           "performance" => "performance.php",
                           "projects" => "projects.php",
                           "faq" => "faq.php",
-                          "wiki" => "http://linkedin.jira.com/wiki/display/KAFKA",
-                          "bugs" => "http://linkedin.jira.com/browse/KAFKA",
+                          "bugs" => "https://issues.apache.org/jira/browse/KAFKA",
                           "mailing&nbsp;lists" => "contact.php",
                           "unit&nbsp;tests" => "http://test.project-voldemort.com:8080/",
                           );

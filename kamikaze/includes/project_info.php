@@ -24,6 +24,7 @@
                           "quick start" => "quickstart.php",
                           "suggestion" => "suggestion.php",
                           "releases" => "releases.php",
+                          "license" => "license.php",
                           "source" => "http://github.com/hyan/kamikaze",
                           "wiki" => "http://linkedin.jira.com/wiki/display/KAMI/Home",
                           "team" => "team.php",

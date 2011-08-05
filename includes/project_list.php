@@ -3,7 +3,7 @@
 <a href="http://sna-projects.com/decomposer" title="Massive matrix decompositions.">decomposer</a> &middot;
 <a href="http://sna-projects.com/norbert" title="Partitioned routing and cluster management.">norbert</a> &middot;
 <a href="http://project-voldemort.com" title="A distributed database.">voldemort</a> &middot;
-<a href="http://sna-projects.com/kafka" title="A high-throughput distributed messaging system.">kafka</a> &middot;
+<a href="http://incubator.apache.org/kafka" title="A high-throughput distributed messaging system.">kafka</a> &middot;
 <a href="http://sna-projects.com/kamikaze" title="Doc set compression.">kamikaze</a> &middot;
 <a href="http://sna-projects.com/krati" title="A persistent high-performance data store.">krati</a> &middot;
 <a href="http://sna-projects.com/sensei" title="A distributed, elastic, realtime, searchable database.">sensei</a> &middot;

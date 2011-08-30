@@ -75,6 +75,10 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
    <li>Sam Shah &ndash; <a href="http://strataconf.com/strata2011/public/schedule/detail/16932">Building data products with Hadoop</a> (O'Reilly Strata)</li>
    <li>Pete Skomoroch &ndash; <a href="http://strataconf.com/strata2011/public/schedule/detail/17174">Distilling Data Exhaust: How to Surface Insights and Build Products</a> (O'Reilly Strata)</li>
    <li>Christian Posse &ndash; <a href="media/basna.pdf">Operating Smartly  in a Networked World</a> (Keynote address, <a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=10270&copyownerid=12652">IEEE International Workshop on Business Applications of Social Network Analysis 2010</a>)</li>
+   <li>Mitul Tiwari &ndash; <a href="media/data_products.pdf">Building Data
+   Products using Hadoop at LinkedIn</a> (In <a
+   href=http://www.meetup.com/BigDataCloud/events/21173641/>Big Data and Cloud
+   Computing meetup</a>, Aug 11, 2011.)
 </ul>
 </span>
 

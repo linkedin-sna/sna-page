@@ -33,28 +33,11 @@ Here is the throughput we see from a single multithreaded client talking to a si
 <p>
 Note that this is to a single node cluster so the replication factor is 1. Obviously doubling the replication factor will halve the client req/sec since it is doing 2x the operations. So these numbers represent the maximum throughput from one client, by increasing the replication factor, decreasing the cache size, or increasing the data size on the node, we can make the performance arbitrarily slow. Note that in this test, the server is actually fairly lightly loaded since it has only one client so this does not measure the maximum throughput of a server, just the maximum throughput from a single client.
 </p>
-<p>
-Here is the request-latency we see at LinkedIn on our production servers measured on the server side (e.g. from the time we get the request off the wire to the time we start writing back to the wire):
-</p>
-
-<pre>
-Median GET: 0.015 ms
-Median PUT: 0.040 ms
-99.99 percentile GET: 0.227 ms
-99.99 percentile PUT: 2.551 ms
-</pre>
-
-<p>
-Note that this is very fast, and tells us that the bdb cache hit and/or pagecache hit ratio is extremely high for this particular dataset.
-</p>
-
-<p>
-This does not include network or routing overhead. From the client-side we do not measure the individual voldemort requests in production, but instead time a full GET, processing with simple business logic, and PUT. For this we see avg. latencies of around 1-2ms for the complete modification including both read, update, and store operations.
-</p>
 
 <h4>Your Millage May Vary</h4>
 
 If the numbers you see in your own tests do not look like what you expect please chime in on the mailing list. We have tuned and tested certain configurations and would like to gather data on other configurations and may be able to help with settings.
-
-We also have a <a href="http://wiki.github.com/voldemort/voldemort/performance-tool" >performance tool</a> which can help potential users to run their own benchmarks and judge if Voldemort fits their requirements.  
+<p>
+We also have a <a href="http://wiki.github.com/voldemort/voldemort/performance-tool" >performance tool</a>, heavily inspired from <a href="http://research.yahoo.com/files/ycsb.pdf">YCSB</a>, which can help potential users to run their own benchmarks and judge if Voldemort fits their requirements.  
+</p>
 <?php require "../includes/footer.php" ?>

@@ -95,7 +95,7 @@ The downside to the above approach occurs when a server is added, or removed fro
 To visualize the consistent hashing method we can see the possible integer hash values as a ring beginning with 0 and circling around to 2^31-1. This ring is divided into <i>Q</i> equally-sized partitions with <i>Q</i> >> <i>S</i>, and each of the <i>S</i> servers is assigned <i>Q</i>/<i>S</i> of these. A key is mapped onto the ring using an arbitrary hash function, and then we compute a list of <i>R</i> servers responsible for this key by taking the first <i>R</i> unique nodes when moving over the partitions in a clockwise direction. The diagram below pictures a hash ring for servers <i>A</i>,<i>B</i>,<i>C</i>,<i>D</i>. The arrows indicate keys mapped onto the hash ring and the resulting list of servers that will store the value for that key if <i>R</i>=3.
 </p>
 
-<img src="images/hash_ring.png"/>
+<center><img src="images/hash_ring.png"/></center>
 
 <h2>Data Format &amp; Queries</h2>
 
@@ -305,7 +305,7 @@ String and identity serialization are pretty self-explanatory. Documentation / T
 
 <p>We use versioning and read-repair. This has a the best availability guarantees, and the highest efficiency (only W writes network roundtrips are required for N replicas where W can be configured to be less than N). 2PC typically requires 2N blocking roundtrips. Paxos variations vary quite a bit but are comparable to 2PC.</p>
 
-<p>Many of the specifics are borrowed from the Amazon paper below</p>
+<p>Another approach to reach consistency is by using <i>Hinted Handoff</i>. In this method during writes if we find that the destination nodes are down we store a "hint" of the updated value on one of the alive nodes. Then when these down nodes come back up the "hints" are pushed to them thereby making the data consistent. Many of the specifics are borrowed from the Amazon paper below</p>
 
 <p>Here are some good write-ups on this subject:</p>
 
@@ -375,14 +375,16 @@ So our versioning scheme defines a <a href="http://en.wikipedia.org/wiki/Partial
 
 <h2>Persistence Layer</h2>
 
-<p>We support a simple api for persistence and use BDB java edition as the default. MySQL and in memory storage are also supported. To add a new persistence implementation you need to implements put, get, and delete, plus provide an iterator over the values in the local store.</p>
+<p>We support a simple api for persistence and use BDB Java edition as the default. Other storage engines supported are MySQL, in-memory storage ( used for unit testing ) and our own custom read-only storage engine ( generated offline as a batch process in Hadoop ). To add a new persistence implementation you need to implements put, get, and delete, plus provide an iterator over the values in the local store.</p>
 
-<h2>Support for batch computed data</h2>
+<h2>Support for batch computed data - Read-only stores</h2>
 
 <p>One of the most data-intensive storage needs is storing batch computed data about members and content in our system. These jobs often deal with the relationships between entities (e.g. related users, or related news articles) and so for <i>N</i> entities can produce up to <i>N</i><sup>2</sup> relationships. An exmaple at LinkedIn is member networks, which are in the 12TB range if stored explicitly for all members. Batch processing of data is generally much more efficient than random access, which means one can easily produce more batch computed data than can be easily accessed by the live system. Hadoop greatly expands this ability. We are in the process of open-sourcing a voldemort persistence-backend that supports very efficient read-only access that helps take a lot of the pain our of building, deploying, and managing large, read-only batch computed data sets.</p>
 
-<p>Much of the pain of dealing with batch computing comes from the "push" process that transfers data from a data warehouse or hadoop instance to the live system. In a traditional db this will often mean rebuilding the index on the live system with the new data. Doing millions of sql insert or update statements is generally not at all efficient, and typically in a SQL db the data will be deployed as a new table and then swapped to replace the current data when the new table is completely built. This is better than doing millions of individual updates, but this still means the live system is now building a many GB index for the new data set (or performa) while simultaneously serving live traffic. This alone can take hours or days, and may destroy the performance on live queries. Some people have fixed this by swapping out at the database level (e.g. having an online and offline db, and then swapping), but this requires effort and means only half your hardware is being utilized. Voldemort fixes this process by making it possible to prebuild the index itself offline (on hadoop or wherever), and simply push it out to the live servers and transparently swap.
+<p>Much of the pain of dealing with batch computing comes from the "push" process that transfers data from a data warehouse or hadoop instance to the live system. In a traditional db this will often mean rebuilding the index on the live system with the new data. Doing millions of sql insert or update statements is generally not at all efficient, and typically in a SQL db the data will be deployed as a new table and then swapped to replace the current data when the new table is completely built. This is better than doing millions of individual updates, but this still means the live system is now building a many GB index for the new data set (or performa) while simultaneously serving live traffic. This alone can take hours or days, and may destroy the performance on live queries. Some people have fixed this by swapping out at the database level (e.g. having an online and offline db, and then swapping), but this requires effort and means only half your hardware is being utilized. Voldemort fixes this process by making it possible to prebuild the index itself offline (on Hadoop or wherever), and simply push it out to the live servers and transparently swap.
 </p>
+
+For more details about these batch computed stores ( called read-only stores ) read <a href="http://project-voldemort.com/blog/2009/06/building-a-1-tb-data-cycle-at-linkedin-with-hadoop-and-project-voldemort/">this</a>.
 
 <h2>References</h2>
 <ul>

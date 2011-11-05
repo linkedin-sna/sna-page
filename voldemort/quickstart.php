@@ -62,26 +62,35 @@ You must first build the jar file using ant, as described above, then do the fol
 $ VOLDEMORT_HOME='/path/to/voldemort'
 $ cd $VOLDEMORT_HOME
 $ ./bin/voldemort-server.sh
-[2008-08-11 17:00:32,884] INFO Starting voldemort-server (voldemort.server.VoldemortService)
-[2008-08-11 17:00:32,886] INFO Starting all services:  (voldemort.server.VoldemortServer)
-[2008-08-11 17:00:32,886] INFO Starting storage-service (voldemort.server.VoldemortService)
-[2008-08-11 17:00:32,891] INFO Initializing stores: (voldemort.server.storage.StorageService)
-[2008-08-11 17:00:32,891] INFO Opening test. (voldemort.server.storage.StorageService)
-[2008-08-11 17:00:32,903] INFO All stores initialized. (voldemort.server.storage.StorageService)
-[2008-08-11 17:00:32,903] INFO Starting scheduler (voldemort.server.VoldemortService)
-[2008-08-11 17:00:32,906] INFO Scheduling pusher to run every 60000 milliseconds. (voldemort.server.scheduler.SchedulerService)
-[2008-08-11 17:00:32,909] INFO Starting http-service (voldemort.server.VoldemortService)
-[2008-08-11 17:00:33,044] INFO Starting socket-service (voldemort.server.VoldemortService)
-[2008-08-11 17:00:33,044] INFO Starting voldemort socket server on port 6666. (voldemort.server.socket.SocketServer)
-[2008-08-11 17:00:33,045] INFO Starting JMX Service (voldemort.server.VoldemortService)
-[2008-08-11 17:00:33,133] INFO All services started. (voldemort.server.VoldemortServer)
+[2011-07-14 18:06:24,921 voldemort.store.metadata.MetadataStore] INFO metadata init(). 
+[2011-07-14 18:06:25,309 voldemort.server.VoldemortServer] INFO Using NIO Connector. 
+[2011-07-14 18:06:25,331 voldemort.server.VoldemortServer] INFO Using NIO Connector for Admin Service. 
+[2011-07-14 18:06:25,332 voldemort.server.VoldemortService] INFO Starting voldemort-server 
+[2011-07-14 18:06:25,333 voldemort.server.VoldemortServer] INFO Starting 8 services. 
+[2011-07-14 18:06:25,333 voldemort.server.VoldemortService] INFO Starting storage-service 
+[2011-07-14 18:06:25,399 voldemort.server.storage.StorageService] INFO Initializing bdb storage engine. 
+[2011-07-14 18:06:25,404 voldemort.server.storage.StorageService] INFO Initializing read-only storage engine. 
+[2011-07-14 18:06:25,406 voldemort.server.storage.StorageService] INFO Initializing the slop store using bdb 
+[2011-07-14 18:06:25,767 voldemort.server.storage.StorageService] INFO Initializing stores: 
+[2011-07-14 18:06:25,767 voldemort.server.storage.StorageService] INFO Opening store 'test' (bdb). 
+[2011-07-14 18:06:25,834 voldemort.server.storage.StorageService] INFO All stores initialized. 
+[2011-07-14 18:06:25,834 voldemort.server.VoldemortService] INFO Starting scheduler-service 
+[2011-07-14 18:06:25,834 voldemort.server.VoldemortService] INFO Starting async-scheduler 
+[2011-07-14 18:06:25,834 voldemort.server.VoldemortService] INFO Starting http-service 
+[2011-07-14 18:06:26,092 voldemort.server.VoldemortService] INFO Starting socket-service 
+[2011-07-14 18:06:26,101 voldemort.server.VoldemortService] INFO Starting rebalance-service 
+[2011-07-14 18:06:26,109 voldemort.server.VoldemortService] INFO Starting jmx-service 
+[2011-07-14 18:06:26,142 voldemort.server.VoldemortServer] INFO Startup completed in 809 ms. 
 </pre>
 
 <p>Alternately we can give VOLDEMORT_HOME on the command line and avoid having to set an environment variable</p>
 
 <pre>
 $ ./bin/voldemort-server.sh /path/to/voldemort
-[2008-08-11 17:00:32,884] INFO Starting voldemort-server (voldemort.server.VoldemortService)
+[2011-07-14 18:06:24,921 voldemort.store.metadata.MetadataStore] INFO metadata init(). 
+[2011-07-14 18:06:25,309 voldemort.server.VoldemortServer] INFO Using NIO Connector. 
+[2011-07-14 18:06:25,331 voldemort.server.VoldemortServer] INFO Using NIO Connector for Admin Service. 
+[2011-07-14 18:06:25,332 voldemort.server.VoldemortService] INFO Starting voldemort-server 
 ...
 </pre>
 

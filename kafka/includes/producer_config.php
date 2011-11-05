@@ -6,7 +6,7 @@
 </tr>
 <tr>
     <td><code>serializer.class</code></td>
-    <td>None. This is required</td>
+    <td>kafka.serializer.DefaultEncoder. This is a no-op encoder. The serialization of data to Message should be handled outside the Producer</td>
     <td>class that implements the <code>kafka.serializer.Encoder&lt;T&gt;</code> interface, used to encode data of type T into a Kafka message </td>
 </tr>
 <tr>
@@ -17,12 +17,12 @@
 <tr>
     <td><code>producer.type</code></td>
     <td>sync</td>
-    <td>this parameter specifies whether the messages are sent asynchronously or not. Valid values are - <ul><li><code>async</code> for asynchronous batching send through <code>kafka.producer.AyncProducer</code></li><li>sync for synchronous send through <code>kafka.producer.SyncProducer</code></li></ul></td>
+    <td>this parameter specifies whether the messages are sent asynchronously or not. Valid values are - <ul><li><code>async</code> for asynchronous batching send through <code>kafka.producer.AyncProducer</code></li><li><code>sync</code> for synchronous send through <code>kafka.producer.SyncProducer</code></li></ul></td>
 </tr>
 <tr>
-    <td><code>broker.partition.info</code></td>
+    <td><code>broker.list</code></td>
     <td>null. Either this parameter or zk.connect needs to be specified by the user.</td>
-    <td>For bypassing zookeeper based auto partition discovery, use this config to pass in static broker and per-broker partition information. Format-<code>brokerid1:host1:port1, brokerid2:host2:port2..</code>
+    <td>For bypassing zookeeper based auto partition discovery, use this config to pass in static broker and per-broker partition information. Format-<code>brokerid1:host1:port1, brokerid2:host2:port2.</code>
 	If you use this option, the <code>partitioner.class</code> will be ignored and each producer request will be routed to a random broker partition.</td>
 </tr>
 <tr>
@@ -78,6 +78,11 @@
     <td><code>connect.timeout.ms</code></td>
     <td>5000</td>
     <td>the maximum time spent by <code>kafka.producer.SyncProducer</code> trying to connect to the kafka broker. Once it elapses, the producer throws an ERROR and stops.</td>
+</tr>
+<tr>
+    <td><code>socket.timeout.ms</code></td>
+    <td>30000</td>
+    <td>The socket timeout in milliseconds</td>
 </tr>
 <tr>
     <td><code>reconnect.interval</code> </td>

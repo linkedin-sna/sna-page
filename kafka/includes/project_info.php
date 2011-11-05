@@ -16,17 +16,18 @@
   $PROJ_FAVICON_MIME = "image/png";
 
   /* Navigation links in the sidebar */
-  $PROJ_NAV_LINKS = array("download" => "downloads/",
+  $PROJ_NAV_LINKS = array("download" => "downloads.php",
                           "code" => "https://github.com/kafka-dev/kafka",
-                          "quickstart" => "quickstart.php",
-                          "design" => "design.php",
-                          "configuration" => "configuration.php",
-                          "performance" => "performance.php",
-                          "current&nbsp;work" => "projects.php",
+                          "javadoc" => "javadoc/current",
+                          "quickstart" => "http://incubator.apache.org/kafka/quickstart.html",
+                          "design" => "http://incubator.apache.org/kafka/design.html",
+                          "configuration" => "http://incubator.apache.org/kafka/configuration.html",
+                          "performance" => "http://incubator.apache.org/kafka/performance.html",
+                          "projects" => "http://incubator.apache.org/kafka/projects.html",
                           "faq" => "faq.php",
-                          "wiki" => "http://linkedin.jira.com/wiki/display/KAFKA",
-                          "bugs" => "http://linkedin.jira.com/browse/KAFKA",
-                          "mailing list" => "http://groups.google.com/group/kafka-dev"
+                          "bugs" => "https://issues.apache.org/jira/browse/KAFKA",
+                          "mailing&nbsp;lists" => "http://incubator.apache.org/kafka/contact.html",
+                          "unit&nbsp;tests" => "http://test.project-voldemort.com:8080/",
                           );
 
   /* Project color */

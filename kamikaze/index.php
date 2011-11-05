@@ -72,11 +72,6 @@ The PForDetla algorithm is implemented in Kamikaze as independent utility classe
 In Linkedin, Kamikaze has been used in the distributed graph team and search team, for representing over 100 million members.
 </p>
 
-<h2>Kamikaze @Linkedin</h2>
-<p>
-In Linkedin, Kamikaze has been used in the distributed graph team and search team. We have contributed Kamikaze, especially our PForDelta implementation, to the Lucene community.   
-</p>
-
 <h2>Version 1.0.0 and Version 2.0.0</h2>
 <p>
 The first two versions, version 1.0.0 and version 2.0.0, provide an awesome platform to perform set operations and effcient inverted list compression/decompression. They are based on <a href="http://homepages.cwi.nl/~heman/downloads/msth

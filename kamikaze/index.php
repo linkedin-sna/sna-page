@@ -17,19 +17,8 @@ Traditionally, the compression techniques are used to save storage space on disk
 Search indexes, graph algorithms, and certain sparse matrix representations make heavy use of compressed integer arrays. 
 
 <p>
-<b>Use in search engines</b>: The inverted index is used in search engines for efficient query processing. The index is a mapping from terms to lists of documents matching those terms. 
+<b>Use in search engines</b>: The inverted index is used in search engines for efficient query processing. The index is a mapping from terms to lists of documents matching those terms. The basic steps of both indexing and query processing discussed above are shown in the following figure. 
 </p>
-
-<p>
-During the indexing process, search engines convert the documents into inverted lists. An inverted list is for a particular term a sequence of document IDs (and other information which can also be considered as sequences of integers). Search engines often compress the inverted lists before they write them to the persistent storage - disks at a cluster of machines. 
-</p>
-
-<p>
-During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms. This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step. 
-</p>
-
-<p>
-The basic steps of both indexing and query processing discussed above are shown in the following figure.
 
 <p align="center">
   <img src = "images/search.png" width="600px" />
@@ -38,7 +27,15 @@ The basic steps of both indexing and query processing discussed above are shown 
 </p>
 
 <p>
-From the above figure, you can see that Kamikaze is mainly used for compressing inverted lists ( step2) and performing various operations on compressed indices to find matched documents (step6). 
+From the above figure, you can see that Kamikaze is mainly used for compressing inverted lists ( step2) and performing various operations on compressed indices to find matched documents (step6).
+</p>
+
+<p>
+During the indexing process, search engines convert the documents into inverted lists. An inverted list is for a particular term a sequence of document IDs (and other information which can also be considered as sequences of integers). Search engines often compress the inverted lists before they write them to the persistent storage - disks at a cluster of machines. 
+</p>
+
+<p>
+During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms. This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step. 
 </p>
 
 <p>

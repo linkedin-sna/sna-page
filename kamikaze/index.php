@@ -5,15 +5,15 @@
 <h2>What is Kamikaze ?</h2>
 
 <p>
-<b>Kamikaze</b> is a utility package for compressing sorted integer arrays effectively and performing highly efficient operations on the compressed arrays. For example, Kamikaze can achieve an extremely fast decompression speed with a decent compression ratio on sorted arrays. It can efficiently find the intersection or the union of N compressed arrays, detect the existence of an given integer in the compressed arrays in a fast manner, etc. 
+<b>Kamikaze</b> is a utility package for compressing sorted integer arrays effectively and performing highly efficient operations on the compressed arrays. Kamikaze represent the compressed integer arrays as integer sets and call them docIdSets (the docIdSet concept is borrowed from the widely used open source search library - Lucene). Kamikaze can achieve an extremely fast decompression speed with a decent compression ratio on sorted arrays. It can efficiently find the intersection or the union of N compressed arrays, detect the existence of an given integer in the compressed arrays in a fast manner, etc. 
 </p>
 
-<h3>Why is Kamikaze useful ?</h3>
+<h2>Why is Kamikaze useful ?</h2>
 <p>
 Traditionally, the compression techniques are used to save storage space on disks. More interestingly,  they can be used to reduce the expensive costs of I/O traffic and network traffic. Various compression techniques on sorted integer arrays have been widely used in commercial search engines, for example, Google and Yahoo!, and in open-source search engine - Lucene. Such large-scale systems have shown that compression techniques can significantly improve the overall system performance, although they introduces an additional CPU cost of decompressing the compressed data. 
 </p>
 
-<h3>Where can Kamikaze be used ?</h3>
+<h2>Where can Kamikaze be used ?</h2>
 Search indexes, graph algorithms, and certain sparse matrix representations make heavy use of compressed integer arrays. 
 
 <p>

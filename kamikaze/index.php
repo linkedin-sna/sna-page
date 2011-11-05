@@ -21,15 +21,15 @@ Search indexes, graph algorithms, and certain sparse matrix representations make
 </p>
 
 <p>
-During the indexing process, search engines convert the documents into inverted lists. An inverted list is for a particular term a sequence of document IDs (and other information which can also be considered as sequences of integers). Search engines often compress the inverted lists before they write them to persistent storage - disks of a cluster of machines. 
+During the indexing process, search engines convert the documents into inverted lists. An inverted list is for a particular term a sequence of document IDs (and other information which can also be considered as sequences of integers). Search engines often compress the inverted lists before they write them to the persistent storage - disks at a cluster of machines. 
 </p>
 
 <p>
-During query processing, given a query of K terms, the search engine often needs to do at least the following steps: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms. This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and return the documents with the highest rankings. Kamikaze has nothing to do with this step. 
+During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms. This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step. 
 </p>
 
 <p>
-The basic steps of both indexing and query processing are shown in the following figure.
+The basic steps of both indexing and query processing discussed above are shown in the following figure.
 
 <p align="center">
   <img src = "images/search.png" width="600px" />
@@ -38,7 +38,7 @@ The basic steps of both indexing and query processing are shown in the following
 </p>
 
 <p>
-From the above figure, you can see that Kamikaze is mainly used for compressing inverted lists ( step2) and various operations on compressed index to find matched docs (step6). 
+From the above figure, you can see that Kamikaze is mainly used for compressing inverted lists ( step2) and performing various operations on compressed indices to find matched documents (step6). 
 </p>
 
 <p>
@@ -70,9 +70,9 @@ Kamikaze builds an platform on top of PForDelta to perform efficient set operati
 The PForDetla algorithm is implemented in Kamikaze as independent utility classes and support simple compression and decompression APIs.  
 </p>
 
-<h2>PForDelta @Lucene</h2>
+<h2>Kamikaze @Linkedin</h2>
 <p>
-The latest version of Lucene does not support PForDelta. However, the future Lucene-4.0 will support PForDelta Codec. Compared to Lucene-4.0 PForDelta codec, which relies on the Lucene-4.0 other data structures, the Kamikaze’s implementation of PForDelta is much lighter and independent from the implementation of Kamikaze.
+In Linkedin, Kamikaze has been used in the distributed graph team and search team, for representing over 100 million members.
 </p>
 
 <h2>Kamikaze @Linkedin</h2>

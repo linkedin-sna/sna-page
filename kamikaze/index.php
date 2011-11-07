@@ -5,7 +5,7 @@
 <h2>What is Kamikaze ?</h2>
 
 <p>
-<b>Kamikaze</b> is a utility package for compressing sorted integer arrays effectively and performing highly efficient operations on the compressed arrays. Kamikaze represent the compressed integer arrays as integer sets and call them docIdSets (the docIdSet concept is borrowed from the widely used open source search library - Lucene). Kamikaze can achieve an extremely fast decompression speed with a decent compression ratio on sorted arrays. It can efficiently find the intersection or the union of N compressed arrays, detect the existence of an given integer in the compressed arrays in a fast manner, etc. 
+<b>Kamikaze</b> is a utility package for effectively compressing sorted integer arrays, which are represented as docIdSets, and performing highly efficient operations on the compressed arrays or docIdSets. Kamikaze represents the compressed integer arrays as integer sets and calls them docIdSets (the docIdSet concept is similar to the docIdSet used in <a href="http://lucene.apache.org/">Lucene</a>). Kamikaze can achieve an extremely fast decompression speed with a decent compression ratio on sorted arrays (or docIdSets). It can efficiently find the intersection or the union of N compressed arrays (or docIdSets), quickly detect the existence of an given integer in the compressed arrays (or docIdSets), etc. 
 </p>
 
 <h2>Why is Kamikaze useful ?</h2>

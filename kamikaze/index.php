@@ -5,29 +5,27 @@
 <h2>What is Kamikaze ?</h2>
 
 <p>
-<b>Kamikaze</b> is a utility package for effectively compressing sorted integer arrays, which are represented as docIdSets, and performing highly efficient operations on the compressed arrays or docIdSets. Kamikaze represents the compressed integer arrays as integer sets and calls them docIdSets (the docIdSet concept is similar to the docIdSet used in <a href="http://lucene.apache.org/">Lucene</a>). Kamikaze can achieve an extremely fast decompression speed with a decent compression ratio on sorted arrays (or docIdSets). It can efficiently find the intersection or the union of N compressed arrays (or docIdSets), quickly detect the existence of an given integer in the compressed arrays (or docIdSets), etc. 
+<b>Kamikaze</b> is a utility package for effectively compressing sorted integer arrays, which are represented as docIdSets, and performing highly efficient operations on the compressed arrays or docIdSets. Kamikaze represents the compressed integer arrays as integer sets and calls them docIdSets (the docIdSet concept is similar to that used in <a href="http://lucene.apache.org/">Lucene</a>). Kamikaze can achieve an extremely fast decompression speed with a decent compression ratio on sorted arrays (or docIdSets). It can efficiently find the intersection or the union of N compressed arrays (or docIdSets), quickly detect the existence of an given integer in the compressed arrays (or docIdSets), etc. 
 </p>
 
 <h2>Why is Kamikaze useful ?</h2>
 <p>
-Traditionally, the compression techniques are used to save storage space on disks. More interestingly,  they can be used to reduce the expensive costs of I/O traffic and network traffic. Various compression techniques on sorted integer arrays have been widely used in commercial search engines, for example, Google and Yahoo!, and in open-source search engine - Lucene. Such large-scale systems have shown that compression techniques can significantly improve the overall system performance, although they introduces an additional CPU cost of decompressing the compressed data. 
+Traditionally, the compression techniques are used to save storage space on disks. More interestingly, in large-scale distributed system, they can be used to reduce the expensive costs of I/O traffic and network traffic. Various compression techniques on sorted integer arrays have been widely used in commercial search engines, for example, Google and Yahoo!, and in open-source search engine - Lucene. Such large-scale systems have shown that compression techniques can significantly improve the overall system performance, although they introduces an additional CPU cost of decompressing the compressed data. 
 </p>
 
 <h2>Where can Kamikaze be used ?</h2>
 Search indexes, graph algorithms, and certain sparse matrix representations make heavy use of compressed integer arrays. 
 
 <p>
-<b>Use in search engines</b>: The inverted index is used in search engines for efficient query processing. The index is a mapping from terms to lists of documents matching those terms. The basic steps of both indexing and query processing discussed above are shown in the following figure. 
+<b>Use in search engines</b>: The inverted index is used in search engines for efficient query processing. The index is a mapping from terms to lists of documents matching those terms. 
 </p>
 
 <p align="center">
-  <img src = "images/search.png" width="600px" />
-</p>
-
+  <img src = "images/search.png" width="600px" name="Basic Search Architecture"/> 
 </p>
 
 <p>
-From the above figure, you can see that Kamikaze is mainly used for compressing inverted lists ( step2) and performing various operations on compressed indices to find matched documents (step6).
+The basic steps of both indexing and query processing are as follows (shown in the above figure):
 </p>
 
 <p>
@@ -36,6 +34,10 @@ During the indexing process, search engines convert the documents into inverted 
 
 <p>
 During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms. This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step. 
+</p>
+
+<p> 
+From the above figure, you can see that Kamikaze is mainly used for compressing inverted lists ( step2) and performing various operations on compressed indices to find matched documents (step6).
 </p>
 
 <p>
@@ -52,7 +54,14 @@ In the above applications (large scale search engines or social networks), we of
 </p>
 
 <p>
-To achieve these goals, large search engines have been trying a lot of methods. For example, Lucene uses variable-byte coding (please refer to <a href="http://books.google.com/books?id=2F74jyPl48EC&amp;dq=managing+gigabytes&amp;printsec=frontcover&amp;source=bn&amp;hl=en&amp;ei=qMZuTKqyEIuosQOg5ZmiCw&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=4&amp;ved=0CCoQ6AEwAw#v=onepage&amp;q&amp;f=false">Managing Gigabytes</a> for various inverted index compression methods) to compress indexes. Google also uses variable-byte coding to encode part of its indexes a long time ago and has switched to <a href="http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/people/jeff/WSDM09-keynote.pdf">other compression</a> methods lately (their new method can be seen as a variation on PForDelta, the same algorithm implemented in Kamikaze and optimized in Kamikaze version 3.0.0). Therefore, we can see that it is very important to build Kamikaze on top of a good compression method that can achieve both the small compressed size and fast decompression speed. 
+To achieve these goals, large search engines have been trying a lot of methods. For example, Lucene uses variable-byte coding (please refer to <a href="http://books.google.com/books?id=2F74jyPl48EC&amp;dq=managing+gigabytes&amp;printsec=frontcover&amp;source=bn&amp;hlndexing process, search engines convert the documents into inverted lists. An inverted list is for a particular term a sequence of document IDs (and other information which can also be considered as sequences of integers). Search engines often compress the inverted lists before they write them to the persistent storage - disks at a cluster of machines.
+</p>
+
+<p>
+During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms. This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step.
+</p>
+
+=en&amp;ei=qMZuTKqyEIuosQOg5ZmiCw&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=4&amp;ved=0CCoQ6AEwAw#v=onepage&amp;q&amp;f=false">Managing Gigabytes</a> for various inverted index compression methods) to compress indexes. Google also uses variable-byte coding to encode part of its indexes a long time ago and has switched to <a href="http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/people/jeff/WSDM09-keynote.pdf">other compression</a> methods lately (their new method can be seen as a variation on PForDelta, the same algorithm implemented in Kamikaze and optimized in Kamikaze version 3.0.0). Therefore, we can see that it is very important to build Kamikaze on top of a good compression method that can achieve both the small compressed size and fast decompression speed. 
 </p>
 
 <p>

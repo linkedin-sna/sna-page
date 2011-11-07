@@ -33,7 +33,7 @@ During the indexing process, search engines convert the documents into inverted 
 </p>
 
 <p>
-During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms (at step6 in the above figure). This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step. 
+During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms (at step6 in the above figure). This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. 
 </p>
 
 <p>
@@ -46,7 +46,7 @@ During query processing, given a query of K terms, the search engine often needs
 
 <h3>The Magic of Kamikaze: P4Delta Compression</h3>
 <p>
-In the above applications (large scale search engines or social networks), we often need to process a huge amount of data (arrays of integers) within milliseconds. The data often need to be compressed to be hold in main memory. Due to compression, the disk traffic and the network traffic are also greatly reduced since much less amount of data need to be communicated. We also need to be able to decompress the data very efficiently to maximize, for example, the query throughput of search engines.
+In the above applications (large scale search engines or social networks), we often need to process a huge amount of data (arrays of integers) within milliseconds. The data often need to be compressed to be hold in main memory. Due to compression, the disk traffic and the network traffic are also greatly reduced since much less amount of data needs to be communicated. We also need to be able to decompress the data very efficiently to maximize, for example, the query throughput of search engines.
 </p>
 
 <p>
@@ -69,7 +69,7 @@ Kamikaze builds an platform on top of PForDelta to perform efficient set operati
 </p>
 
 <p>
-The PForDetla algorithm is implemented in Kamikaze as independent utility classes and support simple compression and decompression APIs.  
+The PForDetla algorithm is implemented in Kamikaze as independent utility classes, supporting simple compression and decompression APIs.  
 </p>
 
 <h2>Kamikaze @Linkedin</h2>
@@ -116,7 +116,7 @@ achieve the overall performance improvement.
 
 <h2>Version 3.0.5 </h2>
 <p>
-he Version 3.0.5 has been released recently (Nov.1st, 2011). In Version 3.0.3, Kamikaze fixed a bug that the older versions can only support integers less than 2 to 28 (instead of the normal 32-bit integer range). All versions since Version 3.0.3 are able to support normal 32-bit integers.
+Version 3.0.5 has been released recently (Nov.1st, 2011). In Version 3.0.3, Kamikaze fixed a bug that the older versions can only compress and decompress integers less than 2 to 28 (instead of the normal 32-bit integer range). All versions since Version 3.0.3 are able to support normal 32-bit integers.
 </p>
 
 <?php require "../includes/footer.php" ?>

@@ -29,15 +29,11 @@ The basic steps of both indexing and query processing are as follows (shown in t
 </p>
 
 <p>
-During the indexing process, search engines convert the documents into inverted lists. An inverted list is for a particular term a sequence of document IDs (and other information which can also be considered as sequences of integers). Search engines often compress the inverted lists before they write them to the persistent storage - disks at a cluster of machines. 
+During the indexing process, search engines convert the documents into inverted lists. An inverted list is for a particular term a sequence of document IDs (and other information which can also be considered as sequences of integers). Search engines often compress the inverted lists (at step2 in the above figure) before they write them to the persistent storage - disks at a cluster of machines. 
 </p>
 
 <p>
-During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms. This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step. 
-</p>
-
-<p> 
-From the above figure, you can see that Kamikaze is mainly used for compressing inverted lists ( step2) and performing various operations on compressed indices to find matched documents (step6).
+During query processing, given a query of K terms, the search engine often needs to do at least the following things: First, the engine loads inverted lists (related to those terms) from disks to memory. In a distributed environment, it might also involve a large amount of data transmission over network. Kamikaze can reduce the data size and thus the cost of disk and network traffic significantly.  Second, the engine finds all documents on the compressed lists that contain most of the terms (at step6 in the above figure). This process often requires extremely fast decompression and look-up operations on compressed data, which can be done by Kamikaze in a very efficient way. Finally, the engine calculates the rankings for the matched documents and returns the documents with the highest rankings. Kamikaze has nothing to do with this last step. 
 </p>
 
 <p>

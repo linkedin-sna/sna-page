@@ -9,5 +9,4 @@
 <a href="http://sna-projects.com/sensei" title="A distributed, elastic, realtime, searchable database.">sensei</a> &middot;
 <a href="http://sna-projects.com/azkaban" title="Simple hadoop workflow.">azkaban</a> &middot;
 <a href="http://sna-projects.com/sna" title="Search, Network, Analytics">sna</a> &middot;
-<a href="http://localhost/~hyan/sna/insideLucene" title="Inside Lucene">insideLucene</a> &middot;
 <a href="http://sna-projects.com/blog" title="Our Blog">blog</a>

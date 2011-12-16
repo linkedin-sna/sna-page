@@ -8,8 +8,8 @@ Quick Start
 
 <p>
 It is the best to go over a few lines of sample code to become familiar with Krati.
-You can obtain the Krati distribution with versions 0.3.4 or above.
-The <code>examples</code> directory from the distribution contains a number of sample files such as <code>KratiDataCache.java</code> and <code>KratiDataStore.java</code>.
+You can obtain a Krati distribution of version 0.4.2 or above.
+The <code>src/examples</code> directory from the distribution contains a number of sample files such as <code>KratiDataCache.java</code> and <code>KratiDataStore.java</code>.
 </p>
 
 <p>

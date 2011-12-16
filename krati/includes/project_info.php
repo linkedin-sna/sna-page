@@ -3,7 +3,7 @@
   $PROJ_NAME = "Krati";
 
   /* Subtitle in header */
-  $PROJ_SUBTITLE = "A persistent high-performance data store.";
+  $PROJ_SUBTITLE = "A hash based high-performance data store.";
 
   /* HTML header description for SEO */
   $PROJ_DESCRIPTION = "A persistent high-performance data store.";
@@ -30,7 +30,7 @@
       "wiki" => "http://linkedin.jira.com/wiki/display/Krati/Home");
 
   /* Project color */
-  $PROJ_PRIMARY_COLOR = "#FF4400";
+  $PROJ_PRIMARY_COLOR = "#15317E";
 
   /* Google analytics tracking code */
   $PROJ_GOOGLE_ANALYTICS = "UA-7818013-2";

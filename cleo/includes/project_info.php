@@ -12,11 +12,11 @@
   $PROJ_KEYWORDS = "typeahead,search,autocomplete,bloom filter,out of order,partial search,prefix match,trie";
 
   /* Favicon image file location and type */
-  $PROJ_FAVICON_PATH = "images/cleo_logo.png";
-  $PROJ_FAVICON_MIME = "image/png";
+  /*  $PROJ_FAVICON_PATH = "images/cleo_logo.png";*/
+  /*  $PROJ_FAVICON_MIME = "image/png";*/
 
   /* Project icon in header */
-  $PROJ_ICON_PATH = "images/cleo_logo.png";
+  /*  $PROJ_ICON_PATH = "images/cleo_logo.png";*/
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array(

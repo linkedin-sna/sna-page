@@ -8,31 +8,26 @@ Cleo
 
 <p>
 <strong>Cleo</strong> is a flexible software library for enabling rapid development of partial,
-out-of-order and real-time typeahead search. It is suitable for data sets of various sizes from
+out-of-order and real-time typeahead and autocomplete services. It is suitable for data sets of various sizes from
 different domains. The Cleo software library is published under the terms of the Apache Software
 License version 2.0, a copy of which has been included in the LICENSE file shipped with the Cleo
 distribution.
 </p>
 
-<h3>
-Typeahead Search
-</h3>
-
 <p>
 Not to be mistaken with query autocomplete, Cleo does not suggest search terms or queries.
-Cleo provides a library for developing applications that can perform real typeahead queries and deliver
-instantaneous typeahead search results as you type.
+Cleo is a library for developing applications that can perform real typeahead queries and deliver
+instantaneous typeahead results/objects/elements as you type.
 </p>
 
 <p>
 Cleo is also different from general-purpose search libraries because
 <b>1)</b> it does not evaluate search terms but the prefixes of those terms, and
 <b>2)</b> it enables search by means of Bloom Filter and forward indexes rather than inverted indexes.
-In other words, Cleo is designed to support typeahead search in a manner similar to query autocomplete.
 </p>
 
 <p>
-Still confused about the meanings of real-time typeahead search? Let's now take a look at a search query example.
+Still confused about the meanings of Cleo? Let's now take a look at a search query example.
 If you perform a search query, say "j weiner", at Google, you will have a list of suggested search queries as you type.
 This list changes automatically depending on the words in your search query. This is query autocomplete.
 You choose a search query from the list and then Google provides you with corresponding search results. 
@@ -44,7 +39,7 @@ You choose a search query from the list and then Google provides you with corres
 On LinkedIn, when you type "j wein", you are presented a list of search results instead of search queries.
 These search results are real-time, aggregated from different search domains, and then filtered accordingly
 based on your 1st and 2nd degree network connections. By real-time, we mean that any new members joining LinkedIn
-are immediately available for typeahead search.
+are immediately searchable through Cleo-powered typeahead services.
 <p>
 <p align="center">
   <img src="images/linkedin-typeahead.png" alt="LinkedIn typeahead search for j wein"/>

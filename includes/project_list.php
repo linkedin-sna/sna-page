@@ -9,5 +9,6 @@
 <a href="http://sna-projects.com/krati" title="A persistent high-performance data store.">krati</a> &middot;
 <a href="http://sna-projects.com/sensei" title="A distributed, elastic, realtime, searchable database.">sensei</a> &middot;
 <a href="http://sna-projects.com/azkaban" title="Simple hadoop workflow.">azkaban</a> &middot;
+<a href="http://sna-projects.com/datafu" title="UDFs for working with Pig">datafu</a> &middot;
 <a href="http://sna-projects.com/sna" title="Search, Network, Analytics">sna</a> &middot;
 <a href="http://sna-projects.com/blog" title="Our Blog">blog</a>

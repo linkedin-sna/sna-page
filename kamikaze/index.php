@@ -119,4 +119,8 @@ achieve the overall performance improvement.
 Version 3.0.5 has been released recently (Nov.1st, 2011). In Version 3.0.3, Kamikaze fixed a bug that the older versions can only compress and decompress integers less than 2 to 28 (instead of the normal 32-bit integer range). All versions since Version 3.0.3 are able to support normal 32-bit integers.
 </p>
 
+<h2>Version 3.0.6 </h2>
+<p>
+Version 3.0.6 has been released (Jan.4th, 2012). This version has upgraded Lucene to Lucene-3.5.0. In Version 3.0.6, Kamikaze replaces Java serialization with its own serialziation for PForDeltaDocIdSet, which significantly improves the serialization and deserialization speed. In addition, it added or hardcoded the SUIDs (serialization UID) for the classes that has missed SUIDs.   
+</p>
 <?php require "../includes/footer.php" ?>

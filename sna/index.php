@@ -172,7 +172,7 @@ The Search, Network, and Analytics team at LinkedIn works on LinkedIn's informat
 	<tr> 
 		<?php echo_person("Jingwei Wu", "Senior Software Engineer", "/in/wujingwei", img("/p/1/000/060/043/3a38d9e.jpg"), ""); ?>
    		<?php echo_person("Lili Wu", "Senior Software Engineer", "/pub/lili-wu/0/148/bb3", "http://static03.linkedin.com/img/icon/icon_no_photo_40x40.png", ""); ?>
-   		<?php echo_person("Hao Yan", "Software Engineer", "/in/haoyan", "http://static03.linkedin.com/img/icon/icon_no_photo_80x80.png", ""); ?>
+   		<?php echo_person("Hao Yan", "Senior Software Engineer", "/in/haoyan", "http://static03.linkedin.com/img/icon/icon_no_photo_80x80.png", ""); ?>
 		<?php echo_person("Ethan Zhang", "Senior Software Engineer", "/in/ethanzhang", img("/p/2/000/053/32f/28a6800.jpg"), ""); ?>
 		<?php echo_person("Shannon Zhang", "Senior Software Engineer", "/in/shannonzhang", img("/p/2/000/05d/3a2/282a206.jpg"), ""); ?>
 	</tr>

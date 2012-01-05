@@ -121,6 +121,6 @@ Version 3.0.5 has been released recently (Nov.1st, 2011). In Version 3.0.3, Kami
 
 <h2>Version 3.0.6 </h2>
 <p>
-Version 3.0.6 has been released (Jan.4th, 2012). This version has upgraded Lucene to Lucene-3.5.0. In Version 3.0.6, Kamikaze replaces Java serialization with its own serialziation for PForDeltaDocIdSet, which significantly improves the serialization and deserialization speed. In addition, it added or hardcoded the SUIDs (serialization UID) for the classes that has missed SUIDs.   
+Version 3.0.6 has been released on Jan.4th, 2012. In Version 3.0.6, Kamikaze replaced Java serialization with its own serialziation for PForDeltaDocIdSet, which significantly improves the serialization and deserialization speed. In addition, it added or hardcoded the SUIDs (serialization UID) for the classes that has missed SUIDs in previous releases. This version upgraded Lucene to Lucene-3.5.0.
 </p>
 <?php require "../includes/footer.php" ?>

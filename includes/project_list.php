@@ -1,5 +1,6 @@
 <a href="http://sna-projects.com/zoie" title="Real-time search indexing.">zoie</a> &middot;
 <a href="http://sna-projects.com/bobo" title="Fast faceted search with Lucene.">bobo</a> &middot;
+<a href="http://sna-projects.com/cleo" title="Flexible, partial, out-of-order and real-time typeahead search.">cleo</a> &middot;
 <a href="http://sna-projects.com/decomposer" title="Massive matrix decompositions.">decomposer</a> &middot;
 <a href="http://sna-projects.com/norbert" title="Partitioned routing and cluster management.">norbert</a> &middot;
 <a href="http://project-voldemort.com" title="A distributed database.">voldemort</a> &middot;
@@ -8,5 +9,6 @@
 <a href="http://sna-projects.com/krati" title="A persistent high-performance data store.">krati</a> &middot;
 <a href="http://sna-projects.com/sensei" title="A distributed, elastic, realtime, searchable database.">sensei</a> &middot;
 <a href="http://sna-projects.com/azkaban" title="Simple hadoop workflow.">azkaban</a> &middot;
+<a href="http://sna-projects.com/datafu" title="UDFs for working with Pig">datafu</a> &middot;
 <a href="http://sna-projects.com/sna" title="Search, Network, Analytics">sna</a> &middot;
 <a href="http://sna-projects.com/blog" title="Our Blog">blog</a>

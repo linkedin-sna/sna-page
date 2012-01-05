@@ -19,7 +19,7 @@ Simply put, Krati
   <ul>
     <li>supports varying-length data array</li>
     <li>supports key-value data store access</li>
-    <li>performss append-only writes in batches</li>
+    <li>performs append-only writes in batches</li>
     <li>has write-ahead redo logs and periodic checkpointing</li>
     <li>has automatic data compaction (i.e. garbage collection)</li>
     <li>is memory-resident (or OS page cache resident) yet persistent</li>
@@ -79,7 +79,7 @@ Origin of Krati
 <p>
 <strong>Krati</strong> is a time measurement in Sanskrit and stands for 68,000th of one second.
 It provides a quantification for low latency and thus serves as an inspiring motivation with respect to
-the performance goals of Krati as a content data store.
+the performance goals of Krati as a fast data store.
 </p>
 
 <?php require "../includes/footer.php" ?>

@@ -18,7 +18,7 @@ contains functions for:
     <li>Convenience bag functions (e.g., set operations, enumerating bags, etc)</li>
     <li>Convenience utility functions (e.g., assertions, easier writing of</li>
     EvalFuncs)
-    <li>and <a href="javadoc/0.0.1">more</a>...</li>
+    <li>and <a href="javadoc/0.0.4">more</a>...</li>
 </ul>
 
 <p>

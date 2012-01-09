@@ -20,7 +20,7 @@
 
   /* Navigation links in the sidebar */
   $PROJ_NAV_LINKS = array("source" => "http://github.com/linkedin/datafu",
-                          "documentation" => "javadoc/0.0.1",
+                          "documentation" => "javadoc/0.0.4",
                           "download" => "https://github.com/linkedin/datafu/downloads",
                           "mailing list" => "http://groups.google.com/group/datafu",
                           "bugs" => "http://linkedin.jira.com/browse/DATAFU");

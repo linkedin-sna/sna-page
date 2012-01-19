@@ -15,7 +15,7 @@ generic or network typeahead search.
 </p>
 	
 <h3>
-Examples
+Code Examples
 </h3>
 
 <ul>
@@ -33,5 +33,49 @@ Examples
   </p>
   
 </ul>
+
+<h3>
+Restful WebApp
+</h3>
+
+<p>
+The <a href="https://github.com/jingwei/cleo-primer">cleo-primer</a> package provides a basic RESTful implementation of partial, out-of-order and real-time typeahead and autocomplete services.
+</p>
+
+<p>
+You can follow the steps below to set up a typeahead service for public companies listed at Nasdaq.
+</p>
+
+<ol>
+  <li>Download <a href="https://github.com/jingwei/cleo-primer">cleo-primer</a> from Github.</li>
+  <pre>
+  git clone --depth 1 git@github.com:jingwei/cleo-primer.git cleo-primer
+  </pre>
+
+  <li>Launch the cleo-primer web application from the main folder.</li>
+  <pre>
+  MAVEN_OPTS="-Xms1g -Xmx1g" mvn jetty:run \
+  -Dcleo.instance.name=Company \
+  -Dcleo.instance.type=cleo.primer.GenericTypeaheadInstance \
+  -Dcleo.instance.conf=src/main/resources/config/generic-typeahead
+  </pre>
+  <p>
+  You can customize you web application by choosing different values for parameters <code>cleo.instance.name</code>, <code>cleo.instance.type</code> and <code>cleo.instance.conf</code>. We assign Company to <code>cleo.instance.name</code> because we are building a typeahead service for companies listed at Nasdaq. Depending on the size of your data sets, you may need to specify a different JVM heap size.
+  </p>
+
+  <li>Index Nasdaq public companies using the prepared XML file.</li>
+  <pre>
+  ./scripts/post-element-list.sh dat/nasdaq-company-list.xml
+  </pre>
+  <p>
+  If you have a different type of elements such as schools and publications, you need to prepare your XML file according to
+  <a href="https://github.com/jingwei/cleo-primer/blob/master/src/main/java/cleo/primer/rest/model/ElementDTO.java">cleo.primer.rest.model.ElementDTO</a> 
+  </p>
+
+  <li>Visit the URL below to try out cleo-primer.</li>
+  <pre>
+  http://localhost:8080/cleo-primer
+  </pre>
+</ol>
 
 <?php require "../includes/footer.php" ?>

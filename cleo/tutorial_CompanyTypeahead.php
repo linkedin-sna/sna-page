@@ -18,7 +18,7 @@ Company Typeahead Configuration
 </h3>
 
 <p>
-The <code>src/examples/resources/company-config</code> directory contains two configuration files which are <code>i001.config</code> and
+The <code>src/examples/resources/generic-config</code> directory contains two configuration files which are <code>i001.config</code> and
 <code>i002.config</code>. These two files divide companies into two range-based partitions with each partition containing one million companies.
 If there are more companies, you can increase the partition size (<code>cleo.search.generic.typeahead.config.partition.count</code>) or the number of partitions. 
 </p>
@@ -253,8 +253,8 @@ public class CompanyTypeahead {
    *   -server -Xms4g -Xmx4g
    *   
    * Program Arguments:
-   *   src/examples/resources/company-config/i001.config
-   *   src/examples/resources/company-config/i002.config
+   *   src/examples/resources/generic-config/i001.config
+   *   src/examples/resources/generic-config/i002.config
    */
   public static void main(String[] args) throws Exception {
     List<Indexer<TypeaheadElement>> indexerList = new ArrayList<Indexer<TypeaheadElement>>();

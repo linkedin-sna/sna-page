@@ -24,7 +24,8 @@
       "source" => "http://github.com/linkedin/cleo",
       "quickstart" => "quickstart.php",
       "downloads" => "http://github.com/linkedin/cleo/downloads",
-      "issues" => "http://github.com/linkedin/cleo/issues");
+      "issues" => "http://github.com/linkedin/cleo/issues",
+      "group" => "http://groups.google.com/group/cleo-typeahead");
 
   /* Project color */
   $PROJ_PRIMARY_COLOR = "#48628D";

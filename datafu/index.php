@@ -172,7 +172,29 @@ See the sample <a href="examples/pagerank_input.txt">input</a> and <a href="exam
 <a href="http://en.wikipedia.org/wiki/PageRank">here</a>.  There is only a single graph in this case.  Nodes A-F were given IDs 1-6, the remainder 100+.
 <p>
 
-<h2>Getting started</h2>
+<h2>Getting Started</h2>
+
+<p>
+The JAR can be found <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.linkedin.datafu%22" target="_blank">here</a> in the Maven central repository.  The GroupId and ArtifactId are "com.linkedin.datafu" and "datafu", respectively.
+</p>
+
+If you are using Ivy:
+
+<pre>
+    &lt;dependency org=&quot;com.linkedin.datafu&quot; name=&quot;datafu&quot; rev=&quot;0.0.4&quot;/&gt;
+</pre>
+
+If you are using Maven:
+
+<pre>
+    &lt;dependency&gt;<br/>      &lt;groupId&gt;com.linkedin.datafu&lt;/groupId&gt;<br/>      &lt;artifactId&gt;datafu&lt;/artifactId&gt;<br/>      &lt;version&gt;0.0.4&lt;/version&gt;<br/>    &lt;/dependency&gt;
+</pre>
+
+<p>
+Or you can download one of the packages from the <a href="https://github.com/linkedin/datafu/downloads" target="_blank">downloads</a> section. 
+</p>
+
+<h2>Working with the source code</h2>
 
 <p>
 Fetch from <a href="https://github.com/linkedin/datafu">here</a>.
@@ -181,7 +203,7 @@ Fetch from <a href="https://github.com/linkedin/datafu">here</a>.
 <p>
 To build the JAR: ant jar<br>
 To run all tests: ant test<br>
-To build the javadocs: ant docs<br>
+To build the javadocs: ant javadoc-jar<br>
 </p>
 
 <h2>Contribute</h2>

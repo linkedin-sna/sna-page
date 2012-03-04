@@ -49,7 +49,7 @@ You can follow the steps below to set up a typeahead service for public companie
 <ol>
   <li>Download <a href="https://github.com/jingwei/cleo-primer">cleo-primer</a> from Github.</li>
   <pre>
-  git clone --depth 1 git@github.com:jingwei/cleo-primer.git cleo-primer
+  git clone --depth 1 https://github.com/jingwei/cleo-primer.git cleo-primer
   </pre>
 
   <li>Launch the cleo-primer web application from the main folder.</li>

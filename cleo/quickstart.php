@@ -52,7 +52,7 @@ You can follow the steps below to set up a typeahead service for public companie
   git clone --depth 1 https://github.com/jingwei/cleo-primer.git cleo-primer
   </pre>
 
-  <li>Launch the cleo-primer web application from the main folder.</li>
+  <li>Launch the cleo-primer web application from the cleo-primer folder.</li>
   <pre>
   MAVEN_OPTS="-Xms1g -Xmx1g" mvn jetty:run \
   -Dcleo.instance.name=Company \

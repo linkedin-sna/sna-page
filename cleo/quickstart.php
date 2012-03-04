@@ -60,7 +60,15 @@ You can follow the steps below to set up a typeahead service for public companie
   -Dcleo.instance.conf=src/main/resources/config/generic-typeahead
   </pre>
   <p>
-  You can customize you web application by choosing different values for parameters <code>cleo.instance.name</code>, <code>cleo.instance.type</code> and <code>cleo.instance.conf</code>. The value <code>Company</code> is assigned to <code>cleo.instance.name</code> because thi is a typeahead service for companies listed at Nasdaq. Depending on the size of your data sets, you may need to specify a different JVM heap size.
+  You can customize the web application by choosing different values for <code>cleo.instance.name</code>, <code>cleo.instance.type</code>, and <code>cleo.instance.conf</code>. Depending on the size of your data sets, you may need to specify a different JVM heap size.
+  </p>
+
+  <p>
+  <ul>
+    <li>The <code>cleo.instance.name</code> is assigned <code>Company</code> because we are building a typeahead service for companies listed at Nasdaq.</li>
+    <li>The <code>cleo.instance.type</code> specifies a Java class <code>cleo.primer.GenericTypeaheadInstance</code> that instantiates an instance of Generic Typeahead. This is the only instance type supported by cleo-primer at the present time. We will add more in the coming future.</li>
+    <li>The <code>cleo.instance.conf</code> specifies a file directory where several generic typeahead configuration files are located. For more information on configuring Generic Typeahead and Network Typeahead, please refer to the code examples listed above.</li>
+  </ul>
   </p>
 
   <li>Index Nasdaq public companies using the prepared XML file.</li>

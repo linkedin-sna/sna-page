@@ -1,3 +1,10 @@
+<?php
+
+header( "HTTP/1.1 301 Moved Permanently" ); 
+header( 'Location: http://data.linkedin.com/opensource/datafu' ) ;
+
+?>
+
 <?php require "includes/project_info.php" ?>
 <?php require "../includes/header.php" ?>
 <?php include "../includes/advert.php" ?>
